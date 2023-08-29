@@ -4,7 +4,9 @@ public enum Roles {
 	
 	ADMIN("admin"),
 	
-	USER_AMBULANCIA("user_ambulancia");
+	USER_AMBULANCIA("user_ambulancia"),
+	
+	USER_HOSPITAL("user_hospital");
 	
 	private String role;
 	
