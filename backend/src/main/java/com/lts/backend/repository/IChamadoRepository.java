@@ -1,5 +1,9 @@
 package com.lts.backend.repository;
 
-public interface IChamadoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.lts.backend.models.Chamado;
+
+public interface IChamadoRepository extends JpaRepository<Chamado, Long>{
 
 }
