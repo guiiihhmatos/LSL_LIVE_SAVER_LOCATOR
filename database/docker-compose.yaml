@@ -1,0 +1,21 @@
+version: "3.1"
+services:
+  db:
+    build: 
+      dockerfile: ./postgres.dockerfile
+      context: ./docker
+    image: prdlsl-java-db
+    container_name: prdlsl-db-container
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: postgres
+      POSTGRES_DB: PRD-LSL
+    ports:
+      - "5432:5432"
+    networks:
+      - prdlsl-network
+
+networks: 
+  prdlsl-network:
+    driver: bridge
