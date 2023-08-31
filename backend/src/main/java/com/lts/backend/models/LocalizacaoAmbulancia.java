@@ -13,7 +13,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "tb_localizacao")
-public class Localizacao {
+public class LocalizacaoAmbulancia {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +25,6 @@ public class Localizacao {
 	@Column(name = "ds_longitude")
 	private String longitude;
 	
-	@OneToOne(mappedBy = "localizacao", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "localizacaoAmbulancia", cascade = CascadeType.ALL)
     private Ambulancia ambulancia;
 }

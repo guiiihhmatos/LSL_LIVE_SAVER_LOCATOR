@@ -36,6 +36,6 @@ public class Ambulancia {
 	@OneToOne
 	@JoinColumn(name = "cd_localizacao")
 	@JsonIgnore
-	private Localizacao localizacao;
+	private LocalizacaoAmbulancia localizacaoAmbulancia;
 	
 }

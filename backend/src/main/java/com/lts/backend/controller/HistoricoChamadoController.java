@@ -7,18 +7,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lts.backend.models.Chamado;
-import com.lts.backend.services.ChamadoService;
+import com.lts.backend.models.HistoricoChamado;
+import com.lts.backend.services.HistoricoChamadoService;
 
 @RestController
-@RequestMapping(value = "/chamado")
-public class ChamadoController {
+@RequestMapping("/historicoChamado")
+public class HistoricoChamadoController {
 	
 	@Autowired
-	private ChamadoService chamadoService;
+	private HistoricoChamadoService historicoService;
 	
 	@GetMapping
-	public List<Chamado> listarTodos() {
-		return chamadoService.findAll();
+	public List<HistoricoChamado> buscarTodos() {
+		return historicoService.findAll();
 	}
 }
