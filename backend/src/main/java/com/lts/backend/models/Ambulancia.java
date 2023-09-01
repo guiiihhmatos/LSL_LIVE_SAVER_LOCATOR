@@ -26,10 +26,7 @@ public class Ambulancia {
 	
 	@Column(name = "ds_placa")
 	private String placa;
-	
-	@Column(name = "nr_cpf")
-	private String cpf;
-	
+
 	@Column(name = "ds_estado_ambulancia")
 	private EstadoAmbulancia estadoAmbulancia;
 	
