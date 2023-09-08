@@ -25,8 +25,8 @@ public class Chamado {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "cd_ambulancia")
-	private Ambulancia ambulancia;
+	@JoinColumn(name = "cd_localizacao_ambulancia")
+	private LocalizacaoAmbulancia localizacaoAmbulancia;
 	
 	@Column(name = "ds_ocorrencia")
 	private String ocorrencia;

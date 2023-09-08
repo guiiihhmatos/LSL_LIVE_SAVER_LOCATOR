@@ -1,6 +1,5 @@
 package com.lts.backend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lts.backend.enums.EstadoAmbulancia;
 
 import jakarta.persistence.Column;
@@ -8,8 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -29,10 +26,5 @@ public class Ambulancia {
 
 	@Column(name = "ds_estado_ambulancia")
 	private EstadoAmbulancia estadoAmbulancia;
-	
-	@OneToOne
-	@JoinColumn(name = "cd_localizacao")
-	@JsonIgnore
-	private LocalizacaoAmbulancia localizacaoAmbulancia;
 	
 }
