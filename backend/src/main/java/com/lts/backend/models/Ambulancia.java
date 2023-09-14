@@ -23,6 +23,12 @@ public class Ambulancia {
 	
 	@Column(name = "ds_placa")
 	private String placa;
+	
+	@Column(name = "latitude")
+	private Long latitude;
+	
+	@Column(name = "longitude")
+	private Long longitude;
 
 	@Column(name = "ds_estado_ambulancia")
 	private EstadoAmbulancia estadoAmbulancia;

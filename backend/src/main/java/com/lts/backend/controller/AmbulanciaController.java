@@ -17,7 +17,6 @@ public class AmbulanciaController {
 	@Autowired
 	private AmbulanciaService ambulanciaService;
 	
-	
 	@GetMapping
 	public List<Ambulancia> buscarTodas() {
 		return ambulanciaService.findAll();
