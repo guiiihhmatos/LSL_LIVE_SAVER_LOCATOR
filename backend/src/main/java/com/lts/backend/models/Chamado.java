@@ -1,5 +1,8 @@
 package com.lts.backend.models;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.lts.backend.enums.EstadoChamado;
 import com.lts.backend.enums.TipoEmergencia;
 
@@ -10,6 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -34,14 +38,13 @@ public class Chamado {
 	@Column(name = "ds_estado_chamado")
 	private EstadoChamado estadoChamado;
 	
-	@ManyToOne
-	@JoinColumn(name = "cd_usuario")
-	private Colaborador usuario;
-	
 	@OneToOne
 	@JoinColumn(name = "cd_local_chamado")
 	private LocalChamado localChamado;
 	
 	@Column(name = "ds_tipo_emergencia")
 	private TipoEmergencia tipoEmergencia;
+	
+	@OneToMany(mappedBy = "chamado")
+    private Set<Ambulancia> ambulancias = new HashSet<>();
 }
