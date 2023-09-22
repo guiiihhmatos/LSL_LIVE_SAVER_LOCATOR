@@ -6,5 +6,8 @@ import com.lts.backend.models.Motorista;
 
 
 public interface IMotoristaRepository extends JpaRepository<Motorista, Long>{
-
+	
+	boolean existsByLogin(String login);
+	
+	Motorista findByLogin(String login);
 }
