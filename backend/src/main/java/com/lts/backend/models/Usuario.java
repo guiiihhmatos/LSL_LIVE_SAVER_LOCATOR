@@ -2,9 +2,11 @@ package com.lts.backend.models;
 
 
 import jakarta.persistence.Column;
+import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 @Data
+@MappedSuperclass
 public abstract class Usuario {
 	
 	private String nome;

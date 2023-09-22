@@ -23,9 +23,9 @@ public class MotoristaService {
 	}
 
 	@Transactional
-	public Optional<Usuario> loginExists(MotoristaDTO motoristaDTO)
+	public Optional<Motorista> loginExists(MotoristaDTO motoristaDTO)
 	{
-		return Optional.ofNullable(motoristaRepository.findByLogin(motoristaDTO.getLogin()));
+		return motoristaRepository.findByLogin(motoristaDTO.getLogin());
 	}
 	
 	@Transactional
