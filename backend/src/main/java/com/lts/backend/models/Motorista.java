@@ -1,8 +1,10 @@
 package com.lts.backend.models;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.security.core.GrantedAuthority;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,6 +27,48 @@ public class Motorista extends Usuario{
 	
 	@ManyToMany(mappedBy = "motoristas")
     private Set<Ambulancia> ambulancias = new HashSet<>();
-
 	
+	private String login;
+	
+	private String password;
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		return login;
+	}
+
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
 }
