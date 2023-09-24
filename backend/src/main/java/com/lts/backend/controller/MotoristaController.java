@@ -31,10 +31,10 @@ public class MotoristaController {
 	@Autowired
 	private MotoristaService motoristaService;
 	
-	@Autowired(required = true)
+	//@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	@Autowired
+	//@Autowired
 	private TokenService tokenService;
 	
 	@GetMapping
@@ -50,7 +50,7 @@ public class MotoristaController {
 		
 	    String token = tokenService.genToken((Motorista) auth.getPrincipal());
 	    
-		return ResponseEntity.ok(new LoginResponseDTO(token));
+		return ResponseEntity.ok(null);
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -72,5 +72,21 @@ public class MotoristaController {
 	    } catch (Exception e) {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 	    }
+	}
+
+	public TokenService getTokenService() {
+		return tokenService;
+	}
+
+	public void setTokenService(TokenService tokenService) {
+		this.tokenService = tokenService;
+	}
+
+	public AuthenticationManager getAuthenticationManager() {
+		return authenticationManager;
+	}
+
+	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+		this.authenticationManager = authenticationManager;
 	}
 }
