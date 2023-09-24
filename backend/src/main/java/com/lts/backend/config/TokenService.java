@@ -1,4 +1,4 @@
-package com.its.backend.config;
+package com.lts.backend.config;
 
 import java.time.Instant;
 import java.time.LocalDateTime;

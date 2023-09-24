@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.its.backend.config.TokenService;
 import com.lts.backend.DTO.AuthenticationDTO;
 import com.lts.backend.DTO.LoginResponseDTO;
 import com.lts.backend.DTO.MotoristaDTO;
+import com.lts.backend.config.TokenService;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.services.MotoristaService;
 
@@ -31,10 +31,10 @@ public class MotoristaController {
 	@Autowired
 	private MotoristaService motoristaService;
 	
-	//@Autowired
+	@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	//@Autowired
+	@Autowired
 	private TokenService tokenService;
 	
 	@GetMapping
@@ -50,7 +50,7 @@ public class MotoristaController {
 		
 	    String token = tokenService.genToken((Motorista) auth.getPrincipal());
 	    
-		return ResponseEntity.ok(null);
+	    return ResponseEntity.ok(new LoginResponseDTO(token));
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -74,19 +74,4 @@ public class MotoristaController {
 	    }
 	}
 
-	public TokenService getTokenService() {
-		return tokenService;
-	}
-
-	public void setTokenService(TokenService tokenService) {
-		this.tokenService = tokenService;
-	}
-
-	public AuthenticationManager getAuthenticationManager() {
-		return authenticationManager;
-	}
-
-	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
-		this.authenticationManager = authenticationManager;
-	}
 }

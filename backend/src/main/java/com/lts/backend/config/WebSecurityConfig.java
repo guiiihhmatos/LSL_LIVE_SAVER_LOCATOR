@@ -1,4 +1,4 @@
-package com.its.backend.config;
+package com.lts.backend.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,9 +31,7 @@ public class WebSecurityConfig{
 						.requestMatchers(HttpMethod.POST, "/motorista/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/usuario/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/admin/login").permitAll()
-						.requestMatchers(HttpMethod.GET, "/usuarios").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.POST, "/motorista").hasRole("ADMIN")
-						.requestMatchers(HttpMethod.GET, "/motorista").hasRole("ADMIN")
+						.requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
