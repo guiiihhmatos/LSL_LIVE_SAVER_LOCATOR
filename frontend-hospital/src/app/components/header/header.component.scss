@@ -24,6 +24,7 @@ div#menuOffcanvas{
     flex: 1;
 
     .nav-item{
+      color: #0064b0;
       cursor: pointer;
       display: flex;
       justify-content: space-around;
@@ -40,7 +41,7 @@ div#menuOffcanvas{
   }
 
   .active {
-    color: white;
+    color: white !important;
     background-color: #5296ca !important;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   }

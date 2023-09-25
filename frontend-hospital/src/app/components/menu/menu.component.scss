@@ -8,6 +8,7 @@ div#menu-lateral {
 
     .nav-item{
       // background-color:#0064b0;
+      color: #0064b0;
       cursor: pointer;
       display: flex;
       justify-content: space-around;
@@ -24,7 +25,7 @@ div#menu-lateral {
   }
 
   .active {
-    color: white;
+    color: white !important;
     background-color: #5296ca !important;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   }
