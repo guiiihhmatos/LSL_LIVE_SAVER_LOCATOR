@@ -12,5 +12,5 @@ public interface IMotoristaRepository extends JpaRepository<Motorista, Long>{
 //	@Query()
 //	boolean existsByLogin(String login);
 	
-	Optional<Motorista> findByLogin(String login);
+	Motorista findByLogin(String login);
 }

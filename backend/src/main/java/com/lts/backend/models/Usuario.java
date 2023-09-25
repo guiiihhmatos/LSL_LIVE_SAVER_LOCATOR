@@ -1,13 +1,15 @@
 package com.lts.backend.models;
 
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Data;
 
 @Data
 @MappedSuperclass
-public abstract class Usuario {
+public abstract class Usuario implements UserDetails{
 	
 	private String nome;
 	
