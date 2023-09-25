@@ -1,6 +1,8 @@
 header#header {
   height: 60px;
   padding: 5px;
+  background-color:#0064b0;
+  color: #fff;
 
   .hamb-toggle{
       display: none;
@@ -15,3 +17,31 @@ header#header {
   }
 }
 
+div#menuOffcanvas{
+  padding: 5px 30px;
+
+  .items {
+    flex: 1;
+
+    .nav-item{
+      cursor: pointer;
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      padding: 7px;
+      border-radius: 5px;
+
+      &:hover{
+        color: white;
+        background-color: #5296ca;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+
+  .active {
+    color: white;
+    background-color: #5296ca !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+}

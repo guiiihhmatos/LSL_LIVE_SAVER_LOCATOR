@@ -1,14 +1,13 @@
 div#menu-lateral {
-  background-color:#0064b0;
   max-width: 350px;
   height: 100%;
-  padding: 5px;
+  padding: 2px;
 
   .items {
     flex: 1;
 
     .nav-item{
-      color: white;
+      // background-color:#0064b0;
       cursor: pointer;
       display: flex;
       justify-content: space-around;
@@ -17,6 +16,7 @@ div#menu-lateral {
       border-radius: 5px;
 
       &:hover{
+        color: white;
         background-color: #5296ca;
         box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
       }
@@ -24,7 +24,8 @@ div#menu-lateral {
   }
 
   .active {
-    background-color: #5296ca;
+    color: white;
+    background-color: #5296ca !important;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   }
 
