@@ -1,14 +1,13 @@
 <div id="global">
-  <menu id="menu">
+  <menu id="menu" *ngIf="logado">
     <app-menu></app-menu>
   </menu>
 
   <div id="content">
 
-      <app-header></app-header>
+      <app-header *ngIf="logado"></app-header>
 
     <main>
-      main
       <router-outlet></router-outlet>
     </main>
 
