@@ -12,12 +12,12 @@ export class AuthService {
   constructor(private http: HttpClient, private cookie: CookieService,) { }
 
   login(data: unknown) {
-    this.cookie.set('cookie-user-data', JSON.stringify(data));
+    this.cookie.set('cookie-user-data', btoa(JSON.stringify(data)));
     return this.http.get<unknown>(this.API);
   }
 
   get getUser(): unknown {
-    let user = this.cookie.get('cookie-user-data');
+    let user = atob(this.cookie.get('cookie-user-data'));
     return user? JSON.parse(user): user;
   }
 
