@@ -3,6 +3,7 @@ import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import { Usuario } from 'src/app/models/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import { MatSort } from '@angular/material/sort';
 @Component({
   selector: 'app-listar-usuarios',
   templateUrl: './listar-usuarios.component.html',
@@ -15,6 +16,7 @@ export class ListarUsuariosComponent {
   tableUsuarios = new MatTableDataSource<Usuario>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private usuarioService: UsuarioService){
 
   }
@@ -22,6 +24,7 @@ export class ListarUsuariosComponent {
   ngAfterViewInit(): void {
     this.getAllUsuarios();
     this.tableUsuarios.paginator = this.paginator;
+    this.tableUsuarios.sort = this.sort;
   }
 
   getAllUsuarios() {
@@ -31,6 +34,10 @@ export class ListarUsuariosComponent {
         this.tableUsuarios.data = usuarios;
       }
     })
+  }
+
+  filterUsuario(value: string){
+    this.tableUsuarios.filter = value.trim().toLowerCase()
   }
 
 
