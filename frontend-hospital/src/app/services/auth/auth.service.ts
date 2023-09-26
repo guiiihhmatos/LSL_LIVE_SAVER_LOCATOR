@@ -7,7 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthService {
 
-  private readonly API = 'assets/user.json';
+  private readonly API = 'assets/json/user.json';
 
   constructor(private http: HttpClient, private cookie: CookieService,) { }
 

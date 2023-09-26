@@ -5,6 +5,7 @@ import { UsuarioRoutingModule } from './usuario-routing.module';
 import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.component';
 import { NovoUsuarioComponent } from './novo-usuario/novo-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { MaterialModule } from 'src/app/shared/material/material.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.componen
   ],
   imports: [
     CommonModule,
-    UsuarioRoutingModule
+    UsuarioRoutingModule,
+    MaterialModule
   ]
 })
 export class UsuarioModule { }

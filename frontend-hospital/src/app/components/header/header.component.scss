@@ -18,12 +18,14 @@ header#header {
 }
 
 div#menuOffcanvas{
-  padding: 5px 30px;
+  padding: 5px ;
 
   .items {
     flex: 1;
+    padding: 0 30px;
 
     .nav-item{
+      gap: 50px;
       color: #0064b0;
       cursor: pointer;
       display: flex;
@@ -31,6 +33,11 @@ div#menuOffcanvas{
       width: 100%;
       padding: 7px;
       border-radius: 5px;
+
+      .nav-link{
+        flex: 1;
+        padding: 0;
+      }
 
       &:hover{
         color: white;

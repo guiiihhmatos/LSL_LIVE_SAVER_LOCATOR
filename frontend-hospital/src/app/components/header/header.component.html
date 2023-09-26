@@ -14,20 +14,26 @@
   </div>
 </header>
 <div class="offcanvas offcanvas-start" tabindex="-1" id="menuOffcanvas">
+  <button type="button" class="btn-close align-self-end" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   <h4 class="text-center mt-3">LSL - Live Saver Locator</h4>
 
-  <div class="items mt-5 px-3">
+  <div class="items mt-5">
     <ul class="navbar-nav gap-3">
 
-      <li class="nav-item active">
+      <li class="nav-item" routerLinkActive="active" routerLink="usuarios" data-bs-dismiss="offcanvas">
         <span class="material-symbols-outlined">people</span>
-        <span>Usuarios</span>
+        <a class="nav-link">Usuarios</a>
       </li>
 
-      <li class="nav-item">
-        <span class="material-symbols-outlined">people</span>
-        <span>Usuarios</span>
+      <li class="nav-item" routerLinkActive="active" routerLink="ambulancias" data-bs-dismiss="offcanvas">
+        <span class="material-symbols-outlined">ambulance</span>
+        <a class="nav-link">Ambulâncias</a>
       </li>
+
+      <!-- <li class="nav-item" routerLinkActive="active" routerLink="chamados" data-bs-dismiss="offcanvas">
+        <span class="material-symbols-outlined">medical_information</span>
+        <a class="nav-link">Chamados</a>
+      </li> -->
 
     </ul>
   </div>
