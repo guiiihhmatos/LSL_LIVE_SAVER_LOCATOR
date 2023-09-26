@@ -15,5 +15,11 @@ export class UsuarioService {
   getAllUsuarios(): Observable<Usuario[]> {
     return this.http.get<Usuario[]>(this.API);
   }
-  
+
+  saveUsuario(usuario: Usuario): Observable<any> {
+    // return new Observable<{message: 'salvo'}>
+    return new Observable;
+    // return this.http.post<Usuario>(this.API, usuario)
+  }
+
 }
