@@ -8,13 +8,20 @@ div#menu-lateral {
 
     .nav-item{
       // background-color:#0064b0;
+      gap: 50px;
       color: #0064b0;
       cursor: pointer;
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
+      align-items: center;
       width: 100%;
-      padding: 5px;
+      padding: 5px 10%;
       border-radius: 5px;
+
+      .nav-link{
+        flex: 1;
+        padding: 0;
+      }
 
       &:hover{
         color: white;

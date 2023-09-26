@@ -8,7 +8,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HomeComponent } from './pages/home/home.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { HomeComponent } from './pages/home/home.component';
     MenuComponent,
     HeaderComponent,
     LoginComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,23 @@
 <div id="menu-lateral" class="d-flex flex-column justify-content-between">
-  <h4 class="text-center mt-3">LSL - Live Saver Locator</h4>
+  <h4 class="text-center mt-3">LSL <br> Live Saver Locator</h4>
 
   <div class="items mt-5 px-3">
     <ul class="navbar-nav gap-3">
 
-      <li class="nav-item active">
+      <li class="nav-item" routerLinkActive="active" routerLink="usuarios">
         <span class="material-symbols-outlined">people</span>
-        <span>Usuarios</span>
+        <a class="nav-link">Usuarios</a>
       </li>
 
-      <li class="nav-item">
-        <span class="material-symbols-outlined">people</span>
-        <span>Usuarios</span>
+      <li class="nav-item" routerLinkActive="active" routerLink="ambulancias">
+        <span class="material-symbols-outlined">ambulance</span>
+        <a class="nav-link">Ambulâncias</a>
       </li>
+
+      <!-- <li class="nav-item" routerLinkActive="active" routerLink="chamados">
+        <span class="material-symbols-outlined">medical_information</span>
+        <a class="nav-link">Chamados</a>
+      </li> -->
 
     </ul>
   </div>
