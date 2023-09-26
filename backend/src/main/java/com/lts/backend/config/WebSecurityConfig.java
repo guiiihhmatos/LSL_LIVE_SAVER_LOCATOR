@@ -32,6 +32,8 @@ public class WebSecurityConfig{
 						.requestMatchers(HttpMethod.POST, "/usuario/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/admin/login").permitAll()
 						.requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
+						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/docs").permitAll()
+//						.requestMatchers("/**").permitAll()
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
