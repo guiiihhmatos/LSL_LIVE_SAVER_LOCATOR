@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lts.backend.DTO.AuthenticationDTO;
 import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.config.TokenService;
+import com.lts.backend.exception.error.NotFoundUser;
+import com.lts.backend.exception.error.UserAlreadyExists;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.models.Usuario;
 import com.lts.backend.repository.IMotoristaRepository;
@@ -47,7 +49,7 @@ public class MotoristaService {
 	public Usuario salvarUsuario(MotoristaDTO motoristaDTO) throws Exception {
 		Optional<Motorista> motoristaOpt = motoristaRepository.findByLogin(motoristaDTO.getLogin());
 		if (motoristaOpt.isPresent()) {
-			throw new Exception("Login já existe");
+			throw new UserAlreadyExists();
 		}
 		String encryptedPassword = new BCryptPasswordEncoder().encode(motoristaDTO.getPassword());
 		Motorista motorista = new Motorista();
@@ -56,6 +58,39 @@ public class MotoristaService {
 		motorista.setLogin(motoristaDTO.getLogin());
 		motorista.setPassword(encryptedPassword);
 		motoristaRepository.save(motorista);
+		return motorista;
+	}
+	
+	@Transactional
+	public Usuario editarUsuario(MotoristaDTO motoristaDTO) throws Exception {
+		Optional<Motorista> motoristaOpt = motoristaRepository.findById(motoristaDTO.getId());
+		if (motoristaOpt.isEmpty()) {
+			throw new NotFoundUser();
+		}
+		
+		String encryptedPassword = new BCryptPasswordEncoder().encode(motoristaDTO.getPassword());
+		Motorista motorista = new Motorista();
+		motorista.setId(motoristaDTO.getId());
+		motorista.setNome(motoristaDTO.getNome());
+		motorista.setCpf(motoristaDTO.getCpf());
+		motorista.setLogin(motoristaDTO.getLogin());
+		motorista.setPassword(encryptedPassword);
+		motoristaRepository.save(motorista);
+		return motorista;
+	}
+	
+	@Transactional
+	public MotoristaDTO removerUsuario(Long idMotorista) throws Exception {
+		Optional<Motorista> motoristaOpt = motoristaRepository.findById(idMotorista);
+		if(motoristaOpt.isEmpty()) {
+			throw new NotFoundUser();
+		}
+		MotoristaDTO motorista = new MotoristaDTO();
+		motorista.setId(idMotorista);
+		motorista.setCpf(motoristaOpt.get().getCpf());
+		motorista.setLogin(motoristaOpt.get().getLogin());
+		motorista.setNome(motoristaOpt.get().getNome());
+		motoristaRepository.deleteById(idMotorista);
 		return motorista;
 	}
 
