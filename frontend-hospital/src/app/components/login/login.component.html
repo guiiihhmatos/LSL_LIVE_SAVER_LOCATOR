@@ -12,11 +12,11 @@
 
       <form class="login_form" [formGroup]="formLogin">
         <div class="form-group position-relative">
-          <input type="text" class="login_input usuario" id="usuario" required formControlName="user"/>
+          <input type="text" class="login_input usuario" id="usuario" required formControlName="login"/>
           <label for="usuario" class="login_label usuario">Usuario</label>
         </div>
         <div class="form-group position-relative">
-          <input type="password" class="senha login_input" id="senha" required formControlName="senha"/>
+          <input type="password" class="senha login_input" id="senha" required formControlName="password"/>
           <label for="senha" class="senha login_label">Senha</label>
         </div>
         <button class="btn btn-primary" (click)="validateForm(formLogin)" [disabled]="formLogin.invalid"> Login </button>

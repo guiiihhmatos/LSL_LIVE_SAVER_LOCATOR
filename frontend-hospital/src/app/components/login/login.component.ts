@@ -14,8 +14,8 @@ export class LoginComponent {
   formLogin: FormGroup
   constructor(private fb: FormBuilder, private auth: AuthService, private rota: Router) {
     this.formLogin = fb.group({
-      user: [null, [Validators.required]],
-      senha: [null, [Validators.required]]
+      login: [null, [Validators.required]],
+      password: [null, [Validators.required]]
     })
   }
 
@@ -27,7 +27,7 @@ export class LoginComponent {
     }
   }
 
-  login(login: unknown) {
+  login(login: {login: string, password: string}) {
     this.auth.login(login).subscribe({
       next: (res) => {
         this.rota.navigate(['']);
