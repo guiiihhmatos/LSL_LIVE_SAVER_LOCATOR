@@ -5,7 +5,7 @@ import com.lts.backend.models.Motorista;
 import lombok.Data;
 
 @Data
-public class LoginResponseDTO {
+public class LoginResponseMotoristaDTO {
 	String token;
 	Motorista motorista;
 }

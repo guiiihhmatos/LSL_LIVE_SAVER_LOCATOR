@@ -12,6 +12,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.lts.backend.models.Motorista;
+import com.lts.backend.models.UsuarioHospital;
 
 @Service
 public class TokenService {
@@ -19,7 +20,7 @@ public class TokenService {
 	@Value("${api.security.token.secret}")
 	private String secret;
 
-	public String genToken(Motorista motorista) {
+	public String genTokenMotorista(Motorista motorista) {
 		
 		try {
 			
@@ -27,6 +28,24 @@ public class TokenService {
 			String token = JWT.create()
 					.withIssuer("auth-api")
 					.withSubject(motorista.getLogin())
+					.withExpiresAt(genExpirationDate())
+					.sign(algorithm);
+			
+			return token;
+			
+		} catch (JWTCreationException exception) {
+			throw new RuntimeException("Error while generating token", exception);
+		}
+	}
+	
+	public String genTokenUsuario(UsuarioHospital usuario) {
+		
+		try {
+			
+			Algorithm algorithm = Algorithm.HMAC256(secret);
+			String token = JWT.create()
+					.withIssuer("auth-api")
+					.withSubject(usuario.getLogin())
 					.withExpiresAt(genExpirationDate())
 					.sign(algorithm);
 			

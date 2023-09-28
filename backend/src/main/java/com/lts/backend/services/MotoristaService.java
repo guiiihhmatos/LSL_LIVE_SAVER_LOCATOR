@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lts.backend.DTO.AuthenticationDTO;
-import com.lts.backend.DTO.LoginResponseDTO;
+import com.lts.backend.DTO.LoginResponseMotoristaDTO;
 import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.config.TokenService;
 import com.lts.backend.exception.error.NotFoundUser;
@@ -36,21 +36,21 @@ public class MotoristaService {
 		return motoristaRepository.findByLogin(motoristaDTO.getLogin());
 	}
 
-	public LoginResponseDTO login(AuthenticationDTO data) throws Exception {
+	public LoginResponseMotoristaDTO login(AuthenticationDTO data) throws Exception {
 		Motorista motorista = motoristaRepository.findByLogin(data.login()).orElseThrow();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if (!passwordEncoder.matches(data.password(), motorista.getPassword())) {
 			throw new Exception("Senha não confere");
 		}
-		String token = tokenService.genToken(motorista);
-		LoginResponseDTO response = new LoginResponseDTO();
+		String token = tokenService.genTokenMotorista(motorista);
+		LoginResponseMotoristaDTO response = new LoginResponseMotoristaDTO();
 		response.setToken(token);
 		response.setMotorista(motorista);
 		return response;
 	}
 
 	@Transactional
-	public Usuario salvarUsuario(MotoristaDTO motoristaDTO) throws Exception {
+	public Usuario salvarMotorista(MotoristaDTO motoristaDTO) throws Exception {
 		Optional<Motorista> motoristaOpt = motoristaRepository.findByLogin(motoristaDTO.getLogin());
 		if (motoristaOpt.isPresent()) {
 			throw new UserAlreadyExists();
@@ -66,7 +66,7 @@ public class MotoristaService {
 	}
 	
 	@Transactional
-	public Usuario editarUsuario(MotoristaDTO motoristaDTO) throws Exception {
+	public Usuario editarMotorista(MotoristaDTO motoristaDTO) throws Exception {
 		Optional<Motorista> motoristaOpt = motoristaRepository.findById(motoristaDTO.getId());
 		if (motoristaOpt.isEmpty()) {
 			throw new NotFoundUser();
@@ -84,7 +84,7 @@ public class MotoristaService {
 	}
 	
 	@Transactional
-	public MotoristaDTO removerUsuario(Long idMotorista) throws Exception {
+	public MotoristaDTO removerMotorista(Long idMotorista) throws Exception {
 		Optional<Motorista> motoristaOpt = motoristaRepository.findById(idMotorista);
 		if(motoristaOpt.isEmpty()) {
 			throw new NotFoundUser();

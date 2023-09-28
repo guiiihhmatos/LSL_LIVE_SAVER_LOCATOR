@@ -1,45 +1,44 @@
 package com.lts.backend.models;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import com.lts.backend.enums.Roles;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@Table(name = "tb_motorista")
+@Table(name = "tb_usuario")
 @EqualsAndHashCode(callSuper = true)
-public class Motorista extends Usuario {
-
+public class UsuarioHospital extends Usuario{
+	
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToMany(mappedBy = "motoristas")
-	private Set<Ambulancia> ambulancias = new HashSet<>();
-
 	private String login;
 
 	private String password;
+	
+	private Roles role;
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
-		return List.of(new SimpleGrantedAuthority("USER_AMBULANCIA"));
+		if(this.role == Roles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+		else return List.of(new SimpleGrantedAuthority("USER_HOSPITAL"));
 	}
 
 	@Override
