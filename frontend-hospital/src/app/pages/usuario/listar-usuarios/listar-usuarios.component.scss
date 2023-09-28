@@ -28,16 +28,9 @@ section#listar-usuarios {
   }
 }
 button#new{
-  background-color: var(--primary);
-  color: #fff;
-  border: 1px solid var(--primary);
   padding: 10px 40px;
   border-radius: 8px;
 
-  &:hover {
-    background-color: #5296CA;
-    border-color: #5296CA;
-  }
   &:active {
     transform: scale(0.9);
     transition: .3s;

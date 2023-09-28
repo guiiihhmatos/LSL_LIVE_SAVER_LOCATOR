@@ -20,17 +20,20 @@ export class ListarUsuariosComponent {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private usuarioService: UsuarioService, private rota: Router) {}
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
     this.getAllUsuarios();
+  }
+  ngAfterViewInit(): void {
+    // this.tableUsuarios.sort = this.sort;
     this.tableUsuarios.paginator = this.paginator;
-    this.tableUsuarios.sort = this.sort;
   }
 
   getAllUsuarios() {
     this.usuarioService.getAllUsuarios().subscribe({
       next: (usuarios) => {
         this.usuarios = usuarios;
-        this.tableUsuarios.data = usuarios;
+        this.tableUsuarios = new MatTableDataSource<Usuario>(usuarios);
+        this.tableUsuarios.sort = this.sort
       },
     });
   }
