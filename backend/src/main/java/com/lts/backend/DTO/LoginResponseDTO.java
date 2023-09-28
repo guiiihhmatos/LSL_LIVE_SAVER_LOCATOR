@@ -1,5 +1,11 @@
 package com.lts.backend.DTO;
 
-public record LoginResponseDTO(String token) {
+import com.lts.backend.models.Motorista;
 
+import lombok.Data;
+
+@Data
+public class LoginResponseDTO {
+	String token;
+	Motorista motorista;
 }

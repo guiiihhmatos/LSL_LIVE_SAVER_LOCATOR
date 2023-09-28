@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lts.backend.DTO.AuthenticationDTO;
+import com.lts.backend.DTO.LoginResponseDTO;
 import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.config.TokenService;
 import com.lts.backend.exception.error.NotFoundUser;
@@ -35,14 +36,17 @@ public class MotoristaService {
 		return motoristaRepository.findByLogin(motoristaDTO.getLogin());
 	}
 
-	public String login(AuthenticationDTO data) throws Exception {
+	public LoginResponseDTO login(AuthenticationDTO data) throws Exception {
 		Motorista motorista = motoristaRepository.findByLogin(data.login()).orElseThrow();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if (!passwordEncoder.matches(data.password(), motorista.getPassword())) {
 			throw new Exception("Senha não confere");
 		}
 		String token = tokenService.genToken(motorista);
-		return token;
+		LoginResponseDTO response = new LoginResponseDTO();
+		response.setToken(token);
+		response.setMotorista(motorista);
+		return response;
 	}
 
 	@Transactional

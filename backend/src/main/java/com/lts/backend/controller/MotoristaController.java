@@ -39,8 +39,8 @@ public class MotoristaController {
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data) throws Exception {
-		String token = motoristaService.login(data);
-		return ResponseEntity.ok(new LoginResponseDTO(token));
+		LoginResponseDTO responseLogin = motoristaService.login(data);
+		return ResponseEntity.ok().body(responseLogin);
 	}
 
 	@PostMapping
