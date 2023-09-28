@@ -2,9 +2,10 @@
 
   <h3 class="text-center mt-5">Usuarios Cadastrados</h3>
 
-  <mat-form-field class="form-group w-80 align-self-center mt-5">
-    <mat-label>Pesquisar ...</mat-label>
+  <mat-form-field class="form-group w-80 align-self-center mt-5" appearance="outline">
+    <mat-label>Pesquisar</mat-label>
     <input type="text" matInput (input)="filterUsuario($any($event.target).value)">
+    <mat-icon matSuffix>search</mat-icon>
   </mat-form-field>
 
   <div class="shadow table-usuarios w-80 align-self-center mt-2">
