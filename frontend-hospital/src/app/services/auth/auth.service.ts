@@ -17,13 +17,12 @@ export class AuthService {
   constructor(private http: HttpClient, private cookie: CookieService, private rota: Router) { }
 
   login(data: {login: string, password: string}): Observable<any> {
-    console.log('')
     return this.http.post<any>(this.API + '/motorista/login', data)
     .pipe(
-      map(({token}) => {
+      map(({token, motorista}) => {
         this.cookie.set('cookie-token', btoa(token), 1/24, 'usuarios');
-        this.cookie.set('cookie-user-data', btoa(JSON.stringify(data)), 1/24, 'usuarios');
-        return {token};
+        this.cookie.set('cookie-user-data', btoa(JSON.stringify(motorista)), 1/24, 'usuarios');
+        return {token, motorista};
       })
     );
 
