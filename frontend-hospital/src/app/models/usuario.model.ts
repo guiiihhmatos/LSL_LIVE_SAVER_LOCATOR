@@ -1,6 +1,7 @@
 export interface Usuario {
   id: number;
   nome: string;
-  cpf: string | number;
+  cpf: string;
   login: string;
+  password: string;
 }

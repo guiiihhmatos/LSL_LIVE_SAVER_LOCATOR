@@ -6,6 +6,7 @@ import { ListarUsuariosComponent } from './listar-usuarios/listar-usuarios.compo
 import { NovoUsuarioComponent } from './novo-usuario/novo-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
   imports: [
     CommonModule,
     UsuarioRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class UsuarioModule { }

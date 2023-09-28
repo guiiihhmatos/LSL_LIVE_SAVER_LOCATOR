@@ -5,6 +5,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [],
@@ -15,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
     MatSortModule,
     MatInputModule,
     MatCardModule,
+    MatMenuModule,
   ],
 })
 export class MaterialModule {}

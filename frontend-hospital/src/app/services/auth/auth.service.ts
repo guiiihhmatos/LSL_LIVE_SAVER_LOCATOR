@@ -1,29 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, map } from 'rxjs';
 import { environment } from 'src/environments/environments';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Usuario } from 'src/app/models/usuario.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private readonly API = environment.apiUrl + '/motorista/login';
+  private readonly API = environment.apiUrl;
 
-  constructor(private http: HttpClient, private cookie: CookieService,) { }
+  constructor(private http: HttpClient, private cookie: CookieService, private rota: Router) { }
 
-  login(data: {login: string, password: string}): Observable<unknown> {
-    return this.http.post<unknown>(this.API, data).pipe(map ((token) => {
-      console.log(token)
-    }))
-    this.cookie.set('cookie-user-data', btoa(JSON.stringify(data)));
+  login(data: {login: string, password: string}): Observable<any> {
+    console.log('')
+    return this.http.post<any>(this.API + '/motorista/login', data)
+    .pipe(
+      map(({token}) => {
+        this.cookie.set('cookie-token', btoa(token), 1/24, 'usuarios');
+        this.cookie.set('cookie-user-data', btoa(JSON.stringify(data)), 1/24, 'usuarios');
+        return {token};
+      })
+    );
 
   }
 
-  get getUser(): unknown {
+  logout() {
+    this.cookie.deleteAll('usuarios');
+    this.rota.navigate(['/login'])
+  }
+
+  get getUser(): Usuario {
     let user = atob(this.cookie.get('cookie-user-data'));
     return user? JSON.parse(user): user;
+  }
+
+  get getToken(): string {
+    return atob(this.cookie.get('cookie-token'));
   }
 
 }

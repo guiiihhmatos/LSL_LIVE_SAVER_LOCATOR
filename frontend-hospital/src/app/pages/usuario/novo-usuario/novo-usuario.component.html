@@ -1,8 +1,37 @@
 <section id="novo-usuario" class="d-flex flex-column">
 
-  <mat-card class="container align-self-center mt-5">
+  <h3 class="text-center mt-5">Novo Usuário</h3>
+  <div class="action container p-0">
+    <button class="btn btn-dark" routerLink="../">Voltar</button>
+  </div>
+
+  <mat-card class="container align-self-center mt-2">
     <mat-card-content>
-      
+
+      <form [formGroup]="formUsuario" id="novo-usuario-form">
+        <div class="form-group">
+          <label for="nome" class="form-label">Nome:</label>
+          <input type="text" name="nome" id="nome" class="form-control" formControlName="nome">
+        </div>
+        <div class="form-group">
+          <label for="cpf" class="form-label">CPF::</label>
+          <input type="text" name="cpf" id="cpf" class="form-control" formControlName="cpf">
+        </div>
+        <div class="form-group row">
+          <div class="form-group col">
+            <label for="login" class="form-label">Login:</label>
+            <input type="text" name="login" id="login" class="form-control" formControlName="login">
+          </div>
+          <div class="form-group col">
+            <label for="senha" class="form-label">Senha:</label>
+            <input type="text" name="senha" id="senha" class="form-control" formControlName="password">
+          </div>
+        </div>
+        <div class="action mt-3 d-flex flex-column align-items-center">
+          <button class="btn btn-primary" (click)="validateForm(formUsuario)"> Salvar </button>
+        </div>
+      </form>
+
     </mat-card-content>
   </mat-card>
 </section>

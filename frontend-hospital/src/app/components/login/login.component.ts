@@ -33,7 +33,8 @@ export class LoginComponent {
         this.rota.navigate(['']);
       },
       error: (err) => {
-        Swal.fire({icon: 'error', title: 'Erro ao realizar login', text: 'Usuário ou senha inválidos'})
+        if(err.status == 500)
+        Swal.fire({icon: 'error', title: 'Erro ao realizar login', text: err?.error?.message})
       }
     })
   }
