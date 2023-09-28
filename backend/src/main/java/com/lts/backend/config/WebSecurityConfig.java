@@ -26,6 +26,7 @@ public class WebSecurityConfig{
 
 		return http
 				.csrf(csrf -> csrf.disable())
+				.cors(x -> {})
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize
 						.requestMatchers(HttpMethod.POST, "/motorista/login").permitAll()
