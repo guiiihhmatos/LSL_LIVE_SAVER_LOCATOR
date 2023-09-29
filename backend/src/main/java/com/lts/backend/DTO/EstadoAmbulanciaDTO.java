@@ -5,10 +5,8 @@ import com.lts.backend.enums.EstadoAmbulancia;
 import lombok.Data;
 
 @Data
-public class AmbulanciaDTO {
+public class EstadoAmbulanciaDTO {
+	
 	private Long id;
-	private String placa;
-	private Long latitude;
-	private Long longitude;
 	private EstadoAmbulancia estadoAmbulancia;
 }

@@ -2,6 +2,8 @@ package com.lts.backend.DTO;
 
 import com.lts.backend.enums.EstadoChamado;
 import com.lts.backend.enums.TipoEmergencia;
+import com.lts.backend.models.Ambulancia;
+import com.lts.backend.models.LocalChamado;
 
 import lombok.Data;
 
@@ -13,6 +15,7 @@ public class ChamadoDTO {
 		private LocalizacaoAmbulanciaDTO localizacaoAmbulancia;
 		private String ocorrencia;
 		private EstadoChamado estadoChamado;	
-		private LocalChamadoDTO localChamado;
+		private LocalChamado localChamado;
 		private TipoEmergencia tipoEmergencia;
+		private Ambulancia ambulancia;
 }

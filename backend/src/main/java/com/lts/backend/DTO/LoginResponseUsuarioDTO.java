@@ -8,5 +8,5 @@ import lombok.Data;
 public class LoginResponseUsuarioDTO {
 	
 	String token;
-	UsuarioHospital usuarioHospital;
+	UsuarioHospital usuario;
 }

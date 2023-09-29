@@ -45,7 +45,7 @@ public class UsuarioService {
 		String token = tokenService.genTokenUsuario(usuario);
 		LoginResponseUsuarioDTO response = new LoginResponseUsuarioDTO();
 		response.setToken(token);
-		response.setUsuarioHospital(usuario);
+		response.setUsuario(usuario);
 		return response;
 	}
 
@@ -75,6 +75,7 @@ public class UsuarioService {
 		
 		String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioDTO.getPassword());
 		UsuarioHospital usuario = new UsuarioHospital();
+		usuario.setId(usuarioDTO.getId());
 		usuario.setNome(usuarioDTO.getNome());
 		usuario.setCpf(usuarioDTO.getCpf());
 		usuario.setLogin(usuarioDTO.getLogin());
