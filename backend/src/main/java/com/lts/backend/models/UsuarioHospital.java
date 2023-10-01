@@ -38,7 +38,7 @@ public class UsuarioHospital extends Usuario{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
 		if(this.role == Roles.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-		else return List.of(new SimpleGrantedAuthority("USER_HOSPITAL"));
+		else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 
 	@Override

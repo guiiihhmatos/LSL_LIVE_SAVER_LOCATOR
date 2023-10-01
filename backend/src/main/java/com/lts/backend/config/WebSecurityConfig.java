@@ -21,6 +21,13 @@ public class WebSecurityConfig{
 	@Autowired
 	private SecurityFilter securityFilter;
 	
+	private static final String[] PRIVATE_URL = {
+			"/motorista",
+			"/usuario",
+			"/chamado",
+			"/ambulancia"
+	};
+
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -29,10 +36,10 @@ public class WebSecurityConfig{
 				.cors(x -> {})
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(authorize -> authorize
+						
 						.requestMatchers(HttpMethod.POST, "/motorista/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/usuario/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/admin/login").permitAll()
-						.requestMatchers(HttpMethod.GET, "/usuarios").permitAll()
 						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/docs").permitAll()
 //						.requestMatchers("/**").permitAll()
 						.anyRequest().authenticated()

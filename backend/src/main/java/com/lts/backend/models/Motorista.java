@@ -39,7 +39,7 @@ public class Motorista extends Usuario {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 
-		return List.of(new SimpleGrantedAuthority("USER_AMBULANCIA"));
+		return List.of(new SimpleGrantedAuthority("ROLE_USER"));
 	}
 
 	@Override

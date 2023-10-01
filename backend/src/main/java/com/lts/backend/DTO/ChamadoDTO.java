@@ -12,10 +12,9 @@ import lombok.Data;
 public class ChamadoDTO {
 		
 		private Long id;
-		private LocalizacaoAmbulanciaDTO localizacaoAmbulancia;
 		private String ocorrencia;
 		private EstadoChamado estadoChamado;	
-		private LocalChamado localChamado;
+		private LocalChamadoDTO localChamado;
 		private TipoEmergencia tipoEmergencia;
-		private Ambulancia ambulancia;
+		private Long ambulanciaId;
 }

@@ -32,14 +32,14 @@ public class ChamadoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Chamado> salvarUsuario(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
+	public ResponseEntity<ChamadoDTO> salvarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
 		Chamado chamado = chamadoService.salvarChamado(chamadoDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(chamado);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 
 	}
 	
 	@PutMapping
-	public ResponseEntity<Chamado> editarUsuario(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
+	public ResponseEntity<Chamado> editarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
 		Chamado chamado = chamadoService.editarChamado(chamadoDTO);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);
 	}

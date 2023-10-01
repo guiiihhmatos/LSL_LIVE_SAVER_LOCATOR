@@ -23,6 +23,11 @@ public class AmbulanciaService {
 		return ambulanciaRepository.findAll();
 	}
 	
+	public Ambulancia findById(Long id)
+	{
+		return ambulanciaRepository.findById(id).get();
+	}
+	
 	@Transactional
 	public Ambulancia salvarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {
 		
