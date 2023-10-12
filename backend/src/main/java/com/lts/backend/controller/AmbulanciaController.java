@@ -30,9 +30,9 @@ public class AmbulanciaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Ambulancia> salvarAmbulancia(@RequestBody AmbulanciaDTO ambulanciaDTO) throws Exception {
+	public ResponseEntity<AmbulanciaDTO> salvarAmbulancia(@RequestBody AmbulanciaDTO ambulanciaDTO) throws Exception {
 		Ambulancia ambulancia = ambulanciaService.salvarAmbulancia(ambulanciaDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(ambulancia);
+		return ResponseEntity.status(HttpStatus.CREATED).build();
 
 	}
 	

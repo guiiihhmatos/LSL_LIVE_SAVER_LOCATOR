@@ -28,6 +28,9 @@ public class ChamadoService {
 	@Autowired
 	private AmbulanciaService ambulanciaService;
 	
+	@Autowired
+	private LocalChamadoService localChamadoService;
+	
 	public List<Chamado> findAll(){
 		return chamadoRepository.findAll();
 	}
@@ -56,6 +59,8 @@ public class ChamadoService {
 		localChamado.setEstado(chamadoDTO.getLocalChamado().getEstado());
 		localChamado.setNumero(chamadoDTO.getLocalChamado().getNumero());
 		
+		localChamadoService.salvarLocal(localChamado);
+		
 		chamado.setLocalChamado(localChamado);
 		
 		chamadoRepository.save(chamado);
@@ -78,8 +83,6 @@ public class ChamadoService {
 		else {
 			chamado.setAmbulancia(null);
 		}
-		
-		chamado.setId(chamadoDTO.getId());
 		
 		chamado.setTipoEmergencia(chamadoDTO.getTipoEmergencia());
 		chamado.setEstadoChamado(chamadoDTO.getEstadoChamado());
@@ -109,8 +112,7 @@ public class ChamadoService {
 			throw new NotFoundChamado();
 		}
 		
-		Chamado chamado = new Chamado();
-		chamado.setId(estadoChamadoDTO.getId());
+		Chamado chamado = chamadoOptional.get();
 		chamado.setEstadoChamado(estadoChamadoDTO.getEstadoChamado());
 		
 		chamadoRepository.save(chamado);

@@ -11,6 +11,7 @@ import com.lts.backend.DTO.AmbulanciaDTO;
 import com.lts.backend.DTO.EstadoAmbulanciaDTO;
 import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.models.Ambulancia;
+import com.lts.backend.models.Chamado;
 import com.lts.backend.repository.IAmbulanciaRepository;
 
 @Service
@@ -67,8 +68,7 @@ public class AmbulanciaService {
 			throw new NotFoundAmbulancia();
 		}
 		
-		Ambulancia ambulancia = new Ambulancia();
-		ambulancia.setId(estadoAmbulanciaDTO.getId());
+		Ambulancia ambulancia = ambulanciaOptional.get();
 		ambulancia.setEstadoAmbulancia(estadoAmbulanciaDTO.getEstadoAmbulancia());
 		
 		ambulanciaRepository.save(ambulancia);
