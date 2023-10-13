@@ -45,9 +45,15 @@ public class AmbulanciaService {
 	
 	@Transactional
 	public Ambulancia editarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {
+
+		Optional<Ambulancia> ambulanciaOptional = ambulanciaRepository.findById(estadoAmbulanciaDTO.getId());
 		
-		Ambulancia ambulancia = new Ambulancia();
-		ambulancia.setId(ambulanciaDTO.getId());
+		if(ambulanciaOptional.isEmpty())
+		{
+			throw new NotFoundAmbulancia();
+		}
+		
+		Ambulancia ambulancia = ambulanciaOptional.get();
 		ambulancia.setPlaca(ambulanciaDTO.getPlaca());
 		ambulancia.setLatitude(ambulanciaDTO.getLatitude());
 		ambulancia.setEstadoAmbulancia(ambulanciaDTO.getEstadoAmbulancia());
