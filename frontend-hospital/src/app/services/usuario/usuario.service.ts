@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class UsuarioService {
 
-  private readonly API = environment.apiUrl + '/motorista';
+  private readonly API = environment.apiUrl + '/usuario';
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 

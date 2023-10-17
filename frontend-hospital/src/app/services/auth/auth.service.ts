@@ -12,17 +12,17 @@ import { Usuario } from 'src/app/models/usuario.model';
 })
 export class AuthService {
 
-  private readonly API = environment.apiUrl;
+  private readonly API = environment.apiUrl + "/usuario/login";
 
   constructor(private http: HttpClient, private cookie: CookieService, private rota: Router) { }
 
   login(data: {login: string, password: string}): Observable<any> {
-    return this.http.post<any>(this.API + '/motorista/login', data)
+    return this.http.post<any>(this.API, data)
     .pipe(
-      map(({token, motorista}) => {
-        this.cookie.set('cookie-token', btoa(token), 1/24, 'usuarios');
-        this.cookie.set('cookie-user-data', btoa(JSON.stringify(motorista)), 1/24, 'usuarios');
-        return {token, motorista};
+      map(({token, usuario}) => {
+        this.cookie.set('cookie-token', btoa(token), { expires: 1/24, path:'usuarios' });
+        this.cookie.set('cookie-user-data', btoa(JSON.stringify(usuario)),  { expires: 1/24, path: 'usuarios' });
+        return {token, usuario};
       })
     );
 
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   get getUser(): Usuario {
-    let user = atob(this.cookie.get('cookie-user-data'));
+    let user = atob(this.cookie.get('cookie-user-data'),);
     return user? JSON.parse(user): user;
   }
 
