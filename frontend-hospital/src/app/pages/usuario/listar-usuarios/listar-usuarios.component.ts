@@ -12,7 +12,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listar-usuarios.component.scss'],
 })
 export class ListarUsuariosComponent {
-  displayedColumns = ['col1', 'col2', 'col3', 'col4', 'edit', 'delete'];
+  displayedColumns = ['id', 'nome', 'cpf', 'login', 'role', 'edit', 'delete'];
+
   usuarios: Usuario[] = [];
   tableUsuarios = new MatTableDataSource<Usuario>();
 

@@ -4,4 +4,5 @@ export interface Usuario {
   cpf: string;
   login: string;
   password: string;
+  role: string;
 }

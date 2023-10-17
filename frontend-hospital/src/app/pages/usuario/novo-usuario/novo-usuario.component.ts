@@ -21,7 +21,8 @@ export class NovoUsuarioComponent {
       nome: [null, [Validators.required]],
       cpf: [null, [Validators.required]],
       login: [null, [Validators.required]],
-      password: [null, [Validators.required]]
+      password: [null, [Validators.required]],
+      role: ["", [Validators.required]]
     });
   }
 

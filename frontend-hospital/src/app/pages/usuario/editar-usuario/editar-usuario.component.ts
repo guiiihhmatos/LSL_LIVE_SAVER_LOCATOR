@@ -25,7 +25,8 @@ export class EditarUsuarioComponent {
       nome: [null, [Validators.required]],
       cpf: [null, [Validators.required]],
       login: [null, [Validators.required]],
-      password: [null, [Validators.required]]
+      password: [null, [Validators.required]],
+      role: ['', [Validators.required]]
     });
 
     this.setValues(this.passedUsuario);
@@ -36,7 +37,8 @@ export class EditarUsuarioComponent {
       id: usuario.id,
       nome: usuario.nome,
       cpf: usuario.cpf,
-      login: usuario.login
+      login: usuario.login,
+      role: usuario.role
     })
   }
 
