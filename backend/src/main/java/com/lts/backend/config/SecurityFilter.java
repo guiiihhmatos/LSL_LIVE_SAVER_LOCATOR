@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.lts.backend.repository.IMotoristaRepository;
+import com.lts.backend.repository.IUsuarioRepository;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -21,9 +21,9 @@ public class SecurityFilter extends OncePerRequestFilter {
 
 	@Autowired
 	private TokenService tokenService;
-
-	@Autowired
-	private IMotoristaRepository motoristaRepository;
+	
+	@Autowired 
+	private IUsuarioRepository usuarioRepository;
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -34,8 +34,8 @@ public class SecurityFilter extends OncePerRequestFilter {
 		if (token != null) {
 
 			var login = tokenService.validateToken(token);
-			UserDetails user = motoristaRepository.findByLogin(login).orElseThrow();
-
+			UserDetails user = usuarioRepository.findByLogin(login).orElseThrow();
+			
 			var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}

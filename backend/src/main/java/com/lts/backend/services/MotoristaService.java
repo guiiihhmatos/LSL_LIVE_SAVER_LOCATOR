@@ -12,18 +12,24 @@ import com.lts.backend.DTO.AuthenticationDTO;
 import com.lts.backend.DTO.LoginResponseMotoristaDTO;
 import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.config.TokenService;
+import com.lts.backend.enums.Roles;
 import com.lts.backend.exception.error.NotFoundUser;
 import com.lts.backend.exception.error.UserAlreadyExists;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.models.Usuario;
+import com.lts.backend.models.UsuarioHospital;
 import com.lts.backend.repository.IMotoristaRepository;
+import com.lts.backend.repository.IUsuarioRepository;
 
 @Service
 public class MotoristaService {
 
 	@Autowired
 	private IMotoristaRepository motoristaRepository;
-
+	
+	@Autowired
+	private IUsuarioRepository usuarioRepository;
+	
 	@Autowired
 	private TokenService tokenService;
 
@@ -62,6 +68,15 @@ public class MotoristaService {
 		motorista.setLogin(motoristaDTO.getLogin());
 		motorista.setPassword(encryptedPassword);
 		motoristaRepository.save(motorista);
+		// salvar um usuario - GAMBIARRA
+		UsuarioHospital motoristaUsuario = new UsuarioHospital();
+		motoristaUsuario.setNome(motoristaDTO.getNome());
+		motoristaUsuario.setCpf(motoristaDTO.getCpf());
+		motoristaUsuario.setLogin(motoristaDTO.getLogin());
+		motoristaUsuario.setPassword(encryptedPassword);
+		motoristaUsuario.setRole(Roles.USER_AMBULANCIA);
+		usuarioRepository.save(motoristaUsuario);
+		
 		return motorista;
 	}
 	
