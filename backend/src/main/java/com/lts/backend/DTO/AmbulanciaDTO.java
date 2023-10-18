@@ -1,5 +1,7 @@
 package com.lts.backend.DTO;
 
+import java.math.BigDecimal;
+
 import com.lts.backend.enums.EstadoAmbulancia;
 
 import lombok.Data;
@@ -8,7 +10,7 @@ import lombok.Data;
 public class AmbulanciaDTO {
 	private Long id;
 	private String placa;
-	private Long latitude;
-	private Long longitude;
+	private BigDecimal latitude;
+	private BigDecimal longitude;
 	private EstadoAmbulancia estadoAmbulancia;
 }

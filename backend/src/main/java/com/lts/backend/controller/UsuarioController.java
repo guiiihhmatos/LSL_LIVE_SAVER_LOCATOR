@@ -22,7 +22,7 @@ import com.lts.backend.services.UsuarioService;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin("*")
+@CrossOrigin
 @RestController
 @RequestMapping("/usuario")
 public class UsuarioController {

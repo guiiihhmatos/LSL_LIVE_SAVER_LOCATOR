@@ -1,5 +1,6 @@
 package com.lts.backend.models;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,11 +32,11 @@ public class Ambulancia {
 	@Column(name = "ds_placa")
 	private String placa;
 	
-	@Column(name = "latitude")
-	private Long latitude;
+	@Column(name = "latitude", columnDefinition = "DECIMAL(10, 8)")
+	private BigDecimal latitude;
 	
-	@Column(name = "longitude")
-	private Long longitude;
+	@Column(name = "longitude", columnDefinition = "DECIMAL(10, 8)")
+	private BigDecimal longitude;
 
 	@Column(name = "ds_estado_ambulancia")
 	private EstadoAmbulancia estadoAmbulancia;

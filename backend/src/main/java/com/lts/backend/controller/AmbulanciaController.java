@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +18,7 @@ import com.lts.backend.DTO.EstadoAmbulanciaDTO;
 import com.lts.backend.models.Ambulancia;
 import com.lts.backend.services.AmbulanciaService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/ambulancia")
 public class AmbulanciaController {
@@ -30,9 +32,9 @@ public class AmbulanciaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<AmbulanciaDTO> salvarAmbulancia(@RequestBody AmbulanciaDTO ambulanciaDTO) throws Exception {
+	public ResponseEntity<Ambulancia> salvarAmbulancia(@RequestBody AmbulanciaDTO ambulanciaDTO) throws Exception {
 		Ambulancia ambulancia = ambulanciaService.salvarAmbulancia(ambulanciaDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+		return ResponseEntity.status(HttpStatus.CREATED).body(ambulancia);
 
 	}
 	
