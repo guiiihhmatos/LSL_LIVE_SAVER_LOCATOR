@@ -1,1 +1,39 @@
-<p>listar-ambulancias works!</p>
+<section id="listar-ambulancias" class="d-flex flex-column">
+
+  <h3 class="text-center mt-5">Ambulâncias Cadastradas</h3>
+
+  <mat-form-field class="form-group w-80 align-self-center mt-5" appearance="outline">
+    <mat-label>Pesquisar</mat-label>
+    <input type="text" matInput (input)="filterAmbulancia($any($event.target).value)">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+
+  <div class="shadow table-ambulancias w-80 align-self-center mt-2">
+    <table mat-table [dataSource]="tableAmbulancias" matSort>
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let ambulancia"> {{ambulancia.id}} </td>
+      </ng-container>
+
+
+      <!-- <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let ambulancia"><span class="material-symbols-outlined text-lsl-primary" (click)="redirectEdit(ambulancia)">edit</span></td>
+      </ng-container>
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let ambulancia"><span class="material-symbols-outlined text-danger" (click)="confirmDelete(ambulancia)">delete</span></td>
+      </ng-container> -->
+      <tr mat-header-row *matHeaderRowDef="columnsAmbulancias"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsAmbulancias;"></tr>
+    </table>
+    <hr class="m-0">
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons>
+    </mat-paginator>
+  </div>
+  <div class="action d-flex justify-content-end w-80 align-self-center mt-3">
+    <button id="new" class="btn btn-primary" routerLink="../nova-ambulancia">Nova Ambulancia</button>
+  </div>
+</section>

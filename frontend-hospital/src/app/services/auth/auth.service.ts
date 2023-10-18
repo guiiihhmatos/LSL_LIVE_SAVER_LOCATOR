@@ -5,7 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { environment } from 'src/environments/environments';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Usuario } from 'src/app/models/usuario.model';
+import { Usuario } from 'src/app/models/usuario/usuario.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
-import { Usuario } from 'src/app/models/usuario.model';
+import { Usuario } from 'src/app/models/usuario/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./listar-usuarios.component.scss'],
 })
 export class ListarUsuariosComponent {
-  displayedColumns = ['id', 'nome', 'cpf', 'login', 'role', 'edit', 'delete'];
+  columnsUsuarios = ['id', 'nome', 'cpf', 'login', 'role', 'edit', 'delete'];
 
   usuarios: Usuario[] = [];
   tableUsuarios = new MatTableDataSource<Usuario>();

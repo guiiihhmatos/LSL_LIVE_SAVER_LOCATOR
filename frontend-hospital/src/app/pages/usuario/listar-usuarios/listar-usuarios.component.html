@@ -44,8 +44,8 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let usuario"><span class="material-symbols-outlined text-danger" (click)="confirmDelete(usuario)">delete</span></td>
       </ng-container>
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-header-row *matHeaderRowDef="columnsUsuarios"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsUsuarios;"></tr>
     </table>
     <hr class="m-0">
     <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
