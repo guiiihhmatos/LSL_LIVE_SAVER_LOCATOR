@@ -6,9 +6,9 @@ export interface Ambulancia {
   latitude: 0;
   longitude: 0;
   estadoAmbulancia: estadoAmbulancia;
-  motoristas: any; /*futuramente classe usuario*/
+  motoristas?: any; /*futuramente classe usuario*/
 }
 
-enum estadoAmbulancia {
+export enum estadoAmbulancia {
   OCUPADO, DISPONIVEL, INATIVO
 }

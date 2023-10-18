@@ -7,6 +7,7 @@ import { NovoUsuarioComponent } from './novo-usuario/novo-usuario.component';
 import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 @NgModule({
@@ -16,11 +17,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EditarUsuarioComponent
   ],
   imports: [
-    CommonModule,
+  CommonModule,
     UsuarioRoutingModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxMaskDirective,
+    NgxMaskPipe
+  ],
+  providers: [
+    provideNgxMask()
   ]
 })
 export class UsuarioModule { }

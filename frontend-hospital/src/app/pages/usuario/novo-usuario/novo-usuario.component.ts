@@ -42,7 +42,7 @@ export class NovoUsuarioComponent {
           title: 'Usuário salvo com sucesso',
           timer: 3000,
           timerProgressBar: true,
-        }).then(() => this.rota.navigate(['../']));
+        }).then(() => this.rota.navigate(['../usuarios']));
       },
       error: (err) => {
         Swal.fire({

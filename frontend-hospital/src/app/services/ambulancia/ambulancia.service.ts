@@ -18,6 +18,14 @@ export class AmbulanciaService {
     return this.http.get<Ambulancia[]>(this.API, {headers: this.setHeaders()});
   }
 
+  saveAmbulancia(ambulancia: Ambulancia): Observable<Ambulancia> {
+   return this.http.post<Ambulancia>(this.API, ambulancia, {headers: this.setHeaders()})
+  }
+
+  editAmbulancia(ambulancia: Ambulancia): Observable<Ambulancia> {
+    return this.http.put<Ambulancia>(this.API, ambulancia, {headers: this.setHeaders()});
+  }
+
   private setHeaders(): HttpHeaders {
     let token = this.auth.getToken;
     return new HttpHeaders()

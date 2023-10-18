@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
 import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-listar-ambulancias',
@@ -12,7 +13,7 @@ import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.servic
   styleUrls: ['./listar-ambulancias.component.scss']
 })
 export class ListarAmbulanciasComponent {
-  columnsAmbulancias = ['id'];
+  columnsAmbulancias = ['id', 'placa','estado', 'localizacao', 'edit'];
 
   ambulancias: Ambulancia[] = [];
   tableAmbulancias = new MatTableDataSource<Ambulancia>();
@@ -37,6 +38,10 @@ export class ListarAmbulanciasComponent {
         this.tableAmbulancias.sort = this.sort
       },
     });
+  }
+
+  redirectEdit(ambulancia: Ambulancia) {
+    this.rota.navigate(['ambulancias/editar-ambulancia'], { state: { ambulancia } });
   }
 
   filterAmbulancia(value: string) {

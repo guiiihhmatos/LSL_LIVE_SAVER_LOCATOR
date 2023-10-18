@@ -1,0 +1,24 @@
+<section id="nova-ambulancia" class="d-flex flex-column">
+
+  <h3 class="text-center mt-5">Nova Ambulância</h3>
+  <div class="action container p-0">
+    <button class="btn btn-secondary" routerLink="../">Voltar</button>
+  </div>
+
+  <mat-card class="container align-self-center mt-2 shadow">
+    <mat-card-content>
+
+      <form [formGroup]="formAmbulancia" id="nova-ambulancia-form">
+        <div class="form-group">
+          <label for="placa" class="form-label" >Placa:</label>
+          <input type="text" name="placa" id="placa" class="form-control" placeholder="ABC-1234"
+           formControlName="placa" mask="AAA-AAAA" oninput="this.value = this.value.toUpperCase()">
+        </div>
+        <div class="action mt-3 d-flex flex-column align-items-center">
+          <button class="btn btn-primary" (click)="validateForm(formAmbulancia)"> Salvar </button>
+        </div>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</section>
