@@ -45,7 +45,7 @@ public class AmbulanciaController {
 	}
 	
 	@PutMapping("/alterar-estado")
-	public ResponseEntity<Ambulancia> alterarAmbulancia(@RequestBody EstadoAmbulanciaDTO estadoAmbulanciaDTO) throws Exception {
+	public ResponseEntity<Ambulancia> alterarEstadoAmbulancia(@RequestBody EstadoAmbulanciaDTO estadoAmbulanciaDTO) throws Exception {
 		Ambulancia ambulancia = ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
 	}
