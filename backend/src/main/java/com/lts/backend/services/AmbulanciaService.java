@@ -19,13 +19,13 @@ public class AmbulanciaService {
 	@Autowired
 	private IAmbulanciaRepository ambulanciaRepository;
 	
-	public List<Ambulancia> findAll() {
+	public List<Ambulancia> buscarTodas() {
 		return ambulanciaRepository.findAll();
 	}
 	
-	public Ambulancia findById(Long id)
+	public Optional<Ambulancia> buscarPorId(Long id)
 	{
-		return ambulanciaRepository.findById(id).get();
+		return ambulanciaRepository.findById(id);
 	}
 	
 	@Transactional
