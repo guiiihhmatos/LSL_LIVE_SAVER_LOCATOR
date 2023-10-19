@@ -1,0 +1,10 @@
+
+<google-map height="400px"
+            width="750px"
+            [center]="centroMapa"
+            [zoom]="zoom"
+            [options]="{streetViewControl: false}">
+            <map-marker
+              [position]="marcadorAmbulancia"
+              [options]="markerOptions"></map-marker>
+</google-map>

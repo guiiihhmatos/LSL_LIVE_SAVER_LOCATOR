@@ -44,6 +44,14 @@ export class ListarAmbulanciasComponent {
     this.rota.navigate(['ambulancias/editar-ambulancia'], { state: { ambulancia } });
   }
 
+  redirectLocalAmbulancia(ambulancia: Ambulancia) {
+    const posicaoAmbulancia: google.maps.LatLngLiteral = {
+      lat: ambulancia.latitude,
+      lng: ambulancia.longitude
+    }
+    this.rota.navigate(['/local'], {state: {posicaoAmbulancia}})
+  }
+
   filterAmbulancia(value: string) {
     this.tableAmbulancias.filter = value.trim().toLowerCase();
   }

@@ -8,14 +8,15 @@ import { EditarAmbulanciaComponent } from './editar-ambulancia/editar-ambulancia
 import { NovaAmbulanciaComponent } from './nova-ambulancia/nova-ambulancia.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
     ListarAmbulanciasComponent,
     EditarAmbulanciaComponent,
-    NovaAmbulanciaComponent
+    NovaAmbulanciaComponent,
   ],
+  providers: [provideNgxMask()],
   imports: [
     CommonModule,
     AmbulanciaRoutingModule,
@@ -23,8 +24,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
     FormsModule,
     ReactiveFormsModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    SharedModule
   ],
-  providers: [provideNgxMask()]
 })
-export class AmbulanciaModule { }
+export class AmbulanciaModule {}
