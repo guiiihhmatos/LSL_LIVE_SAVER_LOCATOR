@@ -45,11 +45,7 @@ export class ListarAmbulanciasComponent {
   }
 
   redirectLocalAmbulancia(ambulancia: Ambulancia) {
-    const posicaoAmbulancia: google.maps.LatLngLiteral = {
-      lat: ambulancia.latitude,
-      lng: ambulancia.longitude
-    }
-    this.rota.navigate(['/local'], {state: {posicaoAmbulancia}})
+    this.rota.navigate(['ambulancias/localizar-ambulancia/', ambulancia.id], {state: {ambulancia}})
   }
 
   filterAmbulancia(value: string) {

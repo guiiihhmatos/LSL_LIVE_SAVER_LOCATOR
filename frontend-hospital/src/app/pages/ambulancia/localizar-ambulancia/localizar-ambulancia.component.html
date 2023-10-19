@@ -1,0 +1,14 @@
+<section id="localizar-ambulancia">
+  <h3 class="text-center mt-5">Localização atual da ambulância</h3>
+  <h5 class="text-center font-20 m-0">Atualização em tempo real</h5>
+  <p class="text-center" style="color: gray"> ULTIMA ATUALIZAÇÃO: {{ulitimaAtualizacao}}</p>
+
+  <div class="info"></div>
+  <div class="container container-map">
+    <app-localizacao-ambulancia *ngIf="requestAmbulancia.closed"
+    height="550px"
+     width=""
+     [latitude]="ambulancia.latitude"
+     [longitude]="ambulancia.longitude" ></app-localizacao-ambulancia>
+  </div>
+</section>

@@ -19,6 +19,8 @@ export class LocalizacaoAmbulanciaComponent {
   };
   @Input() latitude!: number;
   @Input() longitude!: number;
+  @Input() height: string = '500px';
+  @Input() width: string = '700px';
   constructor() {
 
   }

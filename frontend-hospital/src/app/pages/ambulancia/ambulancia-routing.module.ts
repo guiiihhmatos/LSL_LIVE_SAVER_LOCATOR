@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ListarAmbulanciasComponent } from './listar-ambulancias/listar-ambulancias.component';
 import { NovaAmbulanciaComponent } from './nova-ambulancia/nova-ambulancia.component';
 import { EditarAmbulanciaComponent } from './editar-ambulancia/editar-ambulancia.component';
+import { LocalizarAmbulanciaComponent } from './localizar-ambulancia/localizar-ambulancia.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'listar-ambulancias'},
@@ -21,6 +22,11 @@ const routes: Routes = [
     pathMatch: 'full',
     component: EditarAmbulanciaComponent,
   },
+  {
+    path: 'localizar-ambulancia/:idAmbulancia',
+    pathMatch: 'full',
+    component: LocalizarAmbulanciaComponent
+  }
 ];
 
 @NgModule({

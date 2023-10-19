@@ -9,12 +9,14 @@ import { NovaAmbulanciaComponent } from './nova-ambulancia/nova-ambulancia.compo
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { LocalizarAmbulanciaComponent } from './localizar-ambulancia/localizar-ambulancia.component';
 
 @NgModule({
   declarations: [
     ListarAmbulanciasComponent,
     EditarAmbulanciaComponent,
     NovaAmbulanciaComponent,
+    LocalizarAmbulanciaComponent,
   ],
   providers: [provideNgxMask()],
   imports: [

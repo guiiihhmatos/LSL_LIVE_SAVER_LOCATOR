@@ -26,6 +26,10 @@ export class AmbulanciaService {
     return this.http.put<Ambulancia>(this.API, ambulancia, {headers: this.setHeaders()});
   }
 
+  getAmbulanciaById(idAmbulancia: number): Observable<Ambulancia> {
+    return this.http.get<Ambulancia>(this.API + '/' + idAmbulancia, {headers: this.setHeaders()});
+  }
+
   private setHeaders(): HttpHeaders {
     let token = this.auth.getToken;
     return new HttpHeaders()
