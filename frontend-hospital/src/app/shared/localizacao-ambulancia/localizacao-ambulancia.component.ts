@@ -13,7 +13,7 @@ export class LocalizacaoAmbulanciaComponent {
     lng: -46.33644485473633
   }; // local onde o mapa estara centralizado
 
-  zoom = 15;
+  zoom = 14;
   markerOptions: google.maps.MarkerOptions = {
     draggable: false,
   };

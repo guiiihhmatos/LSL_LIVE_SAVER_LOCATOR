@@ -1,7 +1,7 @@
 import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
+import { Ambulancia, EstadosAmbulancia } from 'src/app/models/ambulancia/ambulancia.model';
 import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
 
 @Component({
@@ -15,6 +15,7 @@ export class LocalizarAmbulanciaComponent {
   ambulancia!: Ambulancia;
   ulitimaAtualizacao: string;
   requestAmbulancia: Subscription;
+  classEA: string = "";
 
   constructor(private rotaAtual: ActivatedRoute, private ambulanciaService: AmbulanciaService) {
     this.idAmbulancia = Number(rotaAtual.snapshot.paramMap.get('idAmbulancia'));
@@ -30,6 +31,13 @@ export class LocalizarAmbulanciaComponent {
     return this.ambulanciaService.getAmbulanciaById(idAmbulancia).subscribe({
       next: (res) => {
         this.ambulancia = res;
+        if(this.ambulancia.estadoAmbulancia == EstadosAmbulancia.DISPONIVEL){
+          this.classEA = 'text-success';
+        } else if (this.ambulancia.estadoAmbulancia == EstadosAmbulancia.INATIVO){
+          this.classEA = 'text-danger';
+        } else {
+          this.classEA = 'text-warning'
+        }
       },
       error: (err) => {
         console.error(err);

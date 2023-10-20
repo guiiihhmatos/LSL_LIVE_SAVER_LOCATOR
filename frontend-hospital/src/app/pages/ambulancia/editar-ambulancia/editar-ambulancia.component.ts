@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Ambulancia, estadoAmbulancia } from 'src/app/models/ambulancia/ambulancia.model';
+import { Ambulancia, EstadosAmbulancia } from 'src/app/models/ambulancia/ambulancia.model';
 import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
 import Swal from 'sweetalert2';
 
@@ -25,7 +25,7 @@ export class EditarAmbulanciaComponent {
       placa: [null, [Validators.required], ],
       latitude: [0],
       longitude: [0],
-      estadoAmbulancia: [estadoAmbulancia[estadoAmbulancia.DISPONIVEL]],
+      estadoAmbulancia: [EstadosAmbulancia[EstadosAmbulancia.DISPONIVEL]],
     })
 
     this.setValues(this.passedAmbulancia);

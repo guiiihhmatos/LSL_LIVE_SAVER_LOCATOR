@@ -5,10 +5,10 @@ export interface Ambulancia {
   placa: string;
   latitude: 0;
   longitude: 0;
-  estadoAmbulancia: estadoAmbulancia;
+  estadoAmbulancia: EstadosAmbulancia;
   motoristas?: any; /*futuramente classe usuario*/
 }
 
-export enum estadoAmbulancia {
+export enum EstadosAmbulancia {
   OCUPADO, DISPONIVEL, INATIVO
 }
