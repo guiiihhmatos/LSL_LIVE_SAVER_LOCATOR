@@ -16,6 +16,7 @@ import com.lts.backend.models.LocalChamado;
 import com.lts.backend.repository.IChamadoRepository;
 import com.lts.backend.repository.IHistoricoChamadoRepository;
 
+
 @Service
 public class ChamadoService {
 	
@@ -44,7 +45,7 @@ public class ChamadoService {
 		
 		if(chamadoDTO.getAmbulanciaId() != null)
 		{
-			ambulancia = ambulanciaService.findById(chamadoDTO.getAmbulanciaId());
+			ambulancia = ambulanciaService.buscarPorId(chamadoDTO.getAmbulanciaId()).get();
 		}
 		
 		chamado.setAmbulancia(ambulancia);
@@ -77,7 +78,7 @@ public class ChamadoService {
 		
 		if(chamadoDTO.getAmbulanciaId() != null)
 		{
-			ambulancia = ambulanciaService.findById(chamadoDTO.getAmbulanciaId());
+			ambulancia = ambulanciaService.buscarPorId(chamadoDTO.getAmbulanciaId()).get();
 			chamado.setAmbulancia(ambulancia);
 		}
 		else {
