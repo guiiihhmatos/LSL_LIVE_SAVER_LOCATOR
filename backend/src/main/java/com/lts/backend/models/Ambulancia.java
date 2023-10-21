@@ -1,10 +1,6 @@
 package com.lts.backend.models;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lts.backend.enums.EstadoAmbulancia;
 
 import jakarta.persistence.Column;
@@ -13,8 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -41,12 +36,8 @@ public class Ambulancia {
 	@Column(name = "ds_estado_ambulancia")
 	private EstadoAmbulancia estadoAmbulancia;
 	
-	@ManyToMany
-    @JoinTable(
-        name = "tb_motorista_ambulancia",
-        joinColumns = @JoinColumn(name = "cd_ambulancia"),
-        inverseJoinColumns = @JoinColumn(name = "cd_motorista")
-    )
-    private Set<Motorista> motoristas = new HashSet<>();
+	@OneToOne
+	@JoinColumn(name = "cd_motorista")
+    private Motorista motorista;
 	
 }

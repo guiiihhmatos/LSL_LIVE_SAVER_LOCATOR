@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lts.backend.DTO.AuthenticationDTO;
+import com.lts.backend.DTO.AuthenticationMotoristaDTO;
 import com.lts.backend.DTO.LoginResponseMotoristaDTO;
 import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.models.Motorista;
@@ -38,7 +38,7 @@ public class MotoristaController {
 	}
 
 	@PostMapping("/login")
-	public ResponseEntity<LoginResponseMotoristaDTO> login(@RequestBody @Valid AuthenticationDTO data) throws Exception {
+	public ResponseEntity<LoginResponseMotoristaDTO> login(@RequestBody @Valid AuthenticationMotoristaDTO data) throws Exception {
 		LoginResponseMotoristaDTO responseLogin = motoristaService.login(data);
 		return ResponseEntity.ok().body(responseLogin);
 	}

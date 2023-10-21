@@ -29,9 +29,6 @@ public class Motorista extends Usuario {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@ManyToMany(mappedBy = "motoristas")
-	private Set<Ambulancia> ambulancias = new HashSet<>();
-
 	private String login;
 
 	private String password;

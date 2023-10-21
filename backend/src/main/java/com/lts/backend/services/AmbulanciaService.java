@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lts.backend.DTO.AmbulanciaDTO;
 import com.lts.backend.DTO.EstadoAmbulanciaDTO;
+import com.lts.backend.DTO.MotoristaAmbulanciaDTO;
 import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.models.Ambulancia;
 import com.lts.backend.repository.IAmbulanciaRepository;
@@ -58,6 +59,15 @@ public class AmbulanciaService {
     public Ambulancia alterarEstado(EstadoAmbulanciaDTO estadoAmbulanciaDTO) throws Exception {
         Ambulancia ambulancia = ambulanciaRepository.findById(estadoAmbulanciaDTO.getId()).orElseThrow(NotFoundAmbulancia::new);
         ambulancia.setEstadoAmbulancia(estadoAmbulanciaDTO.getEstadoAmbulancia());
+        ambulanciaRepository.save(ambulancia);
+        return ambulancia;
+    }
+    
+    @Transactional
+    public Ambulancia alterarMotorista(MotoristaAmbulanciaDTO data) throws Exception {
+        Ambulancia ambulancia = ambulanciaRepository.findById(data.idAmbulancia()).orElseThrow(NotFoundAmbulancia::new);
+        
+        ambulancia.setMotorista(data.motorista());
         ambulanciaRepository.save(ambulancia);
         return ambulancia;
     }
