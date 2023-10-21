@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,7 @@ public class ChamadoController {
 	
 	@GetMapping
 	public List<Chamado> listarTodos() {
-		return chamadoService.findAll();
+		return chamadoService.listarChamadosComAmbulancias();
 	}
 	
 	@PostMapping
@@ -44,7 +45,7 @@ public class ChamadoController {
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);
 	}
 	
-	@PutMapping("/alterar-estado")
+	@PatchMapping("/alterar-estado")
 	public ResponseEntity<Chamado> alterarEstado(@RequestBody EstadoChamadoDTO estadoChamadoDTO) throws Exception {
 		Chamado chamado = chamadoService.alterarEstado(estadoChamadoDTO);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);

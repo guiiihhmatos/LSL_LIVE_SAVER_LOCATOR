@@ -39,6 +39,7 @@ public class WebSecurityConfig{
 						
 						.requestMatchers(HttpMethod.POST, "/motorista/login").permitAll()
 						.requestMatchers(HttpMethod.POST, "/usuario/login").permitAll()
+						.requestMatchers(HttpMethod.POST, "/usuario").permitAll()
 						.requestMatchers(HttpMethod.POST, "/admin/login").permitAll()
 						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/docs").permitAll()
 //						.requestMatchers("/**").permitAll()

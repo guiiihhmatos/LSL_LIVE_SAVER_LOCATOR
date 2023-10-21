@@ -15,70 +15,50 @@ import com.lts.backend.repository.IAmbulanciaRepository;
 
 @Service
 public class AmbulanciaService {
-	
-	@Autowired
-	private IAmbulanciaRepository ambulanciaRepository;
-	
-	public List<Ambulancia> buscarTodas() {
+
+    @Autowired
+    private IAmbulanciaRepository ambulanciaRepository;
+
+    public List<Ambulancia> buscarTodas() {
 		return ambulanciaRepository.findAll();
 	}
-	
-	public Optional<Ambulancia> buscarPorId(Long id)
+    
+    public Optional<Ambulancia> buscarPorId(Long id)
 	{
 		return ambulanciaRepository.findById(id);
 	}
-	
-	@Transactional
-	public Ambulancia salvarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {
-		
-		Ambulancia ambulancia = new Ambulancia();
-		ambulancia.setPlaca(ambulanciaDTO.getPlaca());
-		ambulancia.setLatitude(ambulanciaDTO.getLatitude());
-		ambulancia.setEstadoAmbulancia(ambulanciaDTO.getEstadoAmbulancia());
-		ambulancia.setLongitude(ambulanciaDTO.getLongitude());
-		
-		ambulanciaRepository.save(ambulancia);
-		
-		return ambulancia;
-	}
-	
-	@Transactional
-	public Ambulancia editarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {
+    
+    @Transactional
+    public Ambulancia salvarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {
+        Ambulancia ambulancia = new Ambulancia();
 
-		Optional<Ambulancia> ambulanciaOptional = ambulanciaRepository.findById(ambulanciaDTO.getId());
-		
-		if(ambulanciaOptional.isEmpty())
-		{
-			throw new NotFoundAmbulancia();
-		}
-		
-		Ambulancia ambulancia = ambulanciaOptional.get();
-		ambulancia.setPlaca(ambulanciaDTO.getPlaca());
-		ambulancia.setLatitude(ambulanciaDTO.getLatitude());
-		ambulancia.setEstadoAmbulancia(ambulanciaDTO.getEstadoAmbulancia());
-		ambulancia.setLongitude(ambulanciaDTO.getLongitude());
-		
-		ambulanciaRepository.save(ambulancia);
-		
-		return ambulancia;
-	}
-	
-	@Transactional
-	public Ambulancia alterarEstado(EstadoAmbulanciaDTO estadoAmbulanciaDTO) throws Exception {
-		
-		Optional<Ambulancia> ambulanciaOptional = ambulanciaRepository.findById(estadoAmbulanciaDTO.getId());
-		
-		if(ambulanciaOptional.isEmpty())
-		{
-			throw new NotFoundAmbulancia();
-		}
-		
-		Ambulancia ambulancia = ambulanciaOptional.get();
-		ambulancia.setEstadoAmbulancia(estadoAmbulanciaDTO.getEstadoAmbulancia());
-		
-		ambulanciaRepository.save(ambulancia);
-		
-		return ambulancia;
-	}
+        ambulancia.setPlaca(ambulanciaDTO.getPlaca());
+        ambulancia.setLatitude(ambulanciaDTO.getLatitude());
+        ambulancia.setLongitude(ambulanciaDTO.getLongitude());
+        ambulancia.setEstadoAmbulancia(ambulanciaDTO.getEstadoAmbulancia());
 
+        ambulanciaRepository.save(ambulancia);
+        return ambulancia;
+    }
+
+    @Transactional
+    public Ambulancia editarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {
+        Ambulancia ambulancia = ambulanciaRepository.findById(ambulanciaDTO.getId()).orElseThrow(NotFoundAmbulancia::new);
+
+        ambulancia.setPlaca(ambulanciaDTO.getPlaca());
+        ambulancia.setLatitude(ambulanciaDTO.getLatitude());
+        ambulancia.setLongitude(ambulanciaDTO.getLongitude());
+        ambulancia.setEstadoAmbulancia(ambulanciaDTO.getEstadoAmbulancia());
+
+        ambulanciaRepository.save(ambulancia);
+        return ambulancia;
+    }
+
+    @Transactional
+    public Ambulancia alterarEstado(EstadoAmbulanciaDTO estadoAmbulanciaDTO) throws Exception {
+        Ambulancia ambulancia = ambulanciaRepository.findById(estadoAmbulanciaDTO.getId()).orElseThrow(NotFoundAmbulancia::new);
+        ambulancia.setEstadoAmbulancia(estadoAmbulanciaDTO.getEstadoAmbulancia());
+        ambulanciaRepository.save(ambulancia);
+        return ambulancia;
+    }
 }

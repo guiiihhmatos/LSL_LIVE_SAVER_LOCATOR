@@ -8,7 +8,7 @@ import lombok.Data;
 public class LocalChamadoDTO {
 
 	private Long id;
-	private String rua;
+	private String endereco;
 	private String bairro;
 	private Integer numero;
 	private String cidade;

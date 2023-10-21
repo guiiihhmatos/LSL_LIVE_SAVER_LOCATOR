@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lts.backend.enums.EstadoAmbulancia;
 
 import jakarta.persistence.Column;
@@ -14,7 +15,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -25,7 +25,7 @@ public class Ambulancia {
 	
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cd_ambulancia")
 	private Long id;
 	
@@ -43,14 +43,10 @@ public class Ambulancia {
 	
 	@ManyToMany
     @JoinTable(
-        name = "motorista_ambulancia",
-        joinColumns = @JoinColumn(name = "ambulancia_id"),
-        inverseJoinColumns = @JoinColumn(name = "motorista_id")
+        name = "tb_motorista_ambulancia",
+        joinColumns = @JoinColumn(name = "cd_ambulancia"),
+        inverseJoinColumns = @JoinColumn(name = "cd_motorista")
     )
     private Set<Motorista> motoristas = new HashSet<>();
-
-    @ManyToOne
-    @JoinColumn(name = "chamado_id")
-    private Chamado chamado;
 	
 }

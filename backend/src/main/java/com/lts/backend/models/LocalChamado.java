@@ -16,11 +16,12 @@ import lombok.Data;
 public class LocalChamado {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "cd_local_chamado")
 	private Long id;
 	
-	@Column(name = "nm_rua")
-	private String rua;
+	@Column(name = "nm_endereco")
+	private String endereco;
 	
 	@Column(name = "nm_bairro")
 	private String bairro;
@@ -36,7 +37,4 @@ public class LocalChamado {
 	
 	@Column(name = "nr_cep")
 	private String cep;
-	
-	@OneToOne(mappedBy = "localChamado", cascade = CascadeType.ALL)
-    private Chamado Chamado;
 }

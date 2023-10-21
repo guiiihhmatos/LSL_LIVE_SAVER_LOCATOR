@@ -1,5 +1,7 @@
 package com.lts.backend.DTO;
 
+import java.util.List;
+
 import com.lts.backend.enums.EstadoChamado;
 import com.lts.backend.enums.TipoEmergencia;
 import com.lts.backend.models.Ambulancia;
@@ -16,5 +18,5 @@ public class ChamadoDTO {
 		private EstadoChamado estadoChamado;	
 		private LocalChamadoDTO localChamado;
 		private TipoEmergencia tipoEmergencia;
-		private Long ambulanciaId;
+		private List<Long> ambulanciaIds;
 }
