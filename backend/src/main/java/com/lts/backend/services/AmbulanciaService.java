@@ -29,6 +29,14 @@ public class AmbulanciaService {
 		return ambulanciaRepository.findById(id);
 	}
     
+    public List<Ambulancia> buscarTodasDispMotorista() {
+		return ambulanciaRepository.findAllAmbulanciasDispMotorista();
+	}
+    
+    public List<Ambulancia> buscarTodasDisp() {
+		return ambulanciaRepository.findAllAmbulanciasDisp();
+	}
+    
     @Transactional
     public Ambulancia salvarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {
         Ambulancia ambulancia = new Ambulancia();

@@ -34,6 +34,16 @@ public class AmbulanciaController {
 		return ambulanciaService.buscarTodas();
 	}
 	
+	@GetMapping("/motorista/disponiveis")
+	public List<Ambulancia> buscarTodasDispMotorista() {
+		return ambulanciaService.buscarTodasDispMotorista();
+	}
+	
+	@GetMapping("/disponiveis")
+	public List<Ambulancia> buscarTodasDisp() {
+		return ambulanciaService.buscarTodasDisp();
+	}
+	
 	@GetMapping("/{id}")
 	public Optional<Ambulancia> buscarPorId(@PathVariable Long id){
 		return ambulanciaService.buscarPorId(id);

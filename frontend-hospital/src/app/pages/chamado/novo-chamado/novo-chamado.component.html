@@ -1,0 +1,78 @@
+<section id="novo-usuario" class="d-flex flex-column">
+  <h3 class="text-center mt-5">Novo Chamado</h3>
+  <div class="action container p-0">
+    <button class="btn btn-secondary" routerLink="../">Voltar</button>
+  </div>
+
+  <mat-card class="container align-self-center mt-2 shadow">
+    <mat-card-content>
+      <form [formGroup]="formChamado" id="novo-usuario-form">
+        <div class="form-group">
+          <label for="ocorrencia" class="form-label">Ocorrência:</label>
+          <input type="text" name="ocorrencia" id="ocorrencia" class="form-control" formControlName="ocorrencia">
+        </div>
+
+        <div class="form-group row my-2">
+          <div class="form-group col">
+            <label for="estadoChamado" class="form-label">Estado do chamado:</label>
+            <input type="text" name="estadoChamado" id="estadoChamado" class="form-control" formControlName="estadoChamado">
+          </div>
+
+          <div class="form-group col">
+            <label for="tipoEmergencia" class="form-label">Tipo de Emergência:</label>
+            <input type="text" name="tipoEmergencia" id="tipoEmergencia" class="form-control" formControlName="tipoEmergencia">
+          </div>
+        </div>
+
+        <div formGroupName="localChamado">
+
+          <div class="form-group row my-2">
+            <div class="form-group col">
+              <label for="cep" class="form-label">CEP:</label>
+              <input type="text" name="cep" id="cep" class="form-control" formControlName="cep">
+            </div>
+            <div class="form-group col">
+              <label for="endereco" class="form-label">Endereço:</label>
+              <input type="text" name="endereco" id="endereco" class="form-control" formControlName="endereco">
+            </div>
+          </div>
+
+          <div class="form-group row my-2">
+            <div class="form-group col">
+              <label for="estado" class="form-label">Estado:</label>
+              <input type="text" name="estado" id="estado" class="form-control" formControlName="estado">
+            </div>
+            <div class="form-group col">
+              <label for="bairro" class="form-label">Bairro:</label>
+              <input type="text" name="bairro" id="bairro" class="form-control" formControlName="bairro">
+            </div>
+          </div>
+
+          <div class="form-group row my-2">
+            <div class="form-group col">
+              <label for="numero" class="form-label col">Número:</label>
+              <input type="number" name="numero" id="numero" class="form-control" formControlName="numero">
+            </div>
+            <div class="form-group col">
+              <label for="cidade" class="form-label col">Cidade:</label>
+              <input type="text" name="cidade" id="cidade" class="form-control" formControlName="cidade">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="ambulanciaIds" class="form-label">Selecione uma ou mais ambulâncias:</label>
+          <select name="ambulanciaIds" id="ambulanciaIds" class="form-select" formControlName="ambulancias">
+            <option *ngFor="let ambulancia of ambulancias" [value]="ambulancia.id">{{ ambulancia.placa }}</option>
+          </select>
+        </div>
+
+        <div class="action mt-3 d-flex flex-column align-items-center">
+          <button class="btn btn-primary" (click)="validateForm(formChamado)">Salvar</button>
+        </div>
+      </form>
+
+    </mat-card-content>
+  </mat-card>
+</section>

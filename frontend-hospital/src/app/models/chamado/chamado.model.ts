@@ -6,7 +6,7 @@ export interface Chamado {
   estadoChamado: EstadosChamado;
   localChamado: LocalChamado;
   tipoEmergencia: TiposEmergencia;
-  ambulancias: Ambulancia[];
+  ambulancias: [];
 }
 
 export enum EstadosChamado {
@@ -19,7 +19,7 @@ export enum TiposEmergencia {
 
 export interface LocalChamado {
   id: number;
-  rua: string;
+  endereco: string;
   bairro: string;
   numero: number;
   cidade: string;

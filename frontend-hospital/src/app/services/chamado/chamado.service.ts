@@ -18,6 +18,10 @@ export class ChamadoService {
     return this.http.get<Chamado[]>(this.API, {headers: this.setHeaders()});
   }
 
+  saveChamado(chamado: Chamado): Observable<Chamado> {
+    return this.http.post<Chamado>(this.API, chamado, {headers: this.setHeaders()});
+  }
+
   private setHeaders(): HttpHeaders {
     let token = this.auth.getToken;
     return new HttpHeaders()

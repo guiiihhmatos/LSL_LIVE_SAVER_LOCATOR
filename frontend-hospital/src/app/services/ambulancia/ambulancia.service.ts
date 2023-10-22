@@ -18,6 +18,10 @@ export class AmbulanciaService {
     return this.http.get<Ambulancia[]>(this.API, {headers: this.setHeaders()});
   }
 
+  getAllAmbulanciasDisponiveis(): Observable<Ambulancia[]> {
+    return this.http.get<Ambulancia[]>(this.API + "/disponiveis", {headers: this.setHeaders()});
+  }
+
   saveAmbulancia(ambulancia: Ambulancia): Observable<Ambulancia> {
    return this.http.post<Ambulancia>(this.API, ambulancia, {headers: this.setHeaders()})
   }
