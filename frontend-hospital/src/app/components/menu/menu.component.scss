@@ -1,13 +1,12 @@
 div#menu-lateral {
-  max-width: 350px;
+  max-width: 355px;
   height: 100%;
   padding: 2px;
 
   .items {
     flex: 1;
-
+    box-shadow: 8px 0px 6px -6px rgba(0,0,0,0.2);
     .nav-item{
-      // background-color:#0064b0;
       gap: 50px;
       color: #0064b0;
       cursor: pointer;
@@ -29,6 +28,10 @@ div#menu-lateral {
         box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
       }
     }
+  }
+
+  .footer-menu{
+    box-shadow: 8px 0px 6px -6px rgba(0,0,0,0.2);
   }
 
   .active {

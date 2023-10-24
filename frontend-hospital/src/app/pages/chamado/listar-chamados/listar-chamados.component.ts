@@ -10,7 +10,7 @@ import { ChamadoService } from 'src/app/services/chamado/chamado.service';
 })
 export class ListarChamadosComponent {
 
-  columnsChamados = ['id',]
+  columnsChamados = ['id','data', 'estado', 'ocorrencia', 'emergencia', 'view', 'edit', 'delete']
   chamados: Chamado[] = [];
   tableChamados: MatTableDataSource<Chamado> = new MatTableDataSource<Chamado>();
   constructor(private chamadoService: ChamadoService){
@@ -28,6 +28,18 @@ export class ListarChamadosComponent {
         this.tableChamados.data = this.chamados;
       }
     })
+  }
+
+  redirectDetails(chamado: Chamado){
+    console.log('detalhes do chamado', chamado);
+  }
+
+  redirectEdit(chamado: Chamado) {
+    console.log('edit', chamado);
+  }
+
+  confirmDelete(chamado: Chamado) {
+    console.log('confirmação de delete', chamado);
   }
 
   filterChamados(value: string) {

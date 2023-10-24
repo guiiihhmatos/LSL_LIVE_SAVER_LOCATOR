@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
-import { Chamado } from 'src/app/models/chamado/chamado.model';
+import { Chamado, EstadosChamado, TiposEmergencia, formChamado } from 'src/app/models/chamado/chamado.model';
 import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
 import { ChamadoService } from 'src/app/services/chamado/chamado.service';
 import Swal from 'sweetalert2';
@@ -14,8 +14,10 @@ import Swal from 'sweetalert2';
 })
 export class NovoChamadoComponent {
 
-  ambulancias: Ambulancia[] = [];
+  ambulanciasDisponiveis: Ambulancia[] = [];
   formChamado: FormGroup;
+  ambulanciasSalvas: Ambulancia[] = [];
+  tiposEmergencia: string[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -25,23 +27,33 @@ export class NovoChamadoComponent {
   ) {
     this.formChamado = fb.group({
       ocorrencia: [null, [Validators.required]],
-      estadoChamado: ['A_CAMINHO', [Validators.required]],
+      estadoChamado: ["A_CAMINHO", [Validators.required]],
       localChamado: fb.group({
         endereco: [null, [Validators.required]],
         bairro: [null, [Validators.required]],
-        numero: [0, [Validators.required]],
+        numero: [null],
         cidade: [null, [Validators.required]],
         estado: [null, [Validators.required]],
         cep: [null, [Validators.required]]
       }),
-      tipoEmergencia: ['URGENTE', [Validators.required]],
-      ambulancias: [null, [Validators.required]]
+      tipoEmergencia: ["", [Validators.required]],
+      ambulanciasIds: ["", [Validators.required]],
     });
+    for(let tipo in TiposEmergencia){
+      if(isNaN(+tipo)){
+        this.tiposEmergencia.push(tipo);
+      }
+    }
+
 
   }
 
   ngOnInit(): void {
     this.getAllAmbulanciasDisponiveis();
+
+    this.formChamado.controls['ambulanciasIds'].valueChanges.subscribe(ambulancia => {
+      if(!this.ambulanciasSalvas.includes(ambulancia)) this.ambulanciasSalvas.push(ambulancia);
+    })
   }
 
   validateForm(form: FormGroup) {
@@ -55,12 +67,15 @@ export class NovoChamadoComponent {
   getAllAmbulanciasDisponiveis() {
     this.ambulanciaService.getAllAmbulanciasDisponiveis().subscribe({
       next: (ambulancias) => {
-        this.ambulancias = ambulancias;
+        this.ambulanciasDisponiveis = ambulancias;
       },
     });
   }
 
-  saveChamado(chamado: Chamado) {
+  saveChamado(chamado: formChamado) {
+    let aux: number[] = [];
+    this.ambulanciasSalvas.forEach(a => aux.push(a.id))
+    chamado.ambulanciaIds = aux;
     this.chamadoService.saveChamado(chamado).subscribe({
       next: (res) => {
         Swal.fire({

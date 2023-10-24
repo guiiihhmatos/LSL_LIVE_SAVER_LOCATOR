@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environments';
 import { AuthService } from '../auth/auth.service';
-import { Chamado } from 'src/app/models/chamado/chamado.model';
+import { Chamado, formChamado } from 'src/app/models/chamado/chamado.model';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class ChamadoService {
     return this.http.get<Chamado[]>(this.API, {headers: this.setHeaders()});
   }
 
-  saveChamado(chamado: Chamado): Observable<Chamado> {
+  saveChamado(chamado: formChamado): Observable<Chamado> {
     return this.http.post<Chamado>(this.API, chamado, {headers: this.setHeaders()});
   }
 

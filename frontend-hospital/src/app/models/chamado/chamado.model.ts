@@ -1,4 +1,4 @@
-import { Ambulancia } from "../ambulancia/ambulancia.model";
+import { Ambulancia } from '../ambulancia/ambulancia.model';
 
 export interface Chamado {
   id: number;
@@ -6,15 +6,38 @@ export interface Chamado {
   estadoChamado: EstadosChamado;
   localChamado: LocalChamado;
   tipoEmergencia: TiposEmergencia;
-  ambulancias: [];
+  dataInicioChamado: Date;
+  dataFimChamado?: Date;
+  ambulancias: Ambulancia[];
+}
+
+export interface formChamado {
+  id: number;
+  ocorrencia: string;
+  estadoChamado: EstadosChamado;
+  localChamado: {
+    id: number;
+    endereco: string;
+    bairro: string;
+    numero: number;
+    cidade: string;
+    estado: string;
+    cep: string;
+  };
+  tipoEmergencia: TiposEmergencia;
+  ambulanciaIds: number[];
 }
 
 export enum EstadosChamado {
-  A_CAMINHO, RETORNANDO, FINALIZADO
+  A_CAMINHO,
+  RETORNANDO,
+  FINALIZADO,
 }
 
 export enum TiposEmergencia {
-  URGENTE, MUITO_URGENTE, GRAVE
+  URGENTE,
+  MUITO_URGENTE,
+  GRAVE,
 }
 
 export interface LocalChamado {

@@ -15,12 +15,15 @@
         <div class="form-group row my-2">
           <div class="form-group col">
             <label for="estadoChamado" class="form-label">Estado do chamado:</label>
-            <input type="text" name="estadoChamado" id="estadoChamado" class="form-control" formControlName="estadoChamado">
+            <input type="text" readonly class="form-control" name="estadoChamado" id="estadoChamado" formControlName="estadoChamado">
           </div>
 
           <div class="form-group col">
             <label for="tipoEmergencia" class="form-label">Tipo de Emergência:</label>
-            <input type="text" name="tipoEmergencia" id="tipoEmergencia" class="form-control" formControlName="tipoEmergencia">
+            <select name="tipoEmergencia" id="tipoEmergencia" class="form-select" formControlName="tipoEmergencia">
+              <option value="" selected disabled>-- Selecione o estado -- </option>
+              <option [value]="tipoEmergencia" *ngFor="let tipoEmergencia of tiposEmergencia"> {{tipoEmergencia}} </option>
+            </select>
           </div>
         </div>
 
@@ -58,14 +61,21 @@
               <input type="text" name="cidade" id="cidade" class="form-control" formControlName="cidade">
             </div>
           </div>
-
         </div>
 
         <div class="form-group">
           <label for="ambulanciaIds" class="form-label">Selecione uma ou mais ambulâncias:</label>
-          <select name="ambulanciaIds" id="ambulanciaIds" class="form-select" formControlName="ambulancias">
-            <option *ngFor="let ambulancia of ambulancias" [value]="ambulancia.id">{{ ambulancia.placa }}</option>
+          <select name="ambulanciaIds" id="ambulanciaIds" class="form-select" formControlName="ambulanciasIds">
+            <option value="" selected disabled> -- Selecione a ambulância --</option>
+            <option *ngFor="let ambulancia of ambulanciasDisponiveis" [ngValue]="ambulancia">{{ ambulancia.placa | mask :'AAA-AAAA'}}</option>
           </select>
+        </div>
+        <!--Ambulancias selecionadas / salvas-->
+        <div id="ambulanciasSalvas" class="d-flex mt-2 gap-2"  *ngIf="ambulanciasSalvas.length > 0">
+          <div class="ambulancia-selecionada d-flex align-items-center justify-content-between" *ngFor="let ambulancia of ambulanciasSalvas">
+            <span class="material-symbols-outlined text-white">add</span>
+            <span class="text-white">{{ambulancia.placa| mask: 'AAA-AAAA'}}</span>
+          </div>
         </div>
 
         <div class="action mt-3 d-flex flex-column align-items-center">

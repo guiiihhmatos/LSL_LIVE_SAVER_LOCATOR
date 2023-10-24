@@ -13,17 +13,37 @@
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let usuario"> {{usuario.id}} </td>
+        <td mat-cell *matCellDef="let chamado"> {{chamado.id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="data">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Data de atribuicao </th>
+        <td mat-cell *matCellDef="let chamado"> {{chamado.dataInicioChamado | date : 'dd/MM/YYYY - HH:mm'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
+        <td mat-cell *matCellDef="let chamado"> {{chamado.estadoChamado}} </td>
+      </ng-container>
+      <ng-container matColumnDef="ocorrencia">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ocorrência </th>
+        <td mat-cell *matCellDef="let chamado"> {{chamado.ocorrencia.substring(0, 15)+"..."}} </td>
+      </ng-container>
+      <ng-container matColumnDef="emergencia">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Emergência </th>
+        <td mat-cell *matCellDef="let chamado"> {{chamado.tipoEmergencia}} </td>
       </ng-container>
 
-      <!-- <ng-container matColumnDef="edit">
+      <ng-container matColumnDef="view">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let usuario"><span class="material-symbols-outlined text-lsl-primary" (click)="redirectEdit(usuario)">edit</span></td>
+        <td mat-cell *matCellDef="let chamado"><span class="material-symbols-outlined text-dark" (click)="redirectDetails(chamado)">visibility</span></td>
+      </ng-container>
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let chamado"><span class="material-symbols-outlined text-lsl-primary" (click)="redirectEdit(chamado)">edit</span></td>
       </ng-container>
       <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let usuario"><span class="material-symbols-outlined text-danger" (click)="confirmDelete(usuario)">delete</span></td>
-      </ng-container> -->
+        <td mat-cell *matCellDef="let chamado"><span class="material-symbols-outlined text-danger" (click)="confirmDelete(chamado)">delete</span></td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="columnsChamados"></tr>
       <tr mat-row *matRowDef="let row; columns: columnsChamados;"></tr>
     </table>
