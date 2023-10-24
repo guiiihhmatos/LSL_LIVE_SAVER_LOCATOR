@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.lts.backend.enums.EstadoChamado;
 import com.lts.backend.enums.TipoEmergencia;
-import com.lts.backend.models.Ambulancia;
-import com.lts.backend.models.LocalChamado;
 
 import lombok.Data;
 
