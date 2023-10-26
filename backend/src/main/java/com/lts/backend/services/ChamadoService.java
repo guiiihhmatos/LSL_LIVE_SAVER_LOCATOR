@@ -15,6 +15,9 @@ import com.lts.backend.models.Ambulancia;
 import com.lts.backend.models.Chamado;
 import com.lts.backend.models.LocalChamado;
 import com.lts.backend.repository.IChamadoRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @Service
 public class ChamadoService {
@@ -28,8 +31,12 @@ public class ChamadoService {
     @Autowired
     private LocalChamadoService localChamadoService;
     
-    public List<Chamado> listarChamadosComAmbulancias() {
+    /*public List<Chamado> listarChamadosComAmbulancias() {
         return chamadoRepository.findAllWithAmbulancias();
+    }*/
+    
+    public Page<Chamado> listarChamadosComAmbulancias(Pageable pageable) {
+    	return chamadoRepository.findAll(pageable);
     }
 
     @Transactional

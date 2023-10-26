@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environments';
 import { AuthService } from '../auth/auth.service';
@@ -14,7 +14,12 @@ export class ChamadoService {
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
-  getAllChamados(): Observable<Chamado[]> {
+  getAllChamados(page: number, size: number, sort: string): Observable<Chamado[]> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sort', sort);
+
     return this.http.get<Chamado[]>(this.API, {headers: this.setHeaders()});
   }
 

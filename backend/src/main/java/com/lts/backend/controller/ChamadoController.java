@@ -1,8 +1,10 @@
 package com.lts.backend.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,10 +29,15 @@ public class ChamadoController {
 	@Autowired
 	private ChamadoService chamadoService;
 	
-	@GetMapping
+	/*@GetMapping
 	public List<Chamado> listarTodos() {
 		return chamadoService.listarChamadosComAmbulancias();
-	}
+	}*/
+	
+	@GetMapping()
+    public Page<Chamado> listarChamadosComOrdenacaoEPage(@PageableDefault(sort = "ocorrencia", direction = Sort.Direction.ASC) Pageable pageable) {
+        return chamadoService.listarChamadosComAmbulancias(pageable);
+    }
 	
 	@PostMapping
 	public ResponseEntity<ChamadoDTO> salvarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {

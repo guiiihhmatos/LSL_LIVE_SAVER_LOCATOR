@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Chamado } from 'src/app/models/chamado/chamado.model';
 import { ChamadoService } from 'src/app/services/chamado/chamado.service';
@@ -10,27 +12,39 @@ import { ChamadoService } from 'src/app/services/chamado/chamado.service';
 })
 export class ListarChamadosComponent {
 
-  columnsChamados = ['id','data', 'estado', 'ocorrencia', 'emergencia', 'view', 'edit', 'delete']
+  columnsChamados = ['id', 'data', 'estado', 'ocorrencia', 'emergencia', 'view', 'edit', 'delete'];
   chamados: Chamado[] = [];
   tableChamados: MatTableDataSource<Chamado> = new MatTableDataSource<Chamado>();
-  constructor(private chamadoService: ChamadoService){
 
-  }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(private chamadoService: ChamadoService) {}
 
   ngOnInit(): void {
-    this.getAllChamados();
+    this.getAllChamados(1, 5, 'ocorrencia,asc');
   }
 
-  getAllChamados() {
-    this.chamadoService.getAllChamados().subscribe({
-      next: (res) => {
-        this.chamados = res;
-        this.tableChamados.data = this.chamados;
-      }
-    })
+  ngAfterViewInit() {
+    // Conecte o paginator e sort ao MatTableDataSource
+    this.tableChamados.paginator = this.paginator;
+    this.tableChamados.sort = this.sort;
   }
 
-  redirectDetails(chamado: Chamado){
+  // No seu componente Angular
+  getAllChamados(page: number, size: number, sort: string) {
+    this.chamadoService.getAllChamados(page, size, sort).subscribe({
+    next: (res: any) => {
+      this.chamados = res.content;
+      this.tableChamados.data = this.chamados;
+      console.log(this.chamados);
+      console.log(this.tableChamados.data);
+    }
+  });
+}
+
+
+  redirectDetails(chamado: Chamado) {
     console.log('detalhes do chamado', chamado);
   }
 
