@@ -22,11 +22,11 @@ export class EditarAmbulanciaComponent {
 
     this.formAmbulancia = fb.group({
       id: [null, [Validators.required]],
-      placa: [null, [Validators.required], ],
-      latitude: [0],
-      longitude: [0],
-      estadoAmbulancia: [EstadosAmbulancia[EstadosAmbulancia.DISPONIVEL]],
-    })
+      placa: [null, [Validators.required]],
+      latitude: [null, [Validators.required]],
+      longitude: [null, [Validators.required]],
+      estadoAmbulancia: [EstadosAmbulancia[EstadosAmbulancia.DISPONIVEL], [Validators.required]],
+    });
 
     this.setValues(this.passedAmbulancia);
   }
@@ -36,6 +36,7 @@ export class EditarAmbulanciaComponent {
       id: ambulancia.id,
       placa: ambulancia.placa,
       latitude: ambulancia.latitude,
+      longitude: ambulancia.longitude,
       estadoAmbulancia: ambulancia.estadoAmbulancia
     })
   }

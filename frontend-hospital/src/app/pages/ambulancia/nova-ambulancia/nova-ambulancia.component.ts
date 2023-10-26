@@ -18,10 +18,10 @@ export class NovaAmbulanciaComponent {
     private rota: Router
   ) {
     this.formAmbulancia = fb.group({
-      placa: [null, [Validators.required], ],
-      latitude: [0],
-      longitude: [0],
-      estadoAmbulancia: [EstadosAmbulancia[EstadosAmbulancia.DISPONIVEL]],
+      placa: [null, [Validators.required]],
+      latitude: [null, [Validators.required]],
+      longitude: [null, [Validators.required]],
+      estadoAmbulancia: [EstadosAmbulancia[EstadosAmbulancia.DISPONIVEL], [Validators.required]],
     });
   }
 

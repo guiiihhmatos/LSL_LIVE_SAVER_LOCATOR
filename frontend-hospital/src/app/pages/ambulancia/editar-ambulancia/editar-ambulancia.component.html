@@ -9,10 +9,30 @@
     <mat-card-content>
 
       <form [formGroup]="formAmbulancia" id="editar-ambulancia-form">
-        <div class="form-group">
-          <label for="placa" class="form-label" >Placa:</label>
-          <input type="text" name="placa" id="placa" class="form-control" placeholder="ABC-1234"
-           formControlName="placa" mask="AAA-AAAA" oninput="this.value = this.value.toUpperCase()">
+        <div class="form-group row my-2">
+          <div class="form-group col">
+            <label for="placa" class="form-label" >Placa:</label>
+            <input type="text" name="placa" id="placa" class="form-control" placeholder="ABC-1234"
+             formControlName="placa" mask="AAA-AAAA" oninput="this.value = this.value.toUpperCase()">
+          </div>
+          <div class="form-group col">
+            <label for="estadoAmbulancia" class="form-label" >Disponibilidade:</label>
+            <input type="text" name="estadoAmbulancia" id="estadoAmbulancia" class="form-control indis"
+             formControlName="estadoAmbulancia">
+          </div>
+        </div>
+
+        <div class="form-group row my-2">
+          <div class="form-group col">
+            <label for="latitude" class="form-label" >Latitude:</label>
+            <input type="number" name="placa" id="placa" class="form-control" placeholder="99.999999"
+            formControlName="latitude">
+          </div>
+          <div class="form-group col">
+            <label for="longitude" class="form-label" >Longitude:</label>
+            <input type="number" name="longitude" id="longitude" class="form-control" placeholder="99.999999"
+             formControlName="longitude" >
+          </div>
         </div>
         <div class="action mt-3 d-flex flex-column align-items-center">
           <button class="btn btn-primary" (click)="validateForm(formAmbulancia)"> Salvar </button>
