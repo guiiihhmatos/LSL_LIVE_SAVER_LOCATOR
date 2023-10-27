@@ -36,6 +36,18 @@ public class AmbulanciaService {
     public List<Ambulancia> buscarTodasDisp() {
 		return ambulanciaRepository.findAllAmbulanciasDisp();
 	}
+
+    public Long totalAmbulanciasOcupadas() {
+		return ambulanciaRepository.totalAmbulanciasOcupadas();
+	}
+
+    public Long totalAmbulanciasDisponiveis() {
+		return ambulanciaRepository.totalAmbulanciasDisponiveis();
+	}
+
+    public Long totalAmbulanciasInativas() {
+		return ambulanciaRepository.totalAmbulanciasInativas();
+	}
     
     @Transactional
     public Ambulancia salvarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {

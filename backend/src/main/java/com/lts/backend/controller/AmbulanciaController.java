@@ -33,6 +33,21 @@ public class AmbulanciaController {
 	public List<Ambulancia> buscarTodas() {
 		return ambulanciaService.buscarTodas();
 	}
+
+	@GetMapping("/total/ocupadas")
+	public Long totalAmbulanciasOcupadas() {
+		return ambulanciaService.totalAmbulanciasOcupadas();
+	}
+
+	@GetMapping("/total/disponiveis")
+	public Long totalAmbulanciasDisponiveis() {
+		return ambulanciaService.totalAmbulanciasDisponiveis();
+	}
+
+	@GetMapping("/total/inativas")
+	public Long totalAmbulanciasInativas() {
+		return ambulanciaService.totalAmbulanciasInativas();
+	}
 	
 	@GetMapping("/motorista/disponiveis")
 	public List<Ambulancia> buscarTodasDispMotorista() {

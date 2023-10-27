@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class AmbulanciaService {
 
   private readonly API = environment.apiUrl + '/ambulancia';
+  private readonly API_TOTAL = this.API + '/total';
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
@@ -32,6 +33,20 @@ export class AmbulanciaService {
 
   getAmbulanciaById(idAmbulancia: number): Observable<Ambulancia> {
     return this.http.get<Ambulancia>(this.API + '/' + idAmbulancia, {headers: this.setHeaders()});
+  }
+
+  // dashboard
+
+  getTotalDisponiveis(): Observable<number> {
+    return this.http.get<number>(this.API_TOTAL + '/disponiveis', {headers: this.setHeaders()});
+  }
+
+  getTotalOcupadas(): Observable<number> {
+    return this.http.get<number>(this.API_TOTAL + '/ocupadas', {headers: this.setHeaders()});
+  }
+
+  getTotalInativas(): Observable<number> {
+    return this.http.get<number>(this.API_TOTAL + '/inativas', {headers: this.setHeaders()});
   }
 
   private setHeaders(): HttpHeaders {

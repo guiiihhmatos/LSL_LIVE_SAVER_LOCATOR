@@ -1,3 +1,23 @@
 <section id="dashboard">
-  <p>view-dashboard works!</p>
+
+  <main class="main">
+    <div class="row gx-0 info justify-content-between">
+
+      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center" *ngFor="let res of totalAmbulancia">
+
+        <div class="titulo-div w-90">
+          <h3 class="titulo">{{res.titulo}}</h3>
+        </div>
+
+        <div class="valores d-flex justify-content-around align-items-center w-90">
+
+          <p class="valor">{{res.total}}</p>
+          <span class="material-symbols-outlined icon">ambulance</span>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
 </section>

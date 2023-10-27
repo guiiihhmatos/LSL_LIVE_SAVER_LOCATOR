@@ -1,0 +1,43 @@
+#dashboard
+{
+
+  margin: 5em;
+
+  .main
+  {
+
+    .info
+    {
+      .info-div
+      {
+        height: 180px;
+        background-color: white;
+        border-radius: 10px;
+
+        .titulo
+        {
+          text-align: start;
+          letter-spacing: 0.5px;
+          font-family: 'Rubik', sans-serif;
+          color: #0064b0;
+        }
+
+        .valor
+        {
+          font-size: 4em;
+          font-weight: 600;
+          font-family: 'Rubik', sans-serif;
+          color: #0064b0;
+        }
+
+        .icon
+        {
+          font-size: 4em;
+          color: #0064b0;
+        }
+      }
+    }
+
+  }
+
+}
