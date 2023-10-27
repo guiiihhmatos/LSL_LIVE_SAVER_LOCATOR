@@ -1,15 +1,22 @@
 <header id="header">
-  <div class="items h-100 d-flex justify-content-between">
+  <div class="items h-100 d-flex justify-content-between w-100">
 
     <button class="btn btn-outline-dark hamb-toggle" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas">
       <span class="material-symbols-outlined font-40">menu</span>
     </button>
 
-    <div> </div>
+    <div class="d-flex flex-column justify-content-center align-items-center mx-3 teste">
+      <div class="aviso">
+        <div class="bolinha">
+            1
+        </div>
+    </div>
+      <span class="material-symbols-outlined cursor-pointer" id="notifications"> notifications </span>
+    </div>
 
     <div class="user align-self-center">
       <div class="user-info mt-1 d-flex align-items-center cursor-pointer gap-1 p-2" [matMenuTriggerFor]="userOptions">
-        <span>{{usuario.nome}}</span>
+        <!--<span>{{usuario.nome}}</span>-->
         <span class="material-symbols-outlined font-30" style="font-variation-settings: 'FILL' 1;">account_circle</span>
       </div>
 
@@ -37,6 +44,11 @@
 
   <div class="items mt-5">
     <ul class="navbar-nav gap-3">
+
+      <li class="nav-item" routerLinkActive="active" routerLink="dashboard" data-bs-dismiss="offcanvas">
+        <span class="material-symbols-outlined">dashboard</span>
+        <a class="nav-link">Dashboard</a>
+      </li>
 
       <li class="nav-item" routerLinkActive="active" routerLink="usuarios" data-bs-dismiss="offcanvas">
         <span class="material-symbols-outlined">people</span>

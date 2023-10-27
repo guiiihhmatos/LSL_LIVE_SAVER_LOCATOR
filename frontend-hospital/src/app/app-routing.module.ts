@@ -5,7 +5,7 @@ import { NotAuthGuard } from './guards/not-auth/not-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'usuarios' },
+  { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   {
     path: 'login',
     pathMatch: 'full',
@@ -32,6 +32,12 @@ const routes: Routes = [
       import('./pages/chamado/chamado.module').then((m) => m.ChamadoModule),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule),
+    canActivate: [AuthGuard],
+  }
 ];
 
 @NgModule({
