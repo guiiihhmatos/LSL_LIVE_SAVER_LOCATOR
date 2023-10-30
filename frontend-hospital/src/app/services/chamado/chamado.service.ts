@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class ChamadoService {
 
   private readonly API = environment.apiUrl + '/chamado';
+  private readonly API_TOTAL = this.API + '/total';
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
@@ -25,6 +26,20 @@ export class ChamadoService {
 
   saveChamado(chamado: formChamado): Observable<Chamado> {
     return this.http.post<Chamado>(this.API, chamado, {headers: this.setHeaders()});
+  }
+
+  // dashboard
+
+  getTotalACaminho(): Observable<number> {
+    return this.http.get<number>(this.API_TOTAL + '/acaminho', {headers: this.setHeaders()});
+  }
+
+  getTotalRetornando(): Observable<number> {
+    return this.http.get<number>(this.API_TOTAL + '/retornando', {headers: this.setHeaders()});
+  }
+
+  getTotalFinalizados(): Observable<number> {
+    return this.http.get<number>(this.API_TOTAL + '/finalizado', {headers: this.setHeaders()});
   }
 
   private setHeaders(): HttpHeaders {

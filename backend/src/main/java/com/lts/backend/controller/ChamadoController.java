@@ -33,6 +33,21 @@ public class ChamadoController {
 	public List<Chamado> listarTodos() {
 		return chamadoService.listarChamadosComAmbulancias();
 	}*/
+
+	@GetMapping("/total/acaminho")
+	public Long totalChamadosAcaminho() {
+		return chamadoService.totalChamadosAcaminho();
+	}
+
+	@GetMapping("/total/retornando")
+	public Long totalChamadosRetornando() {
+		return chamadoService.totalChamadosRetornando();
+	}
+
+	@GetMapping("/total/finalizado")
+	public Long totalChamadosFinalizado() {
+		return chamadoService.totalChamadosFinalizado();
+	}
 	
 	@GetMapping()
     public Page<Chamado> listarChamadosComOrdenacaoEPage(@PageableDefault(sort = "ocorrencia", direction = Sort.Direction.ASC) Pageable pageable) {

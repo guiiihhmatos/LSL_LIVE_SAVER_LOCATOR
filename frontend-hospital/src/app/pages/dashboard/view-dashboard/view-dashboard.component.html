@@ -1,7 +1,20 @@
 <section id="dashboard">
 
   <main class="main">
-    <div class="row gx-0 info justify-content-between">
+    <div class="info-select row justify-content-between my-3">
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
+      <div class="d-flex justify-content-end align-items-center col-md-3 block-div">
+        <button class="block d-flex justify-content-center align-items-center mx-3" [class]="ativo" (click)="onChangeDash('ambulancia')" id="ambulancia">
+          <span class="material-symbols-outlined icon" >ambulance</span>
+        </button>
+        <button class="block d-flex justify-content-center align-items-center" [class]="inativo" (click)="onChangeDash('chamado')" id="chamado">
+          <span class="material-symbols-outlined" >medical_information</span>
+        </button>
+      </div>
+    </div>
+    <div class="row gx-0 info justify-content-between" *ngIf="flagDash">
 
       <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center" *ngFor="let res of totalAmbulancia">
 
@@ -18,6 +31,25 @@
 
       </div>
 
-    </div>
+    </div><!--Ambulancia-->
+
+    <div class="row gx-0 info justify-content-between" *ngIf="!flagDash">
+
+      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center" *ngFor="let res of totalChamado">
+
+        <div class="titulo-div w-90">
+          <h3 class="titulo">{{res.titulo}}</h3>
+        </div>
+
+        <div class="valores d-flex justify-content-around align-items-center w-90">
+
+          <p class="valor">{{res.total}}</p>
+          <span class="material-symbols-outlined icon">medical_information</span>
+
+        </div>
+
+      </div>
+
+    </div><!--Chamado-->
   </main>
 </section>

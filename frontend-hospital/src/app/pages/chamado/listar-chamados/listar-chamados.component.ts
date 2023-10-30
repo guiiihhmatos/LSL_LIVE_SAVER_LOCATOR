@@ -12,7 +12,7 @@ import { ChamadoService } from 'src/app/services/chamado/chamado.service';
 })
 export class ListarChamadosComponent {
 
-  columnsChamados = ['id', 'data', 'estado', 'ocorrencia', 'emergencia', 'view', 'edit', 'delete'];
+  columnsChamados = ['id', 'data', 'estado', 'ocorrencia', 'emergencia', 'view', 'edit'];
   chamados: Chamado[] = [];
   tableChamados: MatTableDataSource<Chamado> = new MatTableDataSource<Chamado>();
 
