@@ -30,6 +30,7 @@ export class EditarChamadoComponent {
     private rota: Router
   ) {
     this.passedChamado = history.state.chamado;
+    this.ambulanciasSalvas = this.passedChamado.ambulancias;
 
     this.formChamado = fb.group({
       ocorrencia: [null, [Validators.required]],

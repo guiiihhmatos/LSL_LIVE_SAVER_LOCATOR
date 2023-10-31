@@ -1,20 +1,31 @@
 div#menu-lateral {
+  min-width: 300px;
   max-width: 355px;
   height: 100%;
   padding: 2px;
 
   .items {
     flex: 1;
-    /*box-shadow: 8px 0px 6px -6px rgba(0,0,0,0.2);*/
+
+    .item{
+      color: #0064b0;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 13px 32px;
+      border-radius: 3px;
+    }
+
     .nav-item{
-      gap: 50px;
       color: #0064b0;
       cursor: pointer;
       display: flex;
-      justify-content: space-between;
       align-items: center;
       width: 100%;
-      padding: 5px 10%;
+      padding: 5px 10px;
       border-radius: 5px;
 
       .nav-link{
@@ -34,10 +45,9 @@ div#menu-lateral {
     box-shadow: 8px 0px 6px -6px rgba(0,0,0,0.2);
   }
 
-  .active {
+  .active{
     color: white !important;
     background-color: #5296ca !important;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   }
 
 }

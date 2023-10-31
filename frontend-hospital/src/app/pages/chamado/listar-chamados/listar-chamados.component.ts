@@ -42,8 +42,6 @@ export class ListarChamadosComponent {
     next: (res: any) => {
       this.chamados = res.content;
       this.tableChamados.data = this.chamados;
-      console.log(this.chamados);
-      console.log(this.tableChamados.data);
     }
   });
 }
