@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Chamado } from 'src/app/models/chamado/chamado.model';
 import { ChamadoService } from 'src/app/services/chamado/chamado.service';
 
@@ -19,7 +20,11 @@ export class ListarChamadosComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private chamadoService: ChamadoService) {}
+  constructor
+  (
+    private chamadoService: ChamadoService,
+    private rota: Router
+  ) {}
 
   ngOnInit(): void {
     this.getAllChamados(1, 5, 'ocorrencia,asc');
@@ -49,11 +54,7 @@ export class ListarChamadosComponent {
   }
 
   redirectEdit(chamado: Chamado) {
-    console.log('edit', chamado);
-  }
-
-  confirmDelete(chamado: Chamado) {
-    console.log('confirmação de delete', chamado);
+    this.rota.navigate(['chamados/editar-chamado'], { state: { chamado } });
   }
 
   filterChamados(value: string) {

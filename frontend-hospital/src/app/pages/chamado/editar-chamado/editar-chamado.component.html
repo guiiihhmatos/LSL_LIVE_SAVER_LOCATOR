@@ -1,5 +1,5 @@
 <section id="novo-usuario" class="d-flex flex-column">
-  <h3 class="text-center mt-5">Novo Chamado</h3>
+  <h3 class="text-center mt-5">Editar Chamado</h3>
   <div class="action container p-0">
     <button class="btn btn-secondary" routerLink="../">Voltar</button>
   </div>
@@ -33,7 +33,7 @@
             <div class="form-group col">
               <label for="cep" class="form-label">CEP:</label>
               <input type="text" name="cep" id="cep" class="form-control" formControlName="cep"
-              [(ngModel)]="cep" (blur)="getCep($any($event.target).value)" mask="00000-000" >
+              (blur)="getCep($any($event.target).value)" mask="00000-000" >
             </div>
             <div class="form-group col">
               <label for="endereco" class="form-label">Endereço:</label>
