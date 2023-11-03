@@ -33,6 +33,7 @@ export class EditarChamadoComponent {
     this.ambulanciasSalvas = this.passedChamado.ambulancias;
 
     this.formChamado = fb.group({
+      id:[null, Validators.required],
       ocorrencia: [null, [Validators.required]],
       estadoChamado: ["A_CAMINHO", [Validators.required]],
       localChamado: fb.group({
@@ -59,6 +60,7 @@ export class EditarChamadoComponent {
   setValues(chamado: Chamado){
 
     this.formChamado.patchValue({
+      id: chamado.id,
       ocorrencia: chamado.ocorrencia,
       estadoChamado: chamado.estadoChamado,
       localChamado: chamado.localChamado,
@@ -70,6 +72,15 @@ export class EditarChamadoComponent {
 
   ngOnInit(): void {
     this.getAllAmbulanciasDisponiveis();
+
+    this.formChamado.controls['ambulanciasIds'].valueChanges.subscribe(ambulancia => {
+      if(!this.ambulanciasSalvas.includes(ambulancia) && ambulancia != '') this.ambulanciasSalvas.push(ambulancia);
+    })
+  }
+
+  removerAmbulancia(ambulancia: Ambulancia){
+    this.formChamado.patchValue({ambulanciasIds: ''});
+    this.ambulanciasSalvas.splice(this.ambulanciasSalvas.indexOf(ambulancia), 1);
   }
 
   validateForm(form: FormGroup) {
@@ -92,7 +103,7 @@ export class EditarChamadoComponent {
     let aux: number[] = [];
     this.ambulanciasSalvas.forEach(a => aux.push(a.id))
     chamado.ambulanciaIds = aux;
-    this.chamadoService.saveChamado(chamado).subscribe({
+    this.chamadoService.editChamado(chamado).subscribe({
       next: (res) => {
         Swal.fire({
           icon: 'success',
@@ -113,9 +124,6 @@ export class EditarChamadoComponent {
 
   //------------- Método de busca de CEP e liberação de campos sem dados ----------------------
   getCep(cep: number) {
-    let endereco = document.getElementById('endereco') as HTMLInputElement
-    let bairro = document.getElementById('bairro') as HTMLInputElement
-
     this.cepService.getCep(cep).subscribe((value) => {
       const localChamado = {
         cep: cep,
@@ -128,18 +136,6 @@ export class EditarChamadoComponent {
       this.formChamado.patchValue({
         localChamado: localChamado,
       });
-
-      if (value.bairro == null || value.bairro == '' || value.bairro == undefined) {
-        bairro?.classList.remove('indis');
-      } else {
-        bairro?.classList.add('indis');
-      }
-
-      if (value.logradouro == null || value.logradouro == '' || value.logradouro == undefined ) {
-        endereco?.classList.remove('indis');
-      } else {
-        endereco?.classList.add('indis');
-      }
 
 
     });

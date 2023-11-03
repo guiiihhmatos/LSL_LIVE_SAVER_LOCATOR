@@ -28,6 +28,10 @@ export class ChamadoService {
     return this.http.post<Chamado>(this.API, chamado, {headers: this.setHeaders()});
   }
 
+  editChamado(chamado: formChamado): Observable<Chamado> {
+    return this.http.put<Chamado>(this.API, chamado, {headers: this.setHeaders()});
+  }
+
   // dashboard
 
   getTotalACaminho(): Observable<number> {
