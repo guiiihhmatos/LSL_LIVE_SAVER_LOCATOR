@@ -2,27 +2,25 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
-import { Chamado, EstadosChamado, TiposEmergencia, formChamado } from 'src/app/models/chamado/chamado.model';
+import { Chamado, TiposEmergencia, formChamado } from 'src/app/models/chamado/chamado.model';
 import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
 import { CepService } from 'src/app/services/cep/cep.service';
 import { ChamadoService } from 'src/app/services/chamado/chamado.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-novo-chamado',
-  templateUrl: './novo-chamado.component.html',
-  styleUrls: ['./novo-chamado.component.scss']
+  selector: 'app-editar-chamado',
+  templateUrl: './editar-chamado.component.html',
+  styleUrls: ['./editar-chamado.component.scss']
 })
-export class NovoChamadoComponent {
-
+export class EditarChamadoComponent {
   ambulanciasDisponiveis: Ambulancia[] = [];
   formChamado: FormGroup;
   ambulanciasSalvas: Ambulancia[] = [];
   tiposEmergencia: string[] = [];
+  passedChamado : Chamado;
 
   indis = 'indis';
-
-  cep = 0;
 
   constructor(
     private fb: FormBuilder,
@@ -31,6 +29,9 @@ export class NovoChamadoComponent {
     private cepService : CepService,
     private rota: Router
   ) {
+    this.passedChamado = history.state.chamado;
+    this.ambulanciasSalvas = this.passedChamado.ambulancias;
+
     this.formChamado = fb.group({
       ocorrencia: [null, [Validators.required]],
       estadoChamado: ["A_CAMINHO", [Validators.required]],
@@ -51,15 +52,24 @@ export class NovoChamadoComponent {
       }
     }
 
+    this.setValues(this.passedChamado);
+
+  }
+
+  setValues(chamado: Chamado){
+
+    this.formChamado.patchValue({
+      ocorrencia: chamado.ocorrencia,
+      estadoChamado: chamado.estadoChamado,
+      localChamado: chamado.localChamado,
+      tipoEmergencia: chamado.tipoEmergencia,
+      ambulanciaIds: chamado.ambulancias
+    });
 
   }
 
   ngOnInit(): void {
     this.getAllAmbulanciasDisponiveis();
-
-    this.formChamado.controls['ambulanciasIds'].valueChanges.subscribe(ambulancia => {
-      if(!this.ambulanciasSalvas.includes(ambulancia)) this.ambulanciasSalvas.push(ambulancia);
-    })
   }
 
   validateForm(form: FormGroup) {
@@ -106,9 +116,9 @@ export class NovoChamadoComponent {
     let endereco = document.getElementById('endereco') as HTMLInputElement
     let bairro = document.getElementById('bairro') as HTMLInputElement
 
-    this.cepService.getCep(this.cep).subscribe((value) => {
+    this.cepService.getCep(cep).subscribe((value) => {
       const localChamado = {
-        cep: this.cep,
+        cep: cep,
         endereco: value.logradouro.slice(value.logradouro.indexOf(' ')).trim(),
         bairro: value.bairro,
         cidade: value.localidade,

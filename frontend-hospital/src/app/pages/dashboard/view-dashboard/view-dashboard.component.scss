@@ -1,17 +1,39 @@
 #dashboard
 {
 
-  margin: 5em;
+  margin: 0em 5em 5em 5em;
 
   .main
   {
+
+    .info-select
+    {
+      .block
+      {
+        width: 60px;
+        height: 60px;
+        border-radius: 10px;
+        border: none;
+      }
+
+      .ativo
+      {
+        color: white;
+        background-color: #0064b0;
+      }
+
+      .inativo
+      {
+        background-color: white;
+      }
+    }
 
     .info
     {
       .info-div
       {
         height: 180px;
-        background-color: white;
+        background-color: #0064b0;
         border-radius: 10px;
 
         .titulo
@@ -19,7 +41,7 @@
           text-align: start;
           letter-spacing: 0.5px;
           font-family: 'Rubik', sans-serif;
-          color: #0064b0;
+          color: white;
         }
 
         .valor
@@ -27,13 +49,13 @@
           font-size: 4em;
           font-weight: 600;
           font-family: 'Rubik', sans-serif;
-          color: #0064b0;
+          color: white;
         }
 
         .icon
         {
           font-size: 4em;
-          color: #0064b0;
+          color: white;
         }
       }
     }

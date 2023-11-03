@@ -7,11 +7,13 @@ import { MaterialModule } from 'src/app/shared/material/material.module';
 import { NovoChamadoComponent } from './novo-chamado/novo-chamado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { EditarChamadoComponent } from './editar-chamado/editar-chamado.component';
 
 @NgModule({
   declarations: [
     ListarChamadosComponent,
-    NovoChamadoComponent
+    NovoChamadoComponent,
+    EditarChamadoComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,18 @@
+.container {
+  max-width: 900px;
+
+  #ambulanciasSalvas{
+    .ambulancia-selecionada{
+      border-radius: 5px;
+      padding: 7px 10px;
+      background-color: rgb(255, 58, 58);
+    }
+  }
+
+  .indis
+  {
+    pointer-events: none;
+    background-color: #e6e6e6;
+  }
+
+}

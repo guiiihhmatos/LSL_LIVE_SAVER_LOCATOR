@@ -39,6 +39,18 @@ public class ChamadoService {
     	return chamadoRepository.findAll(pageable);
     }
 
+    public Long totalChamadosAcaminho() {
+		return chamadoRepository.totalChamadosAcaminho();
+	}
+
+    public Long totalChamadosRetornando() {
+		return chamadoRepository.totalChamadosRetornando();
+	}
+
+    public Long totalChamadosFinalizado() {
+		return chamadoRepository.totalChamadosFinalizado();
+	}
+
     @Transactional
     public Chamado salvarChamado(ChamadoDTO chamadoDTO) throws Exception {
         Chamado chamado = new Chamado();
