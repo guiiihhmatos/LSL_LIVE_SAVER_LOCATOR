@@ -19,7 +19,12 @@
           <input type="password" class="senha login_input" id="senha" required formControlName="password"/>
           <label for="senha" class="senha login_label">Senha</label>
         </div>
-        <button class="btn btn-primary" (click)="validateForm(formLogin)" [disabled]="formLogin.invalid"> Login </button>
+        <button class="btn btn-primary" (click)="validateForm(formLogin)" [disabled]="formLogin.invalid">
+          <span *ngIf="!loadingSubmit">Login</span>
+          <div class="spinner-border" role="status" *ngIf="loadingSubmit">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </button>
       </form>
     </div>
 

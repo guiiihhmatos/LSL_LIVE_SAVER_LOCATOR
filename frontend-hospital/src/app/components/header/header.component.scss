@@ -17,7 +17,7 @@ header#header {
 
   .user-info{
     border-radius: 8px;
-    background-color: #5296ca;
+    background-color: #0064b0;
     color: white;
   }
 
@@ -60,17 +60,27 @@ div#menuOffcanvas{
 
   .items {
     flex: 1;
-    padding: 0 30px;
+
+    .item{
+      color: #0064b0;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 13px 32px;
+      border-radius: 3px;
+    }
 
     .nav-item{
-      gap: 50px;
       color: #0064b0;
       cursor: pointer;
       display: flex;
-      justify-content: space-around;
+      align-items: center;
       width: 100%;
-      padding: 7px;
-      border-radius: 5px;
+      padding: 5px 10px;
+      border-radius: 3px;
 
       .nav-link{
         flex: 1;
@@ -89,5 +99,12 @@ div#menuOffcanvas{
     color: white !important;
     background-color: #5296ca !important;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+
+  .active-panel{
+    background-color: #0064b0;
+    * {
+      color: white;
+    }
   }
 }

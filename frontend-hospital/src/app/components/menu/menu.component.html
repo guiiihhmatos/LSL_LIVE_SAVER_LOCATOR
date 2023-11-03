@@ -2,7 +2,7 @@
   <h4 class="text-center mt-4 mb-0 fw-bold text-lsl-primary">LSL</h4>
 
   <div class="items py-4 px-3 mt-0">
-    <div class="item mat-elevation-z2 gap-5" routerLink="dashboard" routerLinkActive="active">
+    <div class="item mat-elevation-z2 gap-5" routerLink="dashboard" routerLinkActive="active-panel">
       <span class="material-symbols-outlined">dashboard</span>
       <span>Dashboard</span>
     </div>
@@ -11,19 +11,19 @@
 
     <mat-accordion>
 
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
         <mat-expansion-panel-header class="m-0">
           <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
-            <span class="material-symbols-outlined">ambulance</span>
+            <span class="material-symbols-outlined"> ambulance</span>
             <span>Ambulância</span>
           </mat-panel-title>
 
         </mat-expansion-panel-header>
-        <div class="nav-item gap-4" routerLink="ambulancias">
+        <div class="nav-item gap-4 my-2" routerLink="ambulancias/listar-ambulancias" routerLinkActive="active">
           <span class="material-symbols-outlined">list</span>
           <span>Listar ambulâncias</span>
         </div>
-        <div class="nav-item gap-4">
+        <div class="nav-item gap-4 my-2" routerLink="ambulancias/nova-ambulancia" routerLinkActive="active">
           <span class="material-symbols-outlined">add</span>
           <span>Nova ambulância</span>
         </div>
@@ -32,50 +32,44 @@
 
       <br>
 
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
         <mat-expansion-panel-header class="m-0">
           <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
             <span class="material-symbols-outlined">medical_information</span>
-            <span>Chamados</span>
+            <span>Chamado</span>
           </mat-panel-title>
 
         </mat-expansion-panel-header>
-        <div class="nav-item">
-          <span class="material-symbols-outlined">add</span>
-          <span>Nova ambulância</span>
+        <div class="nav-item gap-4 my-2" routerLink="chamados/listar-chamados" routerLinkActive="active">
+          <span class="material-symbols-outlined">list</span>
+          <span>Listar chamados</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item gap-4 my-2" routerLink="chamados/novo-chamado" routerLinkActive="active">
           <span class="material-symbols-outlined">add</span>
-          <span>Nova</span>
+          <span>Novo chamado</span>
         </div>
-        <div class="nav-item">
-          <span class="material-symbols-outlined">add</span>
-          <span>Nova</span>
-        </div>
+
       </mat-expansion-panel>
 
       <br>
 
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
         <mat-expansion-panel-header class="m-0">
-          <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
+          <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary" >
             <span class="material-symbols-outlined">people</span>
-            <span>Usuários</span>
+            <span>Usuário</span>
           </mat-panel-title>
 
         </mat-expansion-panel-header>
-        <div class="nav-item">
-          <span class="material-symbols-outlined">add</span>
-          <span>Nova ambulância</span>
+        <div class="nav-item gap-4 my-2" routerLink="usuarios/listar-usuarios" routerLinkActive="active">
+          <span class="material-symbols-outlined">list</span>
+          <span>Listar usuários</span>
         </div>
-        <div class="nav-item">
+        <div class="nav-item gap-4 my-2" routerLink="usuarios/novo-usuario" routerLinkActive="active">
           <span class="material-symbols-outlined">add</span>
-          <span>Nova</span>
+          <span>Novo usuário</span>
         </div>
-        <div class="nav-item">
-          <span class="material-symbols-outlined">add</span>
-          <span>Nova</span>
-        </div>
+
       </mat-expansion-panel>
 
     </mat-accordion>

@@ -15,7 +15,7 @@
         <div class="form-group row my-2">
           <div class="form-group col">
             <label for="estadoChamado" class="form-label">Estado do chamado:</label>
-            <input type="text" readonly class="form-control indis" name="estadoChamado" id="estadoChamado" formControlName="estadoChamado">
+            <input type="text" readonly class="form-control" name="estadoChamado" id="estadoChamado" formControlName="estadoChamado">
           </div>
 
           <div class="form-group col">
@@ -33,22 +33,22 @@
             <div class="form-group col">
               <label for="cep" class="form-label">CEP:</label>
               <input type="text" name="cep" id="cep" class="form-control" formControlName="cep"
-              [(ngModel)]="cep" (blur)="getCep($any($event.target).value)" mask="00000-000" >
+               (keyup)="getCep($any($event.target).value)" mask="00000-000" >
             </div>
             <div class="form-group col">
               <label for="endereco" class="form-label">Endereço:</label>
-              <input type="text" name="endereco" id="endereco" class="form-control" formControlName="endereco" [class]="indis">
+              <input type="text" name="endereco" id="endereco" class="form-control" formControlName="endereco" [class]="">
             </div>
           </div>
 
           <div class="form-group row my-2">
             <div class="form-group col">
               <label for="estado" class="form-label">Estado:</label>
-              <input type="text" name="estado" id="estado" class="form-control" formControlName="estado" [class]="indis">
+              <input type="text" name="estado" id="estado" class="form-control" formControlName="estado" [class]="">
             </div>
             <div class="form-group col">
               <label for="bairro" class="form-label">Bairro:</label>
-              <input type="text" name="bairro" id="bairro" class="form-control" formControlName="bairro" [class]="indis">
+              <input type="text" name="bairro" id="bairro" class="form-control" formControlName="bairro" [class]="">
             </div>
           </div>
 
@@ -59,7 +59,7 @@
             </div>
             <div class="form-group col">
               <label for="cidade" class="form-label col">Cidade:</label>
-              <input type="text" name="cidade" id="cidade" class="form-control" formControlName="cidade" [class]="indis">
+              <input type="text" name="cidade" id="cidade" class="form-control" formControlName="cidade" [class]="">
             </div>
           </div>
         </div>
@@ -73,8 +73,8 @@
         </div>
         <!--Ambulancias selecionadas / salvas-->
         <div id="ambulanciasSalvas" class="d-flex mt-2 gap-2"  *ngIf="ambulanciasSalvas.length > 0">
-          <div class="ambulancia-selecionada d-flex align-items-center justify-content-between" *ngFor="let ambulancia of ambulanciasSalvas">
-            <span class="material-symbols-outlined text-white">add</span>
+          <div class="ambulancia-selecionada d-flex align-items-center gap-1" *ngFor="let ambulancia of ambulanciasSalvas">
+            <span class="material-symbols-outlined text-white cursor-pointer" (click)="removerAmbulancia(ambulancia)">disabled_by_default</span>
             <span class="text-white">{{ambulancia.placa| mask: 'AAA-AAAA'}}</span>
           </div>
         </div>

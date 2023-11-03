@@ -43,29 +43,79 @@
   <h4 class="text-center mt-3">LSL - Live Saver Locator</h4>
 
   <div class="items mt-5">
-    <ul class="navbar-nav gap-3">
-
-      <li class="nav-item" routerLinkActive="active" routerLink="dashboard" data-bs-dismiss="offcanvas">
+    <div class="items py-4 px-3 mt-0">
+      <div class="item mat-elevation-z2 gap-5" routerLink="dashboard" routerLinkActive="active-panel" data-bs-dismiss="offcanvas">
         <span class="material-symbols-outlined">dashboard</span>
-        <a class="nav-link">Dashboard</a>
-      </li>
+        <span>Dashboard</span>
+      </div>
 
-      <li class="nav-item" routerLinkActive="active" routerLink="usuarios" data-bs-dismiss="offcanvas">
-        <span class="material-symbols-outlined">people</span>
-        <a class="nav-link">Usuarios</a>
-      </li>
+      <br>
 
-      <li class="nav-item" routerLinkActive="active" routerLink="ambulancias" data-bs-dismiss="offcanvas">
-        <span class="material-symbols-outlined">ambulance</span>
-        <a class="nav-link">Ambulâncias</a>
-      </li>
+      <mat-accordion>
 
-      <li class="nav-item" routerLinkActive="active" routerLink="chamados" data-bs-dismiss="offcanvas">
-        <span class="material-symbols-outlined">medical_information</span>
-        <a class="nav-link">Chamados</a>
-      </li>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
+          <mat-expansion-panel-header class="m-0">
+            <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
+              <span class="material-symbols-outlined"> ambulance</span>
+              <span>Ambulância</span>
+            </mat-panel-title>
 
-    </ul>
+          </mat-expansion-panel-header>
+          <div class="nav-item gap-4 my-2" routerLink="ambulancias/listar-ambulancias" routerLinkActive="active" data-bs-dismiss="offcanvas">
+            <span class="material-symbols-outlined">list</span>
+            <span>Listar ambulâncias</span>
+          </div>
+          <div class="nav-item gap-4 my-2" routerLink="ambulancias/nova-ambulancia" routerLinkActive="active" data-bs-dismiss="offcanvas">
+            <span class="material-symbols-outlined">add</span>
+            <span>Nova ambulância</span>
+          </div>
+
+        </mat-expansion-panel>
+
+        <br>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
+          <mat-expansion-panel-header class="m-0">
+            <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
+              <span class="material-symbols-outlined">medical_information</span>
+              <span>Chamado</span>
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div class="nav-item gap-4 my-2" routerLink="chamados/listar-chamados" routerLinkActive="active" data-bs-dismiss="offcanvas">
+            <span class="material-symbols-outlined">list</span>
+            <span>Listar chamados</span>
+          </div>
+          <div class="nav-item gap-4 my-2" routerLink="chamados/novo-chamado" routerLinkActive="active" data-bs-dismiss="offcanvas">
+            <span class="material-symbols-outlined">add</span>
+            <span>Novo chamado</span>
+          </div>
+
+        </mat-expansion-panel>
+
+        <br>
+
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
+          <mat-expansion-panel-header class="m-0">
+            <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary" >
+              <span class="material-symbols-outlined">people</span>
+              <span>Usuário</span>
+            </mat-panel-title>
+
+          </mat-expansion-panel-header>
+          <div class="nav-item gap-4 my-2" routerLink="usuarios/listar-usuarios" routerLinkActive="active" data-bs-dismiss="offcanvas">
+            <span class="material-symbols-outlined">list</span>
+            <span>Listar usuários</span>
+          </div>
+          <div class="nav-item gap-4 my-2" routerLink="usuarios/novo-usuario" routerLinkActive="active" data-bs-dismiss="offcanvas">
+            <span class="material-symbols-outlined">add</span>
+            <span>Novo usuário</span>
+          </div>
+
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </div>
   </div>
 
   <div class="footer-menu">

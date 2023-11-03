@@ -9,7 +9,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class HeaderComponent {
 
-  usuario: Usuario
+  usuario: Usuario;
+  panelOpenState = false;
   constructor(private auth: AuthService){
     this.usuario = auth.getUser;
   }

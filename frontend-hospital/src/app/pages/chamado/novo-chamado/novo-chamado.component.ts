@@ -20,10 +20,6 @@ export class NovoChamadoComponent {
   ambulanciasSalvas: Ambulancia[] = [];
   tiposEmergencia: string[] = [];
 
-  indis = 'indis';
-
-  cep = 0;
-
   constructor(
     private fb: FormBuilder,
     private chamadoService: ChamadoService,
@@ -58,10 +54,14 @@ export class NovoChamadoComponent {
     this.getAllAmbulanciasDisponiveis();
 
     this.formChamado.controls['ambulanciasIds'].valueChanges.subscribe(ambulancia => {
-      if(!this.ambulanciasSalvas.includes(ambulancia)) this.ambulanciasSalvas.push(ambulancia);
+      if(!this.ambulanciasSalvas.includes(ambulancia) && ambulancia != '') this.ambulanciasSalvas.push(ambulancia);
     })
   }
 
+  removerAmbulancia(ambulancia: Ambulancia){
+    this.formChamado.patchValue({ambulanciasIds: ''});
+    this.ambulanciasSalvas.splice(this.ambulanciasSalvas.indexOf(ambulancia), 1);
+  }
   validateForm(form: FormGroup) {
     if (form.invalid) {
       Swal.fire({ icon: 'error', title: 'Peencha todos os campos' });
@@ -101,14 +101,10 @@ export class NovoChamadoComponent {
     });
   }
 
-  //------------- Método de busca de CEP e liberação de campos sem dados ----------------------
   getCep(cep: number) {
-    let endereco = document.getElementById('endereco') as HTMLInputElement
-    let bairro = document.getElementById('bairro') as HTMLInputElement
-
-    this.cepService.getCep(this.cep).subscribe((value) => {
+    this.cepService.getCep(cep).subscribe((value) => {
       const localChamado = {
-        cep: this.cep,
+        cep: cep,
         endereco: value.logradouro.slice(value.logradouro.indexOf(' ')).trim(),
         bairro: value.bairro,
         cidade: value.localidade,
@@ -119,17 +115,6 @@ export class NovoChamadoComponent {
         localChamado: localChamado,
       });
 
-      if (value.bairro == null || value.bairro == '' || value.bairro == undefined) {
-        bairro?.classList.remove('indis');
-      } else {
-        bairro?.classList.add('indis');
-      }
-
-      if (value.logradouro == null || value.logradouro == '' || value.logradouro == undefined ) {
-        endereco?.classList.remove('indis');
-      } else {
-        endereco?.classList.add('indis');
-      }
 
 
     });
