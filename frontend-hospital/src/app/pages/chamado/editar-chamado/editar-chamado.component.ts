@@ -45,7 +45,7 @@ export class EditarChamadoComponent {
         cep: [null, [Validators.required]]
       }),
       tipoEmergencia: ["", [Validators.required]],
-      ambulanciasIds: ["", [Validators.required]],
+      ambulanciasIds: [""],
     });
     for(let tipo in TiposEmergencia){
       if(isNaN(+tipo)){
@@ -86,7 +86,9 @@ export class EditarChamadoComponent {
   validateForm(form: FormGroup) {
     if (form.invalid) {
       Swal.fire({ icon: 'error', title: 'Peencha todos os campos' });
-    } else {
+    } else if (this.ambulanciasSalvas.length = 0){
+      Swal.fire({ icon: 'error', title: 'Relacione alguma ambulância disponível'});
+    }else {
       this.saveChamado(form.value);
     }
   }

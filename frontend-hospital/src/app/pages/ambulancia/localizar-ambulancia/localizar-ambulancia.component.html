@@ -10,18 +10,18 @@
         <span class="material-symbols-outlined">reply</span>
       </button>
       <span>Placa: <strong>{{ambulancia.placa | mask : 'AAA-AAAA'}}</strong></span>
-      <span>Motorista: <strong>{{ambulancia.motoristas[0]}}</strong></span><!--rever motoristas-->
+      <span>Motorista: <strong>{{ambulancia.motoristas}}</strong></span><!--rever motoristas-->
       <span>Estado: <strong [class]="classEA">{{ambulancia.estadoAmbulancia}}</strong></span>
     </div>
-    <div *ngIf="requestAmbulancia.closed" class="text-center d-flex justify-content-center align-items-center" style="height: 550px; background-color: rgb(214, 214, 214);">
+    <!-- <div *ngIf="requestAmbulancia.closed" class="text-center d-flex justify-content-center align-items-center" style="height: 550px; background-color: rgb(214, 214, 214);">
       FINGE QUE TEM UM MAPA <br> [economiza requisição do google maps]
       <br> latitude: {{ambulancia.latitude}}
       <br> longitude: {{ambulancia.longitude}}
-    </div>
-    <!-- <app-localizacao-ambulancia *ngIf="requestAmbulancia.closed"
+    </div> -->
+    <app-localizacao-ambulancia *ngIf="requestAmbulancia.closed"
     height="550px"
      width=""
      [latitude]="ambulancia.latitude"
-     [longitude]="ambulancia.longitude" ></app-localizacao-ambulancia> -->
+     [longitude]="ambulancia.longitude" ></app-localizacao-ambulancia>
   </div>
 </section>

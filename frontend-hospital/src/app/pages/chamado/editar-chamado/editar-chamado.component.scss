@@ -1,6 +1,9 @@
 .container {
   max-width: 900px;
 
+  #ocorrencia{
+    min-height: max-content;
+  }
   #ambulanciasSalvas{
     .ambulancia-selecionada{
       border-radius: 5px;
