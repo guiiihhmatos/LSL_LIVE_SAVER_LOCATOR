@@ -81,24 +81,26 @@ export class NovoChamadoComponent {
   saveChamado(chamado: formChamado) {
     let aux: number[] = [];
     this.ambulanciasSalvas.forEach(a => aux.push(a.id))
-    chamado.ambulanciaIds = aux;
-    this.chamadoService.saveChamado(chamado).subscribe({
-      next: (res) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Chamado salvo com sucesso',
-          timer: 3000,
-          timerProgressBar: true,
-        }).then(() => this.rota.navigate(['../chamados']));
-      },
-      error: (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Erro ao salvar chamado',
-          text: err?.error?.message,
-        });
-      },
-    });
+    chamado.ambulanciasIds = aux;
+    console.log(aux);
+
+    // this.chamadoService.saveChamado(chamado).subscribe({
+    //   next: (res) => {
+    //     Swal.fire({
+    //       icon: 'success',
+    //       title: 'Chamado salvo com sucesso',
+    //       timer: 3000,
+    //       timerProgressBar: true,
+    //     }).then(() => this.rota.navigate(['../chamados']));
+    //   },
+    //   error: (err) => {
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Erro ao salvar chamado',
+    //       text: err?.error?.message,
+    //     });
+    //   },
+    // });
   }
 
   getCep(cep: number) {

@@ -48,7 +48,7 @@ export class ListarChamadosComponent {
 
 
   redirectDetails(chamado: Chamado) {
-    console.log('detalhes do chamado', chamado);
+    this.rota.navigate(['chamados/detalhes-chamado'], {state: {chamado}})
   }
 
   redirectEdit(chamado: Chamado) {

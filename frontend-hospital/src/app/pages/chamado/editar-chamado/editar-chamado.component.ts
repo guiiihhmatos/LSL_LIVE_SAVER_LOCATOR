@@ -52,7 +52,7 @@ export class EditarChamadoComponent {
         this.tiposEmergencia.push(tipo);
       }
     }
-
+    console.log(this.passedChamado.ambulancias)
     this.setValues(this.passedChamado);
 
   }
@@ -103,25 +103,28 @@ export class EditarChamadoComponent {
 
   saveChamado(chamado: formChamado) {
     let aux: number[] = [];
-    this.ambulanciasSalvas.forEach(a => aux.push(a.id))
-    chamado.ambulanciaIds = aux;
-    this.chamadoService.editChamado(chamado).subscribe({
-      next: (res) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Chamado salvo com sucesso',
-          timer: 3000,
-          timerProgressBar: true,
-        }).then(() => this.rota.navigate(['../chamados']));
-      },
-      error: (err) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Erro ao salvar chamado',
-          text: err?.error?.message,
-        });
-      },
-    });
+    console.log(this.ambulanciasSalvas)
+    // this.ambulanciasSalvas.forEach(a => aux.push(a.id))
+    // chamado.ambulanciasIds = aux;
+    console.log(chamado);
+
+    // this.chamadoService.editChamado(chamado).subscribe({
+    //   next: (res) => {
+    //     Swal.fire({
+    //       icon: 'success',
+    //       title: 'Chamado salvo com sucesso',
+    //       timer: 3000,
+    //       timerProgressBar: true,
+    //     }).then(() => this.rota.navigate(['../chamados']));
+    //   },
+    //   error: (err) => {
+    //     Swal.fire({
+    //       icon: 'error',
+    //       title: 'Erro ao salvar chamado',
+    //       text: err?.error?.message,
+    //     });
+    //   },
+    // });
   }
 
   //------------- Método de busca de CEP e liberação de campos sem dados ----------------------

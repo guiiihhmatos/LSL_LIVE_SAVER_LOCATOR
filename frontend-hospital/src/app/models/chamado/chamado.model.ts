@@ -25,7 +25,7 @@ export interface formChamado {
     cep: string;
   };
   tipoEmergencia: TiposEmergencia;
-  ambulanciaIds: number[];
+  ambulanciasIds: number[];
 }
 
 export enum EstadosChamado {

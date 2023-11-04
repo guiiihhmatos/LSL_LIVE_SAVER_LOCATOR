@@ -8,12 +8,14 @@ import { NovoChamadoComponent } from './novo-chamado/novo-chamado.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { EditarChamadoComponent } from './editar-chamado/editar-chamado.component';
+import { DetalhesChamadoComponent } from './detalhes-chamado/detalhes-chamado.component';
 
 @NgModule({
   declarations: [
     ListarChamadosComponent,
     NovoChamadoComponent,
-    EditarChamadoComponent
+    EditarChamadoComponent,
+    DetalhesChamadoComponent
   ],
   imports: [
     CommonModule,
