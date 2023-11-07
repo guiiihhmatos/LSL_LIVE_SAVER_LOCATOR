@@ -11,7 +11,7 @@
 
     <mat-accordion>
 
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel" [routerLinkActiveOptions]="{exact: true}">
         <mat-expansion-panel-header class="m-0">
           <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
             <span class="material-symbols-outlined"> ambulance</span>
@@ -27,12 +27,14 @@
           <span class="material-symbols-outlined">add</span>
           <span>Nova ambulância</span>
         </div>
+        <!-- subitens não exibidos para definir item do menu ativo -->
+        <div class="d-none" routerLink="ambulancias/editar-ambulancia"></div>
 
       </mat-expansion-panel>
 
       <br>
 
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel" [routerLinkActiveOptions]="{exact: true}">
         <mat-expansion-panel-header class="m-0">
           <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
             <span class="material-symbols-outlined">medical_information</span>
@@ -49,11 +51,15 @@
           <span>Novo chamado</span>
         </div>
 
+        <!-- subitens não exibidos para definir item do menu ativo -->
+        <div class="d-none" routerLink="chamados/editar-chamado"></div>
+        <div class="d-none" routerLink="chamados/detalhes-chamado"></div>
+
       </mat-expansion-panel>
 
       <br>
 
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel" [routerLinkActiveOptions]="{exact: true}">
         <mat-expansion-panel-header class="m-0">
           <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary" >
             <span class="material-symbols-outlined">people</span>

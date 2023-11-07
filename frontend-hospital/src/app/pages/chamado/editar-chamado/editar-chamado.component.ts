@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
-import { Chamado, TiposEmergencia, formChamado } from 'src/app/models/chamado/chamado.model';
+import { Chamado, EstadosChamado, TiposEmergencia, formChamado } from 'src/app/models/chamado/chamado.model';
 import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
 import { CepService } from 'src/app/services/cep/cep.service';
 import { ChamadoService } from 'src/app/services/chamado/chamado.service';
@@ -18,9 +18,8 @@ export class EditarChamadoComponent {
   formChamado: FormGroup;
   ambulanciasSalvas: Ambulancia[] = [];
   tiposEmergencia: string[] = [];
+  estadosChamado: string[] = [];
   passedChamado : Chamado;
-
-  indis = 'indis';
 
   constructor(
     private fb: FormBuilder,
@@ -52,7 +51,11 @@ export class EditarChamadoComponent {
         this.tiposEmergencia.push(tipo);
       }
     }
-    console.log(this.passedChamado.ambulancias)
+    for(let estado in EstadosChamado){
+      if(isNaN(+estado)){
+        this.estadosChamado.push(estado);
+      }
+    }
     this.setValues(this.passedChamado);
 
   }
@@ -86,10 +89,10 @@ export class EditarChamadoComponent {
   validateForm(form: FormGroup) {
     if (form.invalid) {
       Swal.fire({ icon: 'error', title: 'Peencha todos os campos' });
-    } else if (this.ambulanciasSalvas.length = 0){
+    } else if (this.ambulanciasSalvas.length < 1){
       Swal.fire({ icon: 'error', title: 'Relacione alguma ambulância disponível'});
     }else {
-      this.saveChamado(form.value);
+      this.editChamado(form.value);
     }
   }
 
@@ -101,30 +104,28 @@ export class EditarChamadoComponent {
     });
   }
 
-  saveChamado(chamado: formChamado) {
-    let aux: number[] = [];
-    console.log(this.ambulanciasSalvas)
-    // this.ambulanciasSalvas.forEach(a => aux.push(a.id))
-    // chamado.ambulanciasIds = aux;
-    console.log(chamado);
+  editChamado(chamado: formChamado) {
 
-    // this.chamadoService.editChamado(chamado).subscribe({
-    //   next: (res) => {
-    //     Swal.fire({
-    //       icon: 'success',
-    //       title: 'Chamado salvo com sucesso',
-    //       timer: 3000,
-    //       timerProgressBar: true,
-    //     }).then(() => this.rota.navigate(['../chamados']));
-    //   },
-    //   error: (err) => {
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'Erro ao salvar chamado',
-    //       text: err?.error?.message,
-    //     });
-    //   },
-    // });
+    let aux: number[] = [];
+    this.ambulanciasSalvas.forEach(a => aux.push(a.id))
+    chamado.ambulanciasIds = aux;
+    this.chamadoService.editChamado(chamado).subscribe({
+      next: (res) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Chamado salvo com sucesso',
+          timer: 3000,
+          timerProgressBar: true,
+        }).then(() => this.rota.navigate(['../chamados']));
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao salvar chamado',
+          text: err?.error?.message,
+        });
+      },
+    });
   }
 
   //------------- Método de busca de CEP e liberação de campos sem dados ----------------------

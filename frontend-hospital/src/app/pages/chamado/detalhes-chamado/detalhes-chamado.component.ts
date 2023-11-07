@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Chamado } from 'src/app/models/chamado/chamado.model';
+import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
+import { Chamado, EstadosChamado, TiposEmergencia } from 'src/app/models/chamado/chamado.model';
 
 @Component({
   selector: 'app-detalhes-chamado',
@@ -11,8 +12,13 @@ export class DetalhesChamadoComponent {
 
   passedChamado: Chamado;
   viewChamado: FormGroup;
+  tiposEmergencia: string[] = [];
+  estadosChamado: string[] = [];
+  ambulanciasSalvas: Ambulancia[] = [];
+  page: number = 1;
+
   constructor(fb: FormBuilder){
-    this.passedChamado = history.state.chamado || null;
+    this.passedChamado = history.state.chamado;
     this.viewChamado = fb.group({
       id:[null],
       ocorrencia: [null],
@@ -27,11 +33,37 @@ export class DetalhesChamadoComponent {
       }),
       tipoEmergencia: [null],
       ambulancias: [null],
-    })
+    });
+
+    for(let tipo in TiposEmergencia){
+      if(isNaN(+tipo)){
+        this.tiposEmergencia.push(tipo);
+      }
+    }
+    for(let estado in EstadosChamado){
+      if(isNaN(+estado)){
+        this.estadosChamado.push(estado);
+      }
+    }
+
+    this.setValues(this.passedChamado);
   }
 
   ngOnInit(): void {
-    console.log(this.passedChamado)
+
+  }
+
+  setValues(chamado: Chamado){
+
+    this.viewChamado.patchValue({
+      id: chamado.id,
+      ocorrencia: chamado.ocorrencia,
+      estadoChamado: chamado.estadoChamado,
+      localChamado: chamado.localChamado,
+      tipoEmergencia: chamado.tipoEmergencia,
+      ambulanciaIds: chamado.ambulancias
+    });
+
   }
 
 }

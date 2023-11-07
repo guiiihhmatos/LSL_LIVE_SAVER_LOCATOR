@@ -1,0 +1,16 @@
+section#detalhes-chamado {
+  .container {
+    border-radius: 8px;
+    textarea#ocorrencia {
+      min-height: 150px;
+    }
+  }
+
+  #ambulanciasSalvas{
+    .ambulancia-selecionada{
+      border-radius: 5px;
+      padding: 7px 10px;
+      background-color: rgb(255, 58, 58);
+    }
+  }
+}

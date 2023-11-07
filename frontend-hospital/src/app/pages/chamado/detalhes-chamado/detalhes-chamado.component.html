@@ -1,9 +1,17 @@
 <section id="detalhes-chamado">
 
-  <div class="container" id="dc-1">
+   <!--
+      =========================
+          CONTAINER 1
+      =========================
+  -->
+  <div class="container mt-5 shadow bg-white p-3 d-flex flex-column" id="dc-1" [class]="page!=1?'d-none':null">
+    <div class="my-2">
+      <button class="btn btn-secondary" routerLink="../"> Voltar</button>
+    </div>
     <form [formGroup]="viewChamado" id="novo-usuario-form">
       <div class="form-floating">
-        <textarea name="ocorrencia" id="ocorrencia" class="form-control" formControlName="ocorrencia"></textarea>
+        <textarea name="ocorrencia" id="ocorrencia" class="form-control" formControlName="ocorrencia" readonly></textarea>
         <label for="ocorrencia" class="form-label">Ocorrência:</label>
       </div>
 
@@ -15,7 +23,7 @@
 
         <div class="form-group col">
           <label for="tipoEmergencia" class="form-label">Tipo de Emergência:</label>
-          <input name="tipoEmergencia" id="tipoEmergencia" class="form-select" formControlName="tipoEmergencia">
+          <input name="tipoEmergencia" id="tipoEmergencia" class="form-control" formControlName="tipoEmergencia" readonly>
         </div>
       </div>
 
@@ -25,43 +33,64 @@
           <div class="form-group col">
             <label for="cep" class="form-label">CEP:</label>
             <input type="text" name="cep" id="cep" class="form-control" formControlName="cep"
-             mask="00000-000" >
+             mask="00000-000" readonly>
           </div>
           <div class="form-group col">
             <label for="endereco" class="form-label">Endereço:</label>
-            <input type="text" name="endereco" id="endereco" class="form-control" formControlName="endereco" [class]="">
+            <input type="text" name="endereco" id="endereco" class="form-control" formControlName="endereco" readonly>
           </div>
         </div>
 
         <div class="form-group row my-2">
           <div class="form-group col">
             <label for="estado" class="form-label">Estado:</label>
-            <input type="text" name="estado" id="estado" class="form-control" formControlName="estado" [class]="">
+            <input type="text" name="estado" id="estado" class="form-control" formControlName="estado" readonly>
           </div>
           <div class="form-group col">
             <label for="bairro" class="form-label">Bairro:</label>
-            <input type="text" name="bairro" id="bairro" class="form-control" formControlName="bairro" [class]="">
+            <input type="text" name="bairro" id="bairro" class="form-control" formControlName="bairro" readonly>
           </div>
         </div>
 
         <div class="form-group row my-2">
           <div class="form-group col">
             <label for="numero" class="form-label col">Número:</label>
-            <input type="number" name="numero" id="numero" class="form-control" formControlName="numero">
+            <input type="number" name="numero" id="numero" class="form-control" formControlName="numero" readonly>
           </div>
           <div class="form-group col">
             <label for="cidade" class="form-label col">Cidade:</label>
-            <input type="text" name="cidade" id="cidade" class="form-control" formControlName="cidade" [class]="">
+            <input type="text" name="cidade" id="cidade" class="form-control" formControlName="cidade" readonly>
           </div>
         </div>
       </div>
 
-      <!--Ambulancias selecionadas / salvas-->
-      <div id="ambulanciasSalvas" class="d-flex mt-2 gap-2"  *ngIf="passedChamado.ambulancias.length > 0">
-        <div class="ambulancia-selecionada d-flex align-items-center gap-1" *ngFor="let ambulancia of passedChamado.ambulancias">
-          <span class="text-white">{{ambulancia.placa| mask: 'AAA-AAAA'}}</span>
-        </div>
-      </div>
     </form>
+    <!--Ambulancias salvas-->
+    <hr>
+    <p class="fw-bold text-center" *ngIf="passedChamado.ambulancias.length > 0">Ambulâncias</p>
+    <div id="ambulanciasSalvas" class="d-flex mt-2 gap-2 align-self-center"  *ngIf="passedChamado.ambulancias.length > 0">
+      <div class="ambulancia-selecionada d-flex align-items-center gap-1" *ngFor="let ambulancia of passedChamado.ambulancias">
+        <span class="text-white">{{ambulancia.placa | mask: 'AAA-AAAA'}}</span>
+      </div>
+    </div>
+
+    <div class="w-100 d-flex justify-content-end">
+        <button class="btn btn-outline-dark p-2 d-flex align-items-center" (click)="page = 2"><span class="material-symbols-outlined">arrow_forward</span></button>
+    </div>
   </div>
+
+  <!--
+      =========================
+          CONTAINER 2
+      =========================
+  -->
+  <div class="container mt-5 shadow bg-white p-3 d-flex flex-column" id="dc-1" [class]="page!=2?'d-none':null">
+    <h1 class="text-center">VAI TER O MAPA</h1>
+
+    <div class="w-100 d-flex justify-content-between">
+      <button class="btn btn-outline-dark p-2 d-flex align-items-center" (click)="page = 1"><span class="material-symbols-outlined">arrow_back</span></button>
+      <button class="btn btn-outline-dark p-2 d-flex align-items-center" (click)="page = 2"><span class="material-symbols-outlined">arrow_forward</span></button>
+  </div>
+  </div>
+
 </section>
