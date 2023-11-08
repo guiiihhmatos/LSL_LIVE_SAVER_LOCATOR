@@ -1,10 +1,10 @@
 import { Usuario } from '../usuario/usuario.model';
 
 export interface Ambulancia {
-  id: 0;
+  id: number;
   placa: string;
-  latitude: 0;
-  longitude: 0;
+  latitude: number;
+  longitude: number;
   estadoAmbulancia: EstadosAmbulancia;
   motoristas?: any; /*futuramente classe usuario*/
 }

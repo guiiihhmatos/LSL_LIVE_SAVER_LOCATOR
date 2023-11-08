@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { NotAuthGuard } from './guards/not-auth/not-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { CaminhoAmbulanciaChamadoComponent } from './shared/caminho-ambulancia-chamado/caminho-ambulancia-chamado.component';
 
 const routes: Routes = [
+  {path: 'directions', pathMatch: 'full', component: CaminhoAmbulanciaChamadoComponent},
   { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
   {
     path: 'login',

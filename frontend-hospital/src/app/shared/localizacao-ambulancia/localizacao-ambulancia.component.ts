@@ -16,6 +16,7 @@ export class LocalizacaoAmbulanciaComponent {
   zoom = 14;
   markerOptions: google.maps.MarkerOptions = {
     draggable: false,
+    icon: 'assets/image/mark-ambulance.png',
   };
   @Input() latitude!: number;
   @Input() longitude!: number;

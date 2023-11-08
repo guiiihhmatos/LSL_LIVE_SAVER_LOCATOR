@@ -1,0 +1,8 @@
+
+<google-map
+[height]="height"
+            [width]="width"
+            [options]="{streetViewControl: false,}">>
+  <map-directions-renderer *ngIf="directionsResult" [directions]="directionsResult"></map-directions-renderer>
+</google-map>
+
