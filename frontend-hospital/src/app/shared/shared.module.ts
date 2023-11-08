@@ -7,6 +7,6 @@ import { AsyncPipe, CommonModule } from '@angular/common';
 @NgModule({
   declarations: [LocalizacaoAmbulanciaComponent, CaminhoAmbulanciaChamadoComponent],
   imports: [GoogleMapsModule, CommonModule, AsyncPipe],
-  exports: [LocalizacaoAmbulanciaComponent],
+  exports: [LocalizacaoAmbulanciaComponent, CaminhoAmbulanciaChamadoComponent],
 })
-export class SharedModule {}
+export class SharedModule { }

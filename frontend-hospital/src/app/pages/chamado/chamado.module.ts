@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { EditarChamadoComponent } from './editar-chamado/editar-chamado.component';
 import { DetalhesChamadoComponent } from './detalhes-chamado/detalhes-chamado.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DetalhesChamadoComponent } from './detalhes-chamado/detalhes-chamado.co
     FormsModule,
     ReactiveFormsModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    SharedModule
   ],
   providers: [
     provideNgxMask()

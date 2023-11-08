@@ -8,8 +8,6 @@ import { MapDirectionsService, MarkerClustererOptions } from '@angular/google-ma
 })
 export class CaminhoAmbulanciaChamadoComponent {
 
-  @Input() latitude!: number;
-  @Input() longitude!: number;
   @Input() height: string = '500px';
   @Input() width: string = '700px';
   @Input() localAmbulancia: {lat: number, lng: number} = {lat: -24.1132345, lng: -46.6937981}; //ponto A
@@ -21,8 +19,10 @@ export class CaminhoAmbulanciaChamadoComponent {
   marcador!: MarkerClustererOptions;
 
   constructor(private directionsService: MapDirectionsService, ){
+
+  }
+  ngOnInit(): void {
     this.getDirections(this.localAmbulancia, this.localHospital);
-    
   }
 
   getDirections(from: google.maps.LatLngLiteral, to: google.maps.LatLngLiteral) {
