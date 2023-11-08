@@ -44,7 +44,7 @@ export class EditarChamadoComponent {
         cep: [null, [Validators.required]]
       }),
       tipoEmergencia: ["", [Validators.required]],
-      ambulanciasIds: [""],
+      ambulanciaIds: [""],
     });
     for(let tipo in TiposEmergencia){
       if(isNaN(+tipo)){
@@ -68,7 +68,6 @@ export class EditarChamadoComponent {
       estadoChamado: chamado.estadoChamado,
       localChamado: chamado.localChamado,
       tipoEmergencia: chamado.tipoEmergencia,
-      ambulanciaIds: chamado.ambulancias
     });
 
   }
@@ -76,13 +75,13 @@ export class EditarChamadoComponent {
   ngOnInit(): void {
     this.getAllAmbulanciasDisponiveis();
 
-    this.formChamado.controls['ambulanciasIds'].valueChanges.subscribe(ambulancia => {
+    this.formChamado.controls['ambulanciaIds'].valueChanges.subscribe(ambulancia => {
       if(!this.ambulanciasSalvas.includes(ambulancia) && ambulancia != '') this.ambulanciasSalvas.push(ambulancia);
     })
   }
 
   removerAmbulancia(ambulancia: Ambulancia){
-    this.formChamado.patchValue({ambulanciasIds: ''});
+    this.formChamado.patchValue({ambulanciaIds: ''});
     this.ambulanciasSalvas.splice(this.ambulanciasSalvas.indexOf(ambulancia), 1);
   }
 
@@ -108,7 +107,7 @@ export class EditarChamadoComponent {
 
     let aux: number[] = [];
     this.ambulanciasSalvas.forEach(a => aux.push(a.id))
-    chamado.ambulanciasIds = aux;
+    chamado.ambulanciaIds = aux;
     this.chamadoService.editChamado(chamado).subscribe({
       next: (res) => {
         Swal.fire({

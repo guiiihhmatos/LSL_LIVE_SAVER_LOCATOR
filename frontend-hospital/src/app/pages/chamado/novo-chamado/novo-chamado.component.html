@@ -66,7 +66,7 @@
 
         <div class="form-group">
           <label for="ambulanciaIds" class="form-label">Selecione uma ou mais ambulâncias:</label>
-          <select name="ambulanciaIds" id="ambulanciaIds" class="form-select" formControlName="ambulanciasIds">
+          <select name="ambulanciaIds" id="ambulanciaIds" class="form-select" formControlName="ambulanciaIds">
             <option value="" selected disabled> -- Selecione a ambulância --</option>
             <option *ngFor="let ambulancia of ambulanciasDisponiveis" [ngValue]="ambulancia">{{ ambulancia.placa | mask :'AAA-AAAA'}}</option>
           </select>

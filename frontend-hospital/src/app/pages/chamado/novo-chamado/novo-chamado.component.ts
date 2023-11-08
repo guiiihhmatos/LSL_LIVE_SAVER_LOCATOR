@@ -39,7 +39,7 @@ export class NovoChamadoComponent {
         cep: [null, [Validators.required]]
       }),
       tipoEmergencia: ["", [Validators.required]],
-      ambulanciasIds: ["", [Validators.required]],
+      ambulanciaIds: ["", [Validators.required]],
     });
     for(let tipo in TiposEmergencia){
       if(isNaN(+tipo)){
@@ -53,13 +53,13 @@ export class NovoChamadoComponent {
   ngOnInit(): void {
     this.getAllAmbulanciasDisponiveis();
 
-    this.formChamado.controls['ambulanciasIds'].valueChanges.subscribe(ambulancia => {
+    this.formChamado.controls['ambulanciaIds'].valueChanges.subscribe(ambulancia => {
       if(!this.ambulanciasSalvas.includes(ambulancia) && ambulancia != '') this.ambulanciasSalvas.push(ambulancia);
     })
   }
 
   removerAmbulancia(ambulancia: Ambulancia){
-    this.formChamado.patchValue({ambulanciasIds: ''});
+    this.formChamado.patchValue({ambulanciaIds: ''});
     this.ambulanciasSalvas.splice(this.ambulanciasSalvas.indexOf(ambulancia), 1);
   }
   validateForm(form: FormGroup) {
@@ -81,7 +81,7 @@ export class NovoChamadoComponent {
   saveChamado(chamado: formChamado) {
     let aux: number[] = [];
     this.ambulanciasSalvas.forEach(a => aux.push(a.id))
-    chamado.ambulanciasIds = aux;
+    chamado.ambulanciaIds = aux;
     console.log(aux);
 
     // this.chamadoService.saveChamado(chamado).subscribe({
