@@ -22,6 +22,7 @@ section#login {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
   }
 
   img.brasao {
@@ -78,5 +79,11 @@ section#login {
     font-weight: bold;
     margin-top: 30px;
     color: #0064b0;
+  }
+
+  .lsl
+  {
+    height: 400px;
+    width: 400px;
   }
 }

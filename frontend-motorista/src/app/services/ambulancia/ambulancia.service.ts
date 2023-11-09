@@ -16,7 +16,7 @@ export class AmbulanciaService {
   constructor(private http: HttpClient, private auth: AuthService) { }
 
   getAllAmbulanciasDisponiveis(): Observable<Ambulancia[]> {
-    return this.http.get<Ambulancia[]>(this.API + "motorista/disponiveis", {headers: this.setHeaders()});
+    return this.http.get<Ambulancia[]>(this.API + "/motorista/disponiveis");
   }
 
   private setHeaders(): HttpHeaders {

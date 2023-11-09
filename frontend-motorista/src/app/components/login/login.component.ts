@@ -29,14 +29,15 @@ export class LoginComponent {
     this.formLogin = fb.group({
       login: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      idAmbulancia: ['', [Validators.required]]
+      //idAmbulancia: [1, [Validators.required]],
+      idAmbulancia: [1]
     })
 
   }
 
   ngOnInit()
   {
-
+    this.getAllAmbulanciasDisponiveis()
   }
 
   validateForm(form: FormGroup) {
