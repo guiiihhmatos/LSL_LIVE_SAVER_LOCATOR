@@ -6,6 +6,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-listar-usuarios',
   templateUrl: './listar-usuarios.component.html',
@@ -33,6 +34,12 @@ export class ListarUsuariosComponent {
     this.usuarioService.getAllUsuarios().subscribe({
       next: (usuarios) => {
         this.usuarios = usuarios;
+        this.usuarios.forEach( (usuario, i) => {
+          if(usuario.role == 'USER_AMBULANCIA')
+          {
+            this.usuarios.splice(i);
+          }
+        })
         this.tableUsuarios = new MatTableDataSource<Usuario>(usuarios);
         this.tableUsuarios.sort = this.sort
       },

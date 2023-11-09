@@ -1,0 +1,82 @@
+section#login {
+  min-height: 100%;
+
+  .login_container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    width: 900px !important;
+    height: 400px !important;
+    background-color: white;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    border-radius: 10px;
+  }
+
+  .login_img {
+    border-radius: 10px 0 0 10px;
+    width: 50%;
+    position: relative;
+    background-color: #0064b0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img.brasao {
+    margin-top: 90px;
+  }
+
+  form.login_form {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  form .form-group {
+    width: 65%;
+  }
+
+  /*input*/
+  .login_input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    background: transparent;
+  }
+
+  .login_input:focus~.login_label,
+  .login_input:valid~.login_label {
+    top: -20px;
+    left: 0;
+    color: #0064b0;
+    font-size: 12px;
+  }
+
+  /*label*/
+  .login_label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: black;
+    pointer-events: none;
+    transition: .5s;
+  }
+
+  /*titulo*/
+  .login_titulo {
+    font-weight: bold;
+    margin-top: 30px;
+    color: #0064b0;
+  }
+}

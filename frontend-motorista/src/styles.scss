@@ -1,1 +1,70 @@
 /* You can add global styles to this file, and also import other style files */
+// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&family=Russo+One&display=swap');
+:root {
+  --primary: #0064B0;
+  --secondary: #5296CA;
+}
+html, body { height: 100%; }
+body {
+  margin: 0;
+  padding: 0;
+  // font-family: 'Russo One', sans-serif !important;
+}
+
+/*============================================
+          CUSTOMIZING BOOTSTRAP
+=============================================*/
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #0064B0 !important;
+  --bs-btn-border-color: #0064B0 !important;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: rgb(41, 107, 207) !important;
+  --bs-btn-hover-border-color: #0a58ca !important;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #0a58ca !important;
+  --bs-btn-active-border-color: #0a58ca !important;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #3979a9  !important;
+  --bs-btn-disabled-border-color: #0064B0 !important;
+}
+
+.text-lsl-primary {
+  color: var(--primary) !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.w-10{width: 10%}
+.w-20{width: 20%}
+.w-30{width: 30%}
+.w-40{width: 40%}
+.w-60{width: 60%}
+.w-70{width: 70%}
+.w-80{width: 80%}
+.w-90{width: 90%}
+
+.font-10{font-size: 10px}
+.font-20{font-size: 20px}
+.font-30{font-size: 30px}
+.font-40{font-size: 40px}
+.font-50{font-size: 50px}
+.font-60{font-size: 60px}
+.font-70{font-size: 70px}
+.font-80{font-size: 80px}
+.font-90{font-size: 90px}
+.font-100{font-size: 100px}
+
+.bottom-shadow {
+  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2);
+}
+
+input[readonly], input[readonly]:focus,
+textarea[readonly], textarea[readonly]:focus
+{
+  background-color: #e6e6e6;
+}

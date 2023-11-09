@@ -78,6 +78,27 @@
 
       </mat-expansion-panel>
 
+      <br>
+
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel" [routerLinkActiveOptions]="{exact: true}">
+        <mat-expansion-panel-header class="m-0">
+          <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary" >
+            <span class="material-symbols-outlined">directions_car</span>
+            <span>Motorista</span>
+          </mat-panel-title>
+
+        </mat-expansion-panel-header>
+        <div class="nav-item gap-4 my-2" routerLink="motoristas/listar-motorista" routerLinkActive="active">
+          <span class="material-symbols-outlined">list</span>
+          <span>Listar Motorista</span>
+        </div>
+        <div class="nav-item gap-4 my-2" routerLink="motoristas/novo-motorista" routerLinkActive="active">
+          <span class="material-symbols-outlined">add</span>
+          <span>Novo Motorista</span>
+        </div>
+
+      </mat-expansion-panel>
+
     </mat-accordion>
   </div>
 

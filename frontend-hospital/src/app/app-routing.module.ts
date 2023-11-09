@@ -1,3 +1,4 @@
+import { MotoristaModule } from './pages/motorista/motorista.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
@@ -18,6 +19,12 @@ const routes: Routes = [
     path: 'usuarios',
     loadChildren: () =>
       import('./pages/usuario/usuario.module').then((m) => m.UsuarioModule),
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'motoristas',
+    loadChildren: () =>
+      import('./pages/motorista/motorista.module').then((m) => m.MotoristaModule),
     canActivate: [AuthGuard],
   },
   {
