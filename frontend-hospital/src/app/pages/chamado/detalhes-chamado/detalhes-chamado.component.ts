@@ -15,7 +15,7 @@ export class DetalhesChamadoComponent {
   tiposEmergencia: string[] = [];
   estadosChamado: string[] = [];
   ambulanciasSalvas: Ambulancia[] = [];
-  page: number = 1;
+  page: number = 2;
 
   constructor(fb: FormBuilder){
     this.passedChamado = history.state.chamado;

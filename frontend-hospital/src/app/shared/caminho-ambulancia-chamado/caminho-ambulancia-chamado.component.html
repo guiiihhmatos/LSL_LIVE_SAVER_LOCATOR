@@ -1,8 +1,14 @@
+<google-map [height]="height" [width]="width" [options]="{streetViewControl: false,}">
 
-<google-map
-[height]="height"
-            [width]="width"
-            [options]="{streetViewControl: false,}">
-  <map-directions-renderer *ngIf="directionsResult" [directions]="directionsResult"></map-directions-renderer>
+  <map-directions-renderer *ngIf="directionsResult" [directions]="directionsResult"
+    [options]="options"></map-directions-renderer>
+
+  <map-marker [options]="markerAmbulancia" id="marker-ambulancia" (mapClick)="showInfo(ambulancia, 'ambulancia')"
+    (mapMouseover)="showInfo(ambulancia, 'ambulancia')" #ambulancia="mapMarker"></map-marker>
+
+  <map-marker [options]="markerHospital" id="marker-hospital" (mapClick)="showInfo(hospital, 'hospital')"
+    (mapMouseover)="showInfo(hospital,'hospital')" #hospital="mapMarker"></map-marker>
+
+  <map-info-window></map-info-window>
+
 </google-map>
-

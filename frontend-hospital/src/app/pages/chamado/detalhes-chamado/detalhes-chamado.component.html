@@ -88,13 +88,13 @@
     <h2 class="text-center">Localização atual</h2>
     <div class="map p-0">
       <app-caminho-ambulancia-chamado width=""
-      [localAmbulancia]="{lat: passedChamado.ambulancias[0].latitude, lng: passedChamado.ambulancias[0].longitude}"
+      [ambulancia]="passedChamado.ambulancias[0]"
       [localHospital]="{lat: -23.9448818, lng: -46.3387525}"
       ></app-caminho-ambulancia-chamado>
     </div>
-    <div class="w-100 d-flex justify-content-between">
+    <div class="w-100 d-flex justify-content-start mt-3">
       <button class="btn btn-outline-dark p-2 d-flex align-items-center" (click)="page = 1"><span class="material-symbols-outlined">arrow_back</span></button>
-      <button class="btn btn-outline-dark p-2 d-flex align-items-center" (click)="page = 2"><span class="material-symbols-outlined">arrow_forward</span></button>
+      <!-- <button class="btn btn-outline-dark p-2 d-flex align-items-center" (click)="page = 2"><span class="material-symbols-outlined">arrow_forward</span></button> -->
   </div>
   </div>
 
