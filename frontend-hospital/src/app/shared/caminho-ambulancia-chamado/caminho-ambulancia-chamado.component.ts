@@ -70,13 +70,13 @@ export class CaminhoAmbulanciaChamadoComponent {
     if(markerName == 'hospital'){
       this.infoWindow.options = {
         content : `
-          Dados do hospital
+          <h6 class="m-0">Dados do hospital</h6>
         `,
       }
     } else if (markerName == 'ambulancia'){
       this.infoWindow.options = {
         content : `
-          Dados da ambulância
+        <h6 class="m-0">Dados da ambulância
         `,
       }
 
