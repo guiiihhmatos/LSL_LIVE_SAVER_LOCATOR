@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lts.backend.DTO.ChamadoDTO;
+import com.lts.backend.DTO.EstadoAmbulanciaDTO;
 import com.lts.backend.DTO.EstadoChamadoDTO;
+import com.lts.backend.enums.EstadoAmbulancia;
 import com.lts.backend.enums.EstadoChamado;
 import com.lts.backend.exception.error.NotFoundChamado;
 import com.lts.backend.models.Ambulancia;
@@ -58,6 +60,11 @@ public class ChamadoService {
         if (chamadoDTO.getAmbulanciaIds() != null) {
             for (Long ambulanciaId : chamadoDTO.getAmbulanciaIds()) {
                 Ambulancia ambulancia = ambulanciaService.buscarPorId(ambulanciaId).orElse(null);
+                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); 
+                estadoAmbulanciaDTO.setId(ambulanciaId);
+                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.OCUPADO);
+                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
+
                 chamado.getAmbulancias().add(ambulancia);
             }
         }
