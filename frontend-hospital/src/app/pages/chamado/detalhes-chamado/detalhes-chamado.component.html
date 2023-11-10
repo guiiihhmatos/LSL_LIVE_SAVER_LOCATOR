@@ -100,8 +100,10 @@
         <span>Tempo estimado: <strong>{{tempoEstimado[i]}}</strong></span>
         <span>Motorista: <strong>{{ambulancia.motorista?.nome}}</strong></span>
       </div>
-      <app-caminho-ambulancia-chamado width="" [ambulancia]="ambulancia"
-        [localHospital]="{lat: -23.9448818, lng: -46.3387525}"
+      <app-caminho-ambulancia-chamado width=""
+        [ambulancia]="ambulancia"
+        [localHospital]="localHospital"
+
         (estimativaStr)="setTempoEstimado($event)"></app-caminho-ambulancia-chamado>
     </div>
 
@@ -114,7 +116,7 @@
 
       <button class="btn btn-outline-dark p-2 d-flex align-items-center" (click)="page = i+3"
         *ngIf="page <= passedChamado.ambulancias.length"
-        matTooltip="{{i > passedChamado.ambulancias.length?'Localização da ambulância '+ (passedChamado.ambulancias[i+1].placa):null}}"
+        matTooltip="{{i >= passedChamado.ambulancias.length?null:'Localização da ambulância'}}"
         matTooltipPosition="above">
         <span class="material-symbols-outlined">arrow_forward</span>
       </button>

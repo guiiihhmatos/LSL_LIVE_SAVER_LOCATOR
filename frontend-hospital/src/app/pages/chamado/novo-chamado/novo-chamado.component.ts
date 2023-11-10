@@ -40,6 +40,8 @@ export class NovoChamadoComponent {
       }),
       tipoEmergencia: ["", [Validators.required]],
       ambulanciaIds: ["", [Validators.required]],
+      latitude:  [null], // validators required
+      longitude:  [null], // validators required
     });
     for(let tipo in TiposEmergencia){
       if(isNaN(+tipo)){
@@ -64,6 +66,7 @@ export class NovoChamadoComponent {
   }
   validateForm(form: FormGroup) {
     if (form.invalid) {
+      console.log(form)
       Swal.fire({ icon: 'error', title: 'Peencha todos os campos' });
     } else {
       this.saveChamado(form.value);
@@ -82,25 +85,23 @@ export class NovoChamadoComponent {
     let aux: number[] = [];
     this.ambulanciasSalvas.forEach(a => aux.push(a.id))
     chamado.ambulanciaIds = aux;
-    console.log(aux);
-
-    // this.chamadoService.saveChamado(chamado).subscribe({
-    //   next: (res) => {
-    //     Swal.fire({
-    //       icon: 'success',
-    //       title: 'Chamado salvo com sucesso',
-    //       timer: 3000,
-    //       timerProgressBar: true,
-    //     }).then(() => this.rota.navigate(['../chamados']));
-    //   },
-    //   error: (err) => {
-    //     Swal.fire({
-    //       icon: 'error',
-    //       title: 'Erro ao salvar chamado',
-    //       text: err?.error?.message,
-    //     });
-    //   },
-    // });
+    this.chamadoService.saveChamado(chamado).subscribe({
+      next: (res) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Chamado salvo com sucesso',
+          timer: 3000,
+          timerProgressBar: true,
+        }).then(() => this.rota.navigate(['../chamados']));
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao salvar chamado',
+          text: err?.error?.message,
+        });
+      },
+    });
   }
 
   getCep(cep: number) {

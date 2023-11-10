@@ -15,9 +15,10 @@
         <div class="form-group row my-2">
           <div class="form-group col">
             <label for="estadoChamado" class="form-label">Estado do chamado:</label>
-            <select name="estadoChamado" id="estadoChamado" class="form-select" formControlName="estadoChamado">
+            <input type="text" class="form-control" name="estadoChamado" id="estadoChamado" formControlName="estadoChamado" readonly>
+            <!-- <select name="estadoChamado" id="estadoChamado" class="form-select" formControlName="estadoChamado">
               <option [value]="estado" *ngFor="let estado of estadosChamado">{{estado}}</option>
-            </select>
+            </select> -->
           </div>
 
           <div class="form-group col">

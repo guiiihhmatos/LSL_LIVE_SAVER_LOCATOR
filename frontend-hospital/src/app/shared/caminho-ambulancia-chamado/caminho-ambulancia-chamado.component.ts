@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MapDirectionsService, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
+import { Chamado } from 'src/app/models/chamado/chamado.model';
 
 @Component({
   selector: 'app-caminho-ambulancia-chamado',
@@ -11,8 +12,9 @@ export class CaminhoAmbulanciaChamadoComponent {
 
   @Input() height: string = '500px';
   @Input() width: string = '700px';
-  @Input() localHospital!: { lat: number, lng: number } //= {lat: -24.1241525, lng: -46.6868054}; //ponto B
+  @Input() localHospital!: google.maps.LatLngLiteral //= {lat: -24.1241525, lng: -46.6868054}; //ponto B
   @Input() ambulancia!: Ambulancia;
+  @Input() chamado!: Chamado;
   @Output() estimativaStr = new EventEmitter<string>();
   @Output() ultimaAtualizacao = new EventEmitter<string>();
 

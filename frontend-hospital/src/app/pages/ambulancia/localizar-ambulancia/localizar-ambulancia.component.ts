@@ -24,7 +24,7 @@ export class LocalizarAmbulanciaComponent {
   }
 
   ngOnInit(): void {
-    setInterval(()=>{window.location.reload()}, 30000)
+    // setInterval(()=>{window.location.reload()}, 30000)
   }
 
   getAmbulanciaById(idAmbulancia: number){

@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
 import { Chamado, EstadosChamado, TiposEmergencia } from 'src/app/models/chamado/chamado.model';
+import { environment } from 'src/environments/environments';
 
 @Component({
   selector: 'app-detalhes-chamado',
@@ -11,6 +12,7 @@ import { Chamado, EstadosChamado, TiposEmergencia } from 'src/app/models/chamado
 })
 export class DetalhesChamadoComponent {
 
+  localHospital = environment.localHospital;
   passedChamado: Chamado;
   viewChamado: FormGroup;
   tiposEmergencia: string[] = [];
