@@ -114,6 +114,18 @@ public class ChamadoService {
                 chamado.getAmbulancias().add(ambulancia);
             }
         }
+        else
+        {
+            for (Long ambulanciaId : chamadoDTO.getAmbulanciaIds()) {
+                Ambulancia ambulancia = ambulanciaService.buscarPorId(ambulanciaId).orElse(null);
+                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); 
+                estadoAmbulanciaDTO.setId(ambulanciaId);
+                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.OCUPADO);
+                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
+
+                chamado.getAmbulancias().add(ambulancia);
+            }
+        }
 
         chamado.setTipoEmergencia(chamadoDTO.getTipoEmergencia());
         chamado.setEstadoChamado(chamadoDTO.getEstadoChamado());
