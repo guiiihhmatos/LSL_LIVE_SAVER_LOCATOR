@@ -26,7 +26,9 @@ public interface IChamadoRepository extends JpaRepository<Chamado, Long>{
 			+ "WHERE c.estadoChamado = 1")
     Long totalChamadosRetornando();
 
-	@Query("SELECT COUNT(c) FROM Chamado c "
-			+ "WHERE c.estadoChamado = 2")
+	@Query("SELECT COUNT(c) FROM Chamado c WHERE c.estadoChamado = 2")
     Long totalChamadosFinalizado();
+
+	@Query("SELECT c FROM Chamado c JOIN c.ambulancias a WHERE a.motorista.id = :motoristaId AND c.dataFimChamado IS NULL")
+    List<Chamado> findCurrentChamadosByMotoristaId(Long motoristaId);
 }
