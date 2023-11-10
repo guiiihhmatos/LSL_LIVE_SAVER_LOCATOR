@@ -102,6 +102,19 @@ public class ChamadoService {
             }
         }
 
+        if(chamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO)
+        {
+            for (Long ambulanciaId : chamadoDTO.getAmbulanciaIds()) {
+                Ambulancia ambulancia = ambulanciaService.buscarPorId(ambulanciaId).orElse(null);
+                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); 
+                estadoAmbulanciaDTO.setId(ambulanciaId);
+                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
+                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
+
+                chamado.getAmbulancias().add(ambulancia);
+            }
+        }
+
         chamado.setTipoEmergencia(chamadoDTO.getTipoEmergencia());
         chamado.setEstadoChamado(chamadoDTO.getEstadoChamado());
         chamado.setOcorrencia(chamadoDTO.getOcorrencia());
@@ -128,6 +141,16 @@ public class ChamadoService {
         if(estadoChamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO)
         {
         	chamado.setDataFimChamado(new Date());
+
+            for (Ambulancia ambulancia : chamado.getAmbulancias()) {
+
+                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); 
+                estadoAmbulanciaDTO.setId(ambulancia.getId());
+                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
+                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
+
+                chamado.getAmbulancias().add(ambulancia);
+            }
         }
         
         chamadoRepository.save(chamado);
