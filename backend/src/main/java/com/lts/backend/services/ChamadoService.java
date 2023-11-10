@@ -126,4 +126,8 @@ public class ChamadoService {
         chamadoRepository.save(chamado);
         return chamado;
     }
+
+    public List<Chamado> findCurrentChamadosByMotoristaId(Long motoristaId) {
+        return chamadoRepository.findCurrentChamadosByMotoristaId(motoristaId);
+    }
 }
