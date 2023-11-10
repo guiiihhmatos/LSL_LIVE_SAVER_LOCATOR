@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
 import { Chamado, EstadosChamado, TiposEmergencia } from 'src/app/models/chamado/chamado.model';
 
@@ -15,12 +16,15 @@ export class DetalhesChamadoComponent {
   tiposEmergencia: string[] = [];
   estadosChamado: string[] = [];
   ambulanciasSalvas: Ambulancia[] = [];
-  page: number = 2;
+  page: number = 1;
+  tempoEstimado: string[] = [];
+  ultimaAtualizacao: string;
 
-  constructor(fb: FormBuilder){
+  constructor(fb: FormBuilder, private rota: Router) {
+    this.ultimaAtualizacao = new Date().getHours().toString().padStart(2, "0") +"H"+ new Date().getMinutes().toString().padStart(2, "0");
     this.passedChamado = history.state.chamado;
     this.viewChamado = fb.group({
-      id:[null],
+      id: [null],
       ocorrencia: [null],
       estadoChamado: [null],
       localChamado: fb.group({
@@ -35,13 +39,13 @@ export class DetalhesChamadoComponent {
       ambulancias: [null],
     });
 
-    for(let tipo in TiposEmergencia){
-      if(isNaN(+tipo)){
+    for (let tipo in TiposEmergencia) {
+      if (isNaN(+tipo)) {
         this.tiposEmergencia.push(tipo);
       }
     }
-    for(let estado in EstadosChamado){
-      if(isNaN(+estado)){
+    for (let estado in EstadosChamado) {
+      if (isNaN(+estado)) {
         this.estadosChamado.push(estado);
       }
     }
@@ -50,10 +54,14 @@ export class DetalhesChamadoComponent {
   }
 
   ngOnInit(): void {
-
   }
 
-  setValues(chamado: Chamado){
+  setTempoEstimado(event: string){
+    this.tempoEstimado.push(event);
+  }
+
+
+  setValues(chamado: Chamado) {
 
     this.viewChamado.patchValue({
       id: chamado.id,

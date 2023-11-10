@@ -13,13 +13,13 @@ export class LocalizarAmbulanciaComponent {
 
   idAmbulancia: number;
   ambulancia!: Ambulancia;
-  ulitimaAtualizacao: string;
+  ultimaAtualizacao: string;
   requestAmbulancia: Subscription;
   classEA: string = "";
 
   constructor(private rotaAtual: ActivatedRoute, private ambulanciaService: AmbulanciaService) {
     this.idAmbulancia = Number(rotaAtual.snapshot.paramMap.get('idAmbulancia'));
-    this.ulitimaAtualizacao =new Date().getHours().toString().padStart(2, "0") +"H"+ new Date().getMinutes().toString().padStart(2, "0");
+    this.ultimaAtualizacao =new Date().getHours().toString().padStart(2, "0") +"H"+ new Date().getMinutes().toString().padStart(2, "0");
     this.requestAmbulancia = this.getAmbulanciaById(this.idAmbulancia);
   }
 

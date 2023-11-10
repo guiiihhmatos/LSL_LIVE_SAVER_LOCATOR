@@ -1,7 +1,7 @@
 <section id="localizar-ambulancia">
   <h3 class="text-center mt-5">Localização atual da ambulância</h3>
   <h5 class="text-center font-20 m-0">Atualização em tempo real</h5>
-  <p class="text-center" style="color: gray"> ULTIMA ATUALIZAÇÃO: {{ulitimaAtualizacao}}</p>
+  <p class="text-center" style="color: gray"> ULTIMA ATUALIZAÇÃO: {{ultimaAtualizacao}}</p>
 
   <div class="info"></div>
   <div class="container container-map shadow p-2">
@@ -10,7 +10,7 @@
         <span class="material-symbols-outlined">reply</span>
       </button>
       <span>Placa: <strong>{{ambulancia.placa | mask : 'AAA-AAAA'}}</strong></span>
-      <span>Motorista: <strong>{{ambulancia.motoristas}}</strong></span><!--rever motoristas-->
+      <span>Motorista: <strong>{{ambulancia.motorista}}</strong></span><!--rever motoristas-->
       <span>Estado: <strong [class]="classEA">{{ambulancia.estadoAmbulancia}}</strong></span>
     </div>
     <!-- <div *ngIf="requestAmbulancia.closed" class="text-center d-flex justify-content-center align-items-center" style="height: 550px; background-color: rgb(214, 214, 214);">

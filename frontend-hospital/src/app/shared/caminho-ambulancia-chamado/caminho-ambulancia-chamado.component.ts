@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MapDirectionsService, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
 
@@ -13,11 +13,12 @@ export class CaminhoAmbulanciaChamadoComponent {
   @Input() width: string = '700px';
   @Input() localHospital!: { lat: number, lng: number } //= {lat: -24.1241525, lng: -46.6868054}; //ponto B
   @Input() ambulancia!: Ambulancia;
+  @Output() estimativaStr = new EventEmitter<string>();
+  @Output() ultimaAtualizacao = new EventEmitter<string>();
 
   directionsResult: google.maps.DirectionsResult | undefined;
-  duration: string = '0 minutos';
   options: google.maps.DirectionsRendererOptions = {
-    suppressMarkers: true
+    suppressMarkers: true //remover marcadores padrão (A & B);
   }
 
   markerAmbulanciaClicked: boolean = false;
@@ -26,11 +27,11 @@ export class CaminhoAmbulanciaChamadoComponent {
   markerHospital!: google.maps.MarkerOptions;
 
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
-  constructor(private directionsService: MapDirectionsService,) {
+  constructor(private directionsService: MapDirectionsService) {
 
   }
   ngOnInit(): void {
-    this.getDirections({lat: this.ambulancia.latitude, lng: this.ambulancia.longitude}, this.localHospital);
+    this.getDirections({ lat: this.ambulancia.latitude, lng: this.ambulancia.longitude }, this.localHospital);
   }
 
   getDirections(from: google.maps.LatLngLiteral, to: google.maps.LatLngLiteral) {
@@ -42,6 +43,7 @@ export class CaminhoAmbulanciaChamadoComponent {
 
     this.directionsService.route(request).subscribe({
       next: (res) => {
+        //aplica informações da localização dos pontos para marcadores personalizados
         let latA = Number(res.result?.routes[0].legs[0].start_location.lat()); //start posision
         let lngA = Number(res.result?.routes[0].legs[0].start_location.lng()); //start posision
         let latH = Number(res.result?.routes[0].legs[0].end_location.lat()); //end posision
@@ -60,22 +62,25 @@ export class CaminhoAmbulanciaChamadoComponent {
         };
 
         this.directionsResult = res.result;
-        if (res.result?.routes[0].legs[0].duration?.text)
-          this.duration = res.result?.routes[0].legs[0].duration?.text;
+
+        //retornar estimativa no output
+        if (res.result?.routes[0].legs[0].duration) {
+          this.estimativaStr.emit(res.result?.routes[0].legs[0].duration.text);
+        }
       }
     })
   }
 
-  showInfo(marker: MapMarker, markerName: string){
-    if(markerName == 'hospital'){
+  showInfo(marker: MapMarker, markerName: string) {
+    if (markerName == 'hospital') {
       this.infoWindow.options = {
-        content : `
+        content: `
           <h6 class="m-0">Dados do hospital</h6>
         `,
       }
-    } else if (markerName == 'ambulancia'){
+    } else if (markerName == 'ambulancia') {
       this.infoWindow.options = {
-        content : `
+        content: `
         <h6 class="m-0">Dados da ambulância
         `,
       }
