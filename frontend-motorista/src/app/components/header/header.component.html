@@ -1,10 +1,6 @@
 <header id="header">
   <div class="items h-100 d-flex justify-content-between w-100">
 
-    <button class="btn btn-outline-dark hamb-toggle" data-bs-toggle="offcanvas" data-bs-target="#menuOffcanvas">
-      <span class="material-symbols-outlined font-40">menu</span>
-    </button>
-
     <div class="d-flex flex-column justify-content-center align-items-center mx-3 teste">
       <div class="aviso">
         <div class="bolinha">
@@ -38,87 +34,3 @@
 
   </div>
 </header>
-<div class="offcanvas offcanvas-start" tabindex="-1" id="menuOffcanvas">
-  <button type="button" class="btn-close align-self-end" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  <h4 class="text-center mt-3">LSL - Live Saver Locator</h4>
-
-  <div class="items mt-5">
-    <div class="items py-4 px-3 mt-0">
-      <div class="item mat-elevation-z2 gap-5" routerLink="dashboard" routerLinkActive="active-panel" data-bs-dismiss="offcanvas">
-        <span class="material-symbols-outlined">dashboard</span>
-        <span>Dashboard</span>
-      </div>
-
-      <br>
-
-      <mat-accordion>
-
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
-          <mat-expansion-panel-header class="m-0">
-            <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
-              <span class="material-symbols-outlined"> ambulance</span>
-              <span>Ambulância</span>
-            </mat-panel-title>
-
-          </mat-expansion-panel-header>
-          <div class="nav-item gap-4 my-2" routerLink="ambulancias/listar-ambulancias" routerLinkActive="active" data-bs-dismiss="offcanvas">
-            <span class="material-symbols-outlined">list</span>
-            <span>Listar ambulâncias</span>
-          </div>
-          <div class="nav-item gap-4 my-2" routerLink="ambulancias/nova-ambulancia" routerLinkActive="active" data-bs-dismiss="offcanvas">
-            <span class="material-symbols-outlined">add</span>
-            <span>Nova ambulância</span>
-          </div>
-
-        </mat-expansion-panel>
-
-        <br>
-
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
-          <mat-expansion-panel-header class="m-0">
-            <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary">
-              <span class="material-symbols-outlined">medical_information</span>
-              <span>Chamado</span>
-            </mat-panel-title>
-
-          </mat-expansion-panel-header>
-          <div class="nav-item gap-4 my-2" routerLink="chamados/listar-chamados" routerLinkActive="active" data-bs-dismiss="offcanvas">
-            <span class="material-symbols-outlined">list</span>
-            <span>Listar chamados</span>
-          </div>
-          <div class="nav-item gap-4 my-2" routerLink="chamados/novo-chamado" routerLinkActive="active" data-bs-dismiss="offcanvas">
-            <span class="material-symbols-outlined">add</span>
-            <span>Novo chamado</span>
-          </div>
-
-        </mat-expansion-panel>
-
-        <br>
-
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" routerLinkActive="active-panel">
-          <mat-expansion-panel-header class="m-0">
-            <mat-panel-title class="m-0 d-flex gap-5 p-2 text-lsl-primary" >
-              <span class="material-symbols-outlined">people</span>
-              <span>Usuário</span>
-            </mat-panel-title>
-
-          </mat-expansion-panel-header>
-          <div class="nav-item gap-4 my-2" routerLink="usuarios/listar-usuarios" routerLinkActive="active" data-bs-dismiss="offcanvas">
-            <span class="material-symbols-outlined">list</span>
-            <span>Listar usuários</span>
-          </div>
-          <div class="nav-item gap-4 my-2" routerLink="usuarios/novo-usuario" routerLinkActive="active" data-bs-dismiss="offcanvas">
-            <span class="material-symbols-outlined">add</span>
-            <span>Novo usuário</span>
-          </div>
-
-        </mat-expansion-panel>
-
-      </mat-accordion>
-    </div>
-  </div>
-
-  <div class="footer-menu">
-
-  </div>
-</div>
