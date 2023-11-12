@@ -86,4 +86,34 @@ section#login {
     height: 400px;
     width: 400px;
   }
+
+  @media only screen and (max-width: 1000px)
+  {
+    .login_img
+    {
+      display: none;
+    }
+
+    .login_container
+    {
+      width: 350px !important;
+      display: block;
+    }
+
+    .login_inputs
+    {
+      width: 100%!important;
+    }
+  }
+
+  @media only screen and (max-width: 400px)
+  {
+    .login_container
+    {
+      width: 280px !important;
+    }
+  }
+
 }
+
+
