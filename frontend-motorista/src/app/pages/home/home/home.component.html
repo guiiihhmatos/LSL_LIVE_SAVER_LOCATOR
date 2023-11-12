@@ -1,6 +1,44 @@
 <section id="novo-usuario">
 
-  <div class="chamado">
+  <div class="chamado" *ngFor="let c of chamados">
+
+    <div class="titulo">
+      <h2>Chamado - {{ c.id.toString().length < 4 ? '0000'.slice(c.id.toString().length) + c.id : c.id }}</h2>
+    </div>
+
+    <div class="d-flex flex-column justify-content-center align-items-center h-75">
+
+      <div class="d-flex justify-content-around align-items-center w-100">
+        <p class="ocorrencia">{{ c.ocorrencia }}</p>
+        <div [class]="class" id="tipo">
+          <span class="material-symbols-outlined" id="icone"> emergency_home </span>
+        </div>
+      </div>
+
+      <h2>{{ c.dataInicioChamado | date: 'dd/MM/yyyy HH:mm'}}</h2>
+      <h2>{{ c.tipoEmergencia }}</h2>
+      <h2>{{ c.estadoChamado }}</h2>
+
+    </div>
+
+    <div class="d-flex w-100">
+      <div class="d-flex justify-content-start align-items-center w-50">
+        <p class="text-center">{{ c.dataInicioChamado | date: 'dd/MM/yyyy HH:mm'}}</p>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center w-50">
+        <button class="d-flex justify-content-center align-items-center btn btn-primary">
+          <span class="material-symbols-outlined">distance</span>
+        </button>
+
+        <button class="d-flex justify-content-center align-items-center btn btn-success mx-3">
+          <span class="material-symbols-outlined">
+            task_alt
+          </span>
+        </button>
+      </div>
+    </div>
+
 
   </div>
 

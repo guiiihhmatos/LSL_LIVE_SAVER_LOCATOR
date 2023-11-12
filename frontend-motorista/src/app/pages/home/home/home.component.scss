@@ -4,4 +4,64 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 350px;
+  height: 400px;
+  background-color: white;
+  border-radius: 10px;
+
+  .ocorrencia
+  {
+    text-align: justify;
+    font-size: 16px;
+  }
+
+  .tipo
+  {
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .titulo
+  {
+    text-align: center;
+    color: white;
+    background-color: #0064b0;
+    border-radius: 10px 10px 0 0;
+    padding: 5px 0;
+  }
+
+
+  .font-tipo-red
+  {
+    background-color: rgb(255, 94, 94);
+  }
+
+  .font-tipo-orange
+  {
+    background-color: rgb(255, 185, 54);
+  }
+
+  .font-tipo-yellow
+  {
+    background-color: rgb(255, 255, 56);
+  }
+
+  .font-red
+  {
+    color: red;
+  }
+
+  .font-orange
+  {
+    color: orange;
+  }
+
+  .font-yellow
+  {
+    color: yellow;
+  }
 }
+
