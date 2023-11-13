@@ -17,31 +17,35 @@ export class ListarUsuariosComponent {
 
   usuarios: Usuario[] = [];
   tableUsuarios = new MatTableDataSource<Usuario>();
+  pagination = {
+    page: 0,
+    size: 5,
+    sort: "id",
+  };
+  pageAtual = this.pagination.page;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private usuarioService: UsuarioService, private rota: Router) {}
 
   ngOnInit(): void {
-    this.getAllUsuarios(0, 5, 'id,asc');
+    this.getAllUsuarios(this.pagination);
   }
   ngAfterViewInit(): void {
     this.tableUsuarios.sort = this.sort;
     this.tableUsuarios.paginator = this.paginator;
   }
 
-  getAllUsuarios(page: number, size: number, sort: string) {
+  getAllUsuarios({page, size, sort}:{page: number, size: number, sort: string}) {
     this.usuarioService.getAllUsuarios(page, size, sort).subscribe({
       next: (res: any) => {
         this.usuarios = res.content as Usuario[];
-        this.usuarios.forEach( (usuario, i) => {
-          if(usuario.role == 'USER_AMBULANCIA'){
-            this.usuarios.splice(i,1);
-          }
-        })
         this.tableUsuarios = new MatTableDataSource<Usuario>(this.usuarios);
         this.tableUsuarios.sort = this.sort;
-        this.tableUsuarios.paginator = this.paginator;
+        // this.tableUsuarios.paginator = this.paginator;
+        this.paginator.pageIndex = res.number;
+        this.paginator.pageSize = res.size;
+        this.paginator.length = res.totalElements;
       },
     });
   }
@@ -77,5 +81,15 @@ export class ListarUsuariosComponent {
 
   filterUsuario(value: string) {
     this.tableUsuarios.filter = value.trim().toLowerCase();
+  }
+
+  page(value: any) {
+    this.pagination = {
+      page: value.pageIndex,
+      size: value.pageSize,
+      sort: 'id'
+    }
+
+    this.getAllUsuarios(this.pagination);
   }
 }

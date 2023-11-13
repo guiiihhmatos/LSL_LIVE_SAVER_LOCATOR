@@ -21,7 +21,21 @@ export class UsuarioService {
       .set('page', page.toString())
       .set('size', size.toString())
       .set('sort', sort);
-    return this.http.get<any>(this.API, {headers: this.setHeaders(), params});
+    return this.http.get<any>(this.API, {headers: this.setHeaders(), params}).pipe(
+
+      //aplicar gambiarra no pagination
+      map((res) => {
+        let aux = res.content as any[]
+        aux.forEach((usuario, i) => {
+            if(usuario.role == 'USER_AMBULANCIA'){
+              aux.splice(i,1);
+            }
+        });
+        res.content = aux;
+        res.totalElements = aux.length
+        return res;
+      })
+    );
   }
 
   saveUsuario(usuario: Usuario): Observable<Usuario> {

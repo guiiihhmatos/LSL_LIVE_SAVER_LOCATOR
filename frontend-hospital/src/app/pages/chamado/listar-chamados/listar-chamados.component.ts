@@ -16,39 +16,45 @@ export class ListarChamadosComponent {
   columnsChamados = ['id', 'data', 'estado', 'ocorrencia', 'emergencia', 'view', 'edit'];
   chamados: Chamado[] = [];
   tableChamados: MatTableDataSource<Chamado> = new MatTableDataSource<Chamado>();
+  pagination = {
+    page: 0,
+    size: 5,
+    sort: "id",
+  };
+  pageAtual = this.pagination.page;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor
-  (
-    private chamadoService: ChamadoService,
-    private rota: Router
-  ) {}
+    (
+      private chamadoService: ChamadoService,
+      private rota: Router
+    ) { }
 
   ngOnInit(): void {
-    this.getAllChamados(0, 5, 'id,asc');
+    this.getAllChamados(this.pagination);
   }
 
   ngAfterViewInit() {
-    // Conecte o paginator e sort ao MatTableDataSource
-    this.tableChamados.paginator = this.paginator;
-    this.tableChamados.sort = this.sort;
+
   }
 
-  // No seu componente Angular
-  getAllChamados(page: number, size: number, sort: string) {
+  getAllChamados({page, size, sort}:{page: number, size: number, sort: string}) {
     this.chamadoService.getAllChamados(page, size, sort).subscribe({
-    next: (res: any) => {
-      this.chamados = res.content as Chamado[];
-      this.tableChamados.data = this.chamados;
-    }
-  });
-}
+      next: (res: any) => {
+        this.chamados = res.content as Chamado[];
+        this.tableChamados.data = this.chamados;
+        this.paginator.pageIndex = res.number;
+        this.paginator.pageSize = res.size;
+        this.paginator.length = res.totalElements;
+      }
+    });
+  }
 
 
   redirectDetails(chamado: Chamado) {
-    this.rota.navigate(['chamados/detalhes-chamado'], {state: {chamado}})
+    this.rota.navigate(['chamados/detalhes-chamado'], { state: { chamado } })
   }
 
   redirectEdit(chamado: Chamado) {
@@ -57,5 +63,15 @@ export class ListarChamadosComponent {
 
   filterChamados(value: string) {
     this.tableChamados.filter = value.trim().toLowerCase();
+  }
+
+  page(value: any) {
+    this.pagination = {
+      page: value.pageIndex,
+      size: value.pageSize,
+      sort: 'id'
+    }
+
+    this.getAllChamados(this.pagination);
   }
 }

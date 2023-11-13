@@ -17,26 +17,33 @@ export class ListarAmbulanciasComponent {
 
   ambulancias: Ambulancia[] = [];
   tableAmbulancias = new MatTableDataSource<Ambulancia>();
+  pagination = {
+    page: 0,
+    size: 5,
+    sort: "id",
+  };
+  pageAtual = this.pagination.page;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private ambulanciaService: AmbulanciaService, private rota: Router) {}
 
   ngOnInit(): void {
-    this.getAllAmbulancias(0, 5, 'id,asc');
+    this.getAllAmbulancias(this.pagination);
   }
   ngAfterViewInit(): void {
-    // this.tableAmbulancias.sort = this.sort;
-    // this.tableAmbulancias.paginator = this.paginator;
+
   }
 
-  getAllAmbulancias(page: number, size: number, sort: string) {
+  getAllAmbulancias({page, size, sort}:{page: number, size: number, sort: string}) {
     this.ambulanciaService.getAllAmbulancias(page, size, sort).subscribe({
       next: (res) => {
         this.ambulancias = res.content as Ambulancia[];
         this.tableAmbulancias = new MatTableDataSource<Ambulancia>(this.ambulancias);
         this.tableAmbulancias.sort = this.sort;
-        this.tableAmbulancias.paginator = this.paginator;
+        this.paginator.pageIndex = res.number;
+        this.paginator.pageSize = res.size;
+        this.paginator.length = res.totalElements;
       },
     });
   }
@@ -51,5 +58,15 @@ export class ListarAmbulanciasComponent {
 
   filterAmbulancia(value: string) {
     this.tableAmbulancias.filter = value.trim().toLowerCase();
+  }
+
+  page(value: any) {
+    this.pagination = {
+      page: value.pageIndex,
+      size: value.pageSize,
+      sort: 'id'
+    }
+
+    this.getAllAmbulancias(this.pagination);
   }
 }

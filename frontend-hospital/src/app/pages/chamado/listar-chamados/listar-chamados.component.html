@@ -44,7 +44,7 @@
       <tr mat-row *matRowDef="let row; columns: columnsChamados;"></tr>
     </table>
     <hr class="m-0">
-    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+    <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" (page)="page($event)"></mat-paginator>
   </div>
   <div class="action d-flex justify-content-end w-80 align-self-center mt-3">
     <button id="new" class="btn btn-primary" routerLink="../novo-chamado">Novo Chamado</button>

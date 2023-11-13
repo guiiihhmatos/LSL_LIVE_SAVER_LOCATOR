@@ -18,19 +18,26 @@ export class ListarMotoristaComponent {
   motorista: Motorista[] = [];
   tableMotorista = new MatTableDataSource<Motorista>();
 
+  pagination = {
+    page: 0,
+    size: 5,
+    sort: "id",
+  };
+  pageAtual = this.pagination.page;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(private motoristaService: MotoristaService, private rota: Router) {}
 
   ngOnInit(): void {
-    this.getAllmotorista(0, 5, 'id,asc');
+    this.getAllmotorista(this.pagination);
   }
   ngAfterViewInit(): void {
     // this.tablemotorista.sort = this.sort;
-    this.tableMotorista.paginator = this.paginator;
+    // this.tableMotorista.paginator = this.paginator;
   }
 
-  getAllmotorista(page: number, size: number, sort: string) {
+  getAllmotorista({page, size, sort}:{page: number, size: number, sort: string}) {
     this.motoristaService.getAllMotoristas(page, size, sort).subscribe({
       next: (res) => {
         this.motorista = res.content as Motorista[];
@@ -42,7 +49,10 @@ export class ListarMotoristaComponent {
         })
         this.tableMotorista = new MatTableDataSource<Motorista>(this.motorista);
         this.tableMotorista.sort = this.sort;
-        this.tableMotorista.paginator = this.paginator;
+        // this.tableMotorista.paginator = this.paginator;
+        this.paginator.pageIndex = res.number;
+        this.paginator.pageSize = res.size;
+        this.paginator.length = res.totalElements;
       },
     });
   }
@@ -78,5 +88,15 @@ export class ListarMotoristaComponent {
 
   filterMotorista(value: string) {
     this.tableMotorista.filter = value.trim().toLowerCase();
+  }
+
+  page(value: any) {
+    this.pagination = {
+      page: value.pageIndex,
+      size: value.pageSize,
+      sort: 'id'
+    }
+
+    this.getAllmotorista(this.pagination);
   }
 }
