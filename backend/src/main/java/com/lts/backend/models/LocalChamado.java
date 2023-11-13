@@ -1,5 +1,7 @@
 package com.lts.backend.models;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,4 +39,10 @@ public class LocalChamado {
 	
 	@Column(name = "nr_cep")
 	private String cep;
+	
+	@Column(name = "latitude", columnDefinition = "DECIMAL(10, 8)")
+	private BigDecimal latitude;
+	
+	@Column(name = "longitude", columnDefinition = "DECIMAL(10, 8)")
+	private BigDecimal longitude;
 }

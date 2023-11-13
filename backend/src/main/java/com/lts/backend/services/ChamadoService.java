@@ -81,6 +81,8 @@ public class ChamadoService {
         localChamado.setCidade(chamadoDTO.getLocalChamado().getCidade());
         localChamado.setEstado(chamadoDTO.getLocalChamado().getEstado());
         localChamado.setNumero(chamadoDTO.getLocalChamado().getNumero());
+        localChamado.setLatitude(chamadoDTO.getLocalChamado().getLatitude());
+        localChamado.setLongitude(chamadoDTO.getLocalChamado().getLongitude());
 
         localChamadoService.salvarLocal(localChamado);
         chamado.setLocalChamado(localChamado);
@@ -138,6 +140,8 @@ public class ChamadoService {
         localChamado.setCidade(chamadoDTO.getLocalChamado().getCidade());
         localChamado.setEstado(chamadoDTO.getLocalChamado().getEstado());
         localChamado.setNumero(chamadoDTO.getLocalChamado().getNumero());
+        localChamado.setLatitude(chamadoDTO.getLocalChamado().getLatitude());
+        localChamado.setLongitude(chamadoDTO.getLocalChamado().getLongitude());
 
         localChamadoService.salvarLocal(localChamado);
 

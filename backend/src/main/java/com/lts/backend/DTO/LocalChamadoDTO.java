@@ -1,5 +1,7 @@
 package com.lts.backend.DTO;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -14,6 +16,8 @@ public class LocalChamadoDTO {
 	private String cidade;
 	private String estado;
 	private String cep;
+	private BigDecimal latitude;
+	private BigDecimal longitude;
 	@JsonIgnore
     private ChamadoDTO Chamado;
 }
