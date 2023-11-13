@@ -105,11 +105,11 @@ export class CaminhoAmbulanciaChamadoComponent {
     } else if (markerName == 'ambulancia') {
       let p1 = this.ambulancia.placa.slice(0,3);
       let p2 = this.ambulancia.placa.slice(3,7);
-      let placa = p1+'-'+p2
+      let placa = p1+'-'+p2;
       this.infoWindow.options = {
         content: `
         <span class="m-0">Placa: <strong class="fw-bold"> ${placa}</strong></span><br>
-        <span class="m-0">Motorista: <strong class="fw-bold">${this.ambulancia?.motorista.nome}</strong></span>
+        <span class="m-0">Motorista: <strong class="fw-bold">${this.ambulancia?.motorista?.nome || ''}</strong></span>
         `,
       }
     } else if (markerName == 'chamado') {

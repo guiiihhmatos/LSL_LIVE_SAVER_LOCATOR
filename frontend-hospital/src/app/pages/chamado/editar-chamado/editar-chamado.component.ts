@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
@@ -19,20 +19,23 @@ export class EditarChamadoComponent {
   ambulanciasSalvas: Ambulancia[] = [];
   tiposEmergencia: string[] = [];
   estadosChamado: string[] = [];
-  passedChamado : Chamado;
+  passedChamado: Chamado;
 
+  autocomplete: google.maps.places.Autocomplete | undefined;
+
+  @ViewChild('mapsSearch', { static: true }) search!: ElementRef;
   constructor(
     private fb: FormBuilder,
     private chamadoService: ChamadoService,
-    private ambulanciaService : AmbulanciaService,
-    private cepService : CepService,
+    private ambulanciaService: AmbulanciaService,
+    private cepService: CepService,
     private rota: Router
   ) {
     this.passedChamado = history.state.chamado;
     this.ambulanciasSalvas = this.passedChamado.ambulancias;
 
     this.formChamado = fb.group({
-      id:[null, Validators.required],
+      id: [null, Validators.required],
       ocorrencia: [null, [Validators.required]],
       estadoChamado: ["A_CAMINHO", [Validators.required]],
       localChamado: fb.group({
@@ -41,18 +44,20 @@ export class EditarChamadoComponent {
         numero: [null],
         cidade: [null, [Validators.required]],
         estado: [null, [Validators.required]],
-        cep: [null, [Validators.required]]
+        cep: [null, [Validators.required]],
+        latitude: [null],
+        longitude: [null],
       }),
       tipoEmergencia: ["", [Validators.required]],
       ambulanciaIds: [""],
     });
-    for(let tipo in TiposEmergencia){
-      if(isNaN(+tipo)){
+    for (let tipo in TiposEmergencia) {
+      if (isNaN(+tipo)) {
         this.tiposEmergencia.push(tipo);
       }
     }
-    for(let estado in EstadosChamado){
-      if(isNaN(+estado)){
+    for (let estado in EstadosChamado) {
+      if (isNaN(+estado)) {
         this.estadosChamado.push(estado);
       }
     }
@@ -60,7 +65,7 @@ export class EditarChamadoComponent {
 
   }
 
-  setValues(chamado: Chamado){
+  setValues(chamado: Chamado) {
 
     this.formChamado.patchValue({
       id: chamado.id,
@@ -76,22 +81,51 @@ export class EditarChamadoComponent {
     this.getAllAmbulanciasDisponiveis();
 
     this.formChamado.controls['ambulanciaIds'].valueChanges.subscribe(ambulancia => {
-      if(!this.ambulanciasSalvas.includes(ambulancia) && ambulancia != '') this.ambulanciasSalvas.push(ambulancia);
+      if (!this.ambulanciasSalvas.includes(ambulancia) && ambulancia != '') this.ambulanciasSalvas.push(ambulancia);
     })
   }
 
-  removerAmbulancia(ambulancia: Ambulancia){
-    this.formChamado.patchValue({ambulanciaIds: ''});
+  ngAfterViewInit(): void {
+    this.autocomplete = new google.maps.places.Autocomplete(this.search.nativeElement);
+
+    this.autocomplete.addListener('place_changed', () => {
+      const place = this.autocomplete?.getPlace();
+      const components = place?.address_components;
+
+      if (components) {
+        this.formChamado.patchValue({
+          localChamado: {
+            // numero: components[0].long_name,
+            endereco: components[0]?.long_name,
+            bairro: components[1]?.long_name,
+            cidade: components[2]?.long_name,
+            estado: components[3]?.long_name,
+            cep: components[5]?.long_name,
+            latitude: place?.geometry?.location?.lat(),
+            longitude: place?.geometry?.location?.lng(),
+          }
+        })
+      }
+
+    })
+  }
+
+  removerAmbulancia(ambulancia: Ambulancia) {
+    this.formChamado.patchValue({ ambulanciaIds: '' });
     this.ambulanciasSalvas.splice(this.ambulanciasSalvas.indexOf(ambulancia), 1);
     this.ambulanciasDisponiveis.push(ambulancia);
   }
 
   validateForm(form: FormGroup) {
+    const formLocalChamado = form.controls['localChamado'] as FormGroup;
+
     if (form.invalid) {
       Swal.fire({ icon: 'error', title: 'Peencha todos os campos' });
-    } else if (this.ambulanciasSalvas.length < 1){
-      Swal.fire({ icon: 'error', title: 'Relacione alguma ambulância disponível'});
-    }else {
+    } else if (this.ambulanciasSalvas.length < 1) {
+      Swal.fire({ icon: 'error', title: 'Relacione alguma ambulância disponível' });
+    } else if (!formLocalChamado.controls['latitude'] || !formLocalChamado.controls['longitude']) {
+      Swal.fire({ icon: 'error', title: 'Não foi possivel obter informações do local, tente buscar novamente' });
+    } else {
       this.editChamado(form.value);
     }
   }

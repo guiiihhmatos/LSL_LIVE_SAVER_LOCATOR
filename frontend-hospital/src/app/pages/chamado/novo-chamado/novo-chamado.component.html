@@ -28,12 +28,15 @@
         </div>
 
         <div formGroupName="localChamado">
+          <div class="form-group mt-3">
+            <label for="local">Procurar endereço</label>
+            <input type="text" name="local" id="local" class="form-control" placeholder="Busque o endereço sem o número" #mapsSearch>
+          </div>
 
           <div class="form-group row my-2">
             <div class="form-group col">
               <label for="cep" class="form-label">CEP:</label>
-              <input type="text" name="cep" id="cep" class="form-control" formControlName="cep"
-               (keyup)="getCep($any($event.target).value)" mask="00000-000" >
+              <input type="text" name="cep" id="cep" class="form-control" formControlName="cep" mask="00000-000" >
             </div>
             <div class="form-group col">
               <label for="endereco" class="form-label">Endereço:</label>
@@ -79,8 +82,9 @@
           </div>
         </div>
 
+
         <div class="action mt-3 d-flex flex-column align-items-center">
-          <button class="btn btn-primary" (click)="validateForm(formChamado)">Salvar</button>
+          <button class="btn btn-primary" type="button" (click)="validateForm(formChamado)">Salvar</button>
         </div>
       </form>
 

@@ -20,8 +20,8 @@ export class AuthService {
     return this.http.post<any>(this.API, data)
     .pipe(
       map(({token, usuario}) => {
-        this.cookie.set('cookie-token', btoa(token), { expires: 1/24 });
-        this.cookie.set('cookie-user-data', btoa(JSON.stringify(usuario)),  { expires: 1/24 });
+        this.cookie.set('cookie-token', btoa(token), { expires: 1/24, path: '/' },);
+        this.cookie.set('cookie-user-data', btoa(JSON.stringify(usuario)),  { expires: 1/24, path: '/' });
         return {token, usuario};
       })
     );
@@ -29,7 +29,8 @@ export class AuthService {
   }
 
   logout() {
-    this.cookie.deleteAll('');
+    this.cookie.delete('cookie-user-data')
+    this.cookie.delete('cookie-token')
     this.rota.navigate(['/login'])
   }
 

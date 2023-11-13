@@ -19,8 +19,8 @@ export class NovaAmbulanciaComponent {
   ) {
     this.formAmbulancia = fb.group({
       placa: [null, [Validators.required]],
-      latitude: [null, [Validators.required]],
-      longitude: [null, [Validators.required]],
+      latitude: [null],
+      longitude: [null],
       estadoAmbulancia: [EstadosAmbulancia[EstadosAmbulancia.DISPONIVEL], [Validators.required]],
     });
   }

@@ -40,8 +40,11 @@ export class LoginComponent {
       },
       error: (err) => {
         this.loadingSubmit = false;
-        if(err.status == 500)
-        Swal.fire({icon: 'error', title: 'Erro ao realizar login', text: err?.error?.message})
+        let msg = "";
+        if(err.status == 500) msg = "Login ou senha inválidos";
+        else msg = "Servidor offline";
+
+        Swal.fire({icon: 'error', title: 'Erro ao realizar login', text: msg});
       }
     })
   }

@@ -99,6 +99,7 @@
         <span>Ambulância: <strong>{{ambulancia.placa | mask: 'AAA-AAAA'}}</strong> </span>
         <span>Tempo estimado: <strong>{{tempoEstimado[i]}}</strong></span>
         <span>Motorista: <strong>{{ambulancia.motorista?.nome}}</strong></span>
+        <span>Status: <strong>{{passedChamado.estadoChamado.toString().replaceAll('_', ' ')}}</strong></span>
       </div>
       <app-caminho-ambulancia-chamado width=""
         [ambulancia]="ambulancia"
