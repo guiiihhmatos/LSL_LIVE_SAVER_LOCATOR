@@ -1,9 +1,10 @@
 package com.lts.backend.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,18 +18,22 @@ import com.lts.backend.exception.error.UserAlreadyExists;
 import com.lts.backend.models.Usuario;
 import com.lts.backend.models.UsuarioHospital;
 import com.lts.backend.repository.IUsuarioRepository;
+import com.lts.backend.repository.pagination.IUsuarioRepositoryPagination;
 
 @Service
 public class UsuarioService {
 	
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private IUsuarioRepositoryPagination usuarioRepositoryPagination;
 
 	@Autowired
 	private TokenService tokenService;
 	
-	public List<UsuarioHospital> findAll() {
-		return usuarioRepository.findAll();
+	public Page<UsuarioHospital> findAll(Pageable pageable) {
+		return usuarioRepositoryPagination.findAll(pageable);
 	}
 	
 	@Transactional
@@ -37,7 +42,7 @@ public class UsuarioService {
 	}
 
 	public LoginResponseUsuarioDTO login(AuthenticationDTO data) throws Exception {
-		UsuarioHospital usuario = usuarioRepository.findByLogin(data.login()).orElseThrow();
+		UsuarioHospital usuario = usuarioRepository.findByLogin(data.login()).orElseThrow(NotFoundUser::new);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if (!passwordEncoder.matches(data.password(), usuario.getPassword())) {
 			throw new Exception("Senha não confere");

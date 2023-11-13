@@ -23,25 +23,25 @@ export class ListarUsuariosComponent {
   constructor(private usuarioService: UsuarioService, private rota: Router) {}
 
   ngOnInit(): void {
-    this.getAllUsuarios();
+    this.getAllUsuarios(0, 5, 'id,asc');
   }
   ngAfterViewInit(): void {
-    // this.tableUsuarios.sort = this.sort;
+    this.tableUsuarios.sort = this.sort;
     this.tableUsuarios.paginator = this.paginator;
   }
 
-  getAllUsuarios() {
-    this.usuarioService.getAllUsuarios().subscribe({
-      next: (usuarios) => {
-        this.usuarios = usuarios;
+  getAllUsuarios(page: number, size: number, sort: string) {
+    this.usuarioService.getAllUsuarios(page, size, sort).subscribe({
+      next: (res: any) => {
+        this.usuarios = res.content as Usuario[];
         this.usuarios.forEach( (usuario, i) => {
-          if(usuario.role == 'USER_AMBULANCIA')
-          {
+          if(usuario.role == 'USER_AMBULANCIA'){
             this.usuarios.splice(i,1);
           }
         })
-        this.tableUsuarios = new MatTableDataSource<Usuario>(usuarios);
-        this.tableUsuarios.sort = this.sort
+        this.tableUsuarios = new MatTableDataSource<Usuario>(this.usuarios);
+        this.tableUsuarios.sort = this.sort;
+        this.tableUsuarios.paginator = this.paginator;
       },
     });
   }

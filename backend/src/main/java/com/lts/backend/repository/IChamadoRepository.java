@@ -12,11 +12,6 @@ import com.lts.backend.models.Chamado;
 
 public interface IChamadoRepository extends JpaRepository<Chamado, Long>{
 	
-	@Query("SELECT c FROM Chamado c LEFT JOIN FETCH c.ambulancias")
-    List<Chamado> findAllWithAmbulancias();
-	
-	@Query("SELECT c FROM Chamado c LEFT JOIN FETCH c.ambulancias")
-	Page<Chamado> findAll(Pageable pageable);
 
 	@Query("SELECT COUNT(c) FROM Chamado c "
 			+ "WHERE c.estadoChamado = 0")

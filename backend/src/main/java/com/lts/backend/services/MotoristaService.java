@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,12 +25,16 @@ import com.lts.backend.models.Usuario;
 import com.lts.backend.models.UsuarioHospital;
 import com.lts.backend.repository.IMotoristaRepository;
 import com.lts.backend.repository.IUsuarioRepository;
+import com.lts.backend.repository.pagination.IMotoristaRepositoryPagination;
 
 @Service
 public class MotoristaService {
 
 	@Autowired
 	private IMotoristaRepository motoristaRepository;
+	
+	@Autowired
+	private IMotoristaRepositoryPagination motoristaRepositoryPagination;
 	
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
@@ -42,8 +48,8 @@ public class MotoristaService {
 	@Autowired
 	private TokenService tokenService;
 
-	public List<Motorista> findAll() {
-		return motoristaRepository.findAll();
+	public Page<Motorista> findAll(Pageable pageable) {
+		return motoristaRepositoryPagination.findAll(pageable);
 	}
 
 	@Transactional
@@ -52,7 +58,7 @@ public class MotoristaService {
 	}
 
 	public LoginResponseMotoristaDTO login(AuthenticationMotoristaDTO data) throws Exception {
-		Motorista motorista = motoristaRepository.findByLogin(data.login()).orElseThrow();
+		Motorista motorista = motoristaRepository.findByLogin(data.login()).orElseThrow(NotFoundUser::new);
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if (!passwordEncoder.matches(data.password(), motorista.getPassword())) {
 			throw new Exception("Senha não confere");

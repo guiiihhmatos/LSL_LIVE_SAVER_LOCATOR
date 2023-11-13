@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,15 +15,19 @@ import com.lts.backend.DTO.MotoristaAmbulanciaDTO;
 import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.models.Ambulancia;
 import com.lts.backend.repository.IAmbulanciaRepository;
+import com.lts.backend.repository.pagination.IAmbulanciaRepositoryPagination;
 
 @Service
 public class AmbulanciaService {
 
     @Autowired
     private IAmbulanciaRepository ambulanciaRepository;
+    
+    @Autowired
+    private IAmbulanciaRepositoryPagination ambulanciaRepositoryPagination;
 
-    public List<Ambulancia> buscarTodas() {
-		return ambulanciaRepository.findAll();
+    public Page<Ambulancia> buscarTodas(Pageable pageable) {
+		return ambulanciaRepositoryPagination.findAll(pageable);
 	}
     
     public Optional<Ambulancia> buscarPorId(Long id)

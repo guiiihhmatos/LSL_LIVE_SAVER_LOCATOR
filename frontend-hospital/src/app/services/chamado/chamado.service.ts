@@ -15,13 +15,13 @@ export class ChamadoService {
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
-  getAllChamados(page: number, size: number, sort: string): Observable<Chamado[]> {
+  getAllChamados(page: number, size: number, sort: string): Observable<any> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', size.toString())
       .set('sort', sort);
 
-    return this.http.get<Chamado[]>(this.API, {headers: this.setHeaders()});
+    return this.http.get<any>(this.API, {headers: this.setHeaders(), params});
   }
 
   saveChamado(chamado: formChamado): Observable<Chamado> {

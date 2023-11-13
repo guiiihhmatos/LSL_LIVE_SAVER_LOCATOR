@@ -23,25 +23,26 @@ export class ListarMotoristaComponent {
   constructor(private motoristaService: MotoristaService, private rota: Router) {}
 
   ngOnInit(): void {
-    this.getAllmotorista();
+    this.getAllmotorista(0, 5, 'id,asc');
   }
   ngAfterViewInit(): void {
     // this.tablemotorista.sort = this.sort;
     this.tableMotorista.paginator = this.paginator;
   }
 
-  getAllmotorista() {
-    this.motoristaService.getAllMotoristas().subscribe({
-      next: (motorista) => {
-        this.motorista = motorista;
-        this.motorista.forEach( (Motorista, i) => {
-          if(Motorista.role == 'USER_AMBULANCIA')
+  getAllmotorista(page: number, size: number, sort: string) {
+    this.motoristaService.getAllMotoristas(page, size, sort).subscribe({
+      next: (res) => {
+        this.motorista = res.content as Motorista[];
+        this.motorista.forEach( (motorista, i) => {
+          if(motorista.role == 'USER_AMBULANCIA')
           {
             this.motorista.splice(i);
           }
         })
-        this.tableMotorista = new MatTableDataSource<Motorista>(motorista);
-        this.tableMotorista.sort = this.sort
+        this.tableMotorista = new MatTableDataSource<Motorista>(this.motorista);
+        this.tableMotorista.sort = this.sort;
+        this.tableMotorista.paginator = this.paginator;
       },
     });
   }

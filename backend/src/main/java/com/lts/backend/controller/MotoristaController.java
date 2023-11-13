@@ -1,8 +1,10 @@
 package com.lts.backend.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,10 +33,11 @@ public class MotoristaController {
 
 	@Autowired
 	private MotoristaService motoristaService;
+	
 
 	@GetMapping
-	public List<Motorista> buscarTodos() {
-		return motoristaService.findAll();
+	public Page<Motorista> buscarTodos(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+		return motoristaService.findAll(pageable);
 	}
 
 	@PostMapping("/login")

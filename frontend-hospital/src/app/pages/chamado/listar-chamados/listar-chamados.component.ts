@@ -27,7 +27,7 @@ export class ListarChamadosComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getAllChamados(1, 5, 'ocorrencia,asc');
+    this.getAllChamados(0, 5, 'id,asc');
   }
 
   ngAfterViewInit() {
@@ -40,7 +40,7 @@ export class ListarChamadosComponent {
   getAllChamados(page: number, size: number, sort: string) {
     this.chamadoService.getAllChamados(page, size, sort).subscribe({
     next: (res: any) => {
-      this.chamados = res.content;
+      this.chamados = res.content as Chamado[];
       this.tableChamados.data = this.chamados;
     }
   });

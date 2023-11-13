@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
@@ -15,8 +15,12 @@ export class AmbulanciaService {
 
   constructor(private http: HttpClient, private auth: AuthService) { }
 
-  getAllAmbulancias(): Observable<Ambulancia[]> {
-    return this.http.get<Ambulancia[]>(this.API, {headers: this.setHeaders()});
+  getAllAmbulancias(page: number, size: number, sort: string): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sort', sort);
+    return this.http.get<Ambulancia[]>(this.API, {headers: this.setHeaders(), params});
   }
 
   getAllAmbulanciasDisponiveis(): Observable<Ambulancia[]> {

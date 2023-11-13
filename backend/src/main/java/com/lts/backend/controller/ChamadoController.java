@@ -53,7 +53,7 @@ public class ChamadoController {
 	}
 	
 	@GetMapping()
-    public Page<Chamado> listarChamadosComOrdenacaoEPage(@PageableDefault(sort = "ocorrencia", direction = Sort.Direction.ASC) Pageable pageable) {
+    public Page<Chamado> listarChamadosComOrdenacaoEPage(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return chamadoService.listarChamadosComAmbulancias(pageable);
     }
 	

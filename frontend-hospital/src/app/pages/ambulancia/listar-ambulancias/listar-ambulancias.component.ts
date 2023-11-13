@@ -23,19 +23,20 @@ export class ListarAmbulanciasComponent {
   constructor(private ambulanciaService: AmbulanciaService, private rota: Router) {}
 
   ngOnInit(): void {
-    this.getAllAmbulancias();
+    this.getAllAmbulancias(0, 5, 'id,asc');
   }
   ngAfterViewInit(): void {
     // this.tableAmbulancias.sort = this.sort;
-    this.tableAmbulancias.paginator = this.paginator;
+    // this.tableAmbulancias.paginator = this.paginator;
   }
 
-  getAllAmbulancias() {
-    this.ambulanciaService.getAllAmbulancias().subscribe({
-      next: (ambulancias) => {
-        this.ambulancias = ambulancias;
-        this.tableAmbulancias = new MatTableDataSource<Ambulancia>(ambulancias);
-        this.tableAmbulancias.sort = this.sort
+  getAllAmbulancias(page: number, size: number, sort: string) {
+    this.ambulanciaService.getAllAmbulancias(page, size, sort).subscribe({
+      next: (res) => {
+        this.ambulancias = res.content as Ambulancia[];
+        this.tableAmbulancias = new MatTableDataSource<Ambulancia>(this.ambulancias);
+        this.tableAmbulancias.sort = this.sort;
+        this.tableAmbulancias.paginator = this.paginator;
       },
     });
   }
