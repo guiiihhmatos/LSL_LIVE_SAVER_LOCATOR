@@ -19,6 +19,7 @@ export class CaminhoAmbulanciaChamadoComponent {
   @Output() ultimaAtualizacao = new EventEmitter<string>();
 
   directionsResult: google.maps.DirectionsResult | undefined;
+  directionsChamado: google.maps.DirectionsResult | undefined;
   options: google.maps.DirectionsRendererOptions = {
     suppressMarkers: true //remover marcadores padrão (A & B);
   }
@@ -27,21 +28,29 @@ export class CaminhoAmbulanciaChamadoComponent {
   markerHospitalClicked: boolean = false;
   markerAmbulancia!: google.maps.MarkerOptions;
   markerHospital!: google.maps.MarkerOptions;
+  markerChamado!: google.maps.MarkerOptions;
 
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
   constructor(private directionsService: MapDirectionsService) {
 
   }
   ngOnInit(): void {
-    this.getDirections({ lat: this.ambulancia.latitude, lng: this.ambulancia.longitude }, this.localHospital);
+    this.getDirections({ lat: this.ambulancia.latitude, lng: this.ambulancia.longitude }, this.localHospital, {lat: this.chamado.localChamado.latitude, lng: this.chamado.localChamado.longitude});
   }
 
-  getDirections(from: google.maps.LatLngLiteral, to: google.maps.LatLngLiteral) {
+  getDirections(ambulancia: google.maps.LatLngLiteral, hospital: google.maps.LatLngLiteral, chamado: google.maps.LatLngLiteral) {
     const request: google.maps.DirectionsRequest = {
-      origin: from,
-      destination: to,
+      origin: ambulancia,
+      destination: hospital,
       travelMode: google.maps.TravelMode.DRIVING
     };
+
+    const requestChamado: google.maps.DirectionsRequest = {
+      origin: ambulancia,
+      destination: chamado,
+      travelMode: google.maps.TravelMode.DRIVING
+    }
+
 
     this.directionsService.route(request).subscribe({
       next: (res) => {
@@ -63,6 +72,7 @@ export class CaminhoAmbulanciaChamadoComponent {
           title: 'hospital'
         };
 
+
         this.directionsResult = res.result;
 
         //retornar estimativa no output
@@ -71,26 +81,45 @@ export class CaminhoAmbulanciaChamadoComponent {
         }
       }
     })
+
+    this.directionsService.route(requestChamado).subscribe({
+      next: (res) => {
+        this.directionsChamado = res.result;
+        this.markerChamado = {
+          position: { lat: Number(chamado.lat), lng: Number(chamado.lng) },
+          // icon: 'assets/image/mark-ambulance.png',
+          clickable: true,
+          title: 'ambulancia',
+        };
+      }
+    })
   }
 
   showInfo(marker: MapMarker, markerName: string) {
     if (markerName == 'hospital') {
       this.infoWindow.options = {
         content: `
-          <h6 class="m-0">Dados do hospital</h6>
+          <span class="Santa" class="m-0">Santa Casa da Misericórdia de Santos</span>
         `,
       }
     } else if (markerName == 'ambulancia') {
+      let p1 = this.ambulancia.placa.slice(0,3);
+      let p2 = this.ambulancia.placa.slice(3,7);
+      let placa = p1+'-'+p2
       this.infoWindow.options = {
         content: `
-        <h6 class="m-0">Dados da ambulância
+        <span class="m-0">Placa: <strong class="fw-bold"> ${placa}</strong></span><br>
+        <span class="m-0">Motorista: <strong class="fw-bold">${this.ambulancia?.motorista.nome}</strong></span>
         `,
       }
-
+    } else if (markerName == 'chamado') {
+      this.infoWindow.options = {
+        content: `
+        <span class="m-0">${this.chamado.ocorrencia}</span>
+        `,
+      }
     }
 
-    this.infoWindow.open(
-      marker
-    )
+    this.infoWindow.open(marker);
   }
 }

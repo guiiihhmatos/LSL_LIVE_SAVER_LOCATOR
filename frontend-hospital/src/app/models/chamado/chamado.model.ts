@@ -9,8 +9,6 @@ export interface Chamado {
   dataInicioChamado: Date;
   dataFimChamado?: Date;
   ambulancias: Ambulancia[];
-  latitude?: number;
-  longitude?: number;
 }
 
 export interface formChamado {
@@ -25,11 +23,11 @@ export interface formChamado {
     cidade: string;
     estado: string;
     cep: string;
+    latitude?: number;
+    longitude?: number;
   };
   tipoEmergencia: TiposEmergencia;
   ambulanciaIds: number[];
-  latitude?: number;
-  longitude?: number;
 }
 
 export enum EstadosChamado {
@@ -53,4 +51,6 @@ export interface LocalChamado {
   estado: string;
   cep: string;
   chamado: string;
+  latitude: number;
+  longitude: number;
 }

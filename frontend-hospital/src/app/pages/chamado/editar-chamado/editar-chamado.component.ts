@@ -83,6 +83,7 @@ export class EditarChamadoComponent {
   removerAmbulancia(ambulancia: Ambulancia){
     this.formChamado.patchValue({ambulanciaIds: ''});
     this.ambulanciasSalvas.splice(this.ambulanciasSalvas.indexOf(ambulancia), 1);
+    this.ambulanciasDisponiveis.push(ambulancia);
   }
 
   validateForm(form: FormGroup) {

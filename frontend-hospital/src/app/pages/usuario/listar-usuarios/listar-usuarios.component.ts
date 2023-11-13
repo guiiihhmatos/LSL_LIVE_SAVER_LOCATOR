@@ -37,7 +37,7 @@ export class ListarUsuariosComponent {
         this.usuarios.forEach( (usuario, i) => {
           if(usuario.role == 'USER_AMBULANCIA')
           {
-            this.usuarios.splice(i);
+            this.usuarios.splice(i,1);
           }
         })
         this.tableUsuarios = new MatTableDataSource<Usuario>(usuarios);
