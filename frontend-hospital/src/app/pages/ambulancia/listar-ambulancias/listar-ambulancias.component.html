@@ -23,7 +23,7 @@
 
       <ng-container matColumnDef="estado">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Estado </th>
-        <td mat-cell *matCellDef="let ambulancia"> {{ambulancia.estadoAmbulancia}} </td>
+        <td mat-cell *matCellDef="let ambulancia" class="cursor-pointer fw-medium" [class]="setClass(ambulancia.estadoAmbulancia.toString())" (click)="alterarEstado(ambulancia)"> {{ambulancia.estadoAmbulancia}} </td>
       </ng-container>
 
       <ng-container matColumnDef="localizacao">

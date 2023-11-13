@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
+import { Ambulancia, EstadosAmbulancia } from 'src/app/models/ambulancia/ambulancia.model';
 import { environment } from 'src/environments/environments';
 import { Observable } from 'rxjs';
 
@@ -37,6 +37,10 @@ export class AmbulanciaService {
 
   getAmbulanciaById(idAmbulancia: number): Observable<Ambulancia> {
     return this.http.get<Ambulancia>(this.API + '/' + idAmbulancia, {headers: this.setHeaders()});
+  }
+
+  alterarEstadoAmbulancia(ambulancia: {id: number, estadoAmbulancia: EstadosAmbulancia | string}): Observable<Ambulancia>{
+    return this.http.patch<Ambulancia>(this.API+"/alterar-estado", ambulancia, {headers: this.setHeaders()});
   }
 
   // dashboard

@@ -60,6 +60,34 @@ export class ListarAmbulanciasComponent {
     this.tableAmbulancias.filter = value.trim().toLowerCase();
   }
 
+  setClass(estado: string){
+    if(estado == "DISPONIVEL"){
+      return 'text-success';
+    } else if (estado == "INATIVO"){
+      return 'text-danger';
+    } else {
+      return 'text-warning'
+    }
+  }
+
+  alterarEstado(ambulancia: Ambulancia){
+    const patch = {
+      id: ambulancia.id,
+      estadoAmbulancia: ambulancia.estadoAmbulancia
+    }
+    console.log(patch)
+
+    //criar um select para escolher o estado no swal
+    // Swal.fire({icon: 'warning', title:})
+
+    // this.ambulanciaService.alterarEstadoAmbulancia(patch).subscribe({
+    //   next: (res) => {
+    //     Swal.fire({icon: 'success', title: 'Estado da ambulância alterado com sucesso', timer: 3000, timerProgressBar: true})
+    //     .then(()=> window.location.reload);
+    //   }
+    // })
+  }
+
   page(value: any) {
     this.pagination = {
       page: value.pageIndex,

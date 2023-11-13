@@ -31,9 +31,9 @@ export class LocalizarAmbulanciaComponent {
     return this.ambulanciaService.getAmbulanciaById(idAmbulancia).subscribe({
       next: (res) => {
         this.ambulancia = res;
-        if(this.ambulancia.estadoAmbulancia == EstadosAmbulancia.DISPONIVEL){
+        if(this.ambulancia.estadoAmbulancia.toString() == "DISPONIVEL"){
           this.classEA = 'text-success';
-        } else if (this.ambulancia.estadoAmbulancia == EstadosAmbulancia.INATIVO){
+        } else if (this.ambulancia.estadoAmbulancia.toString() == "INATIVO"){
           this.classEA = 'text-danger';
         } else {
           this.classEA = 'text-warning'
