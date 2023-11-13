@@ -14,7 +14,8 @@ public interface IAmbulanciaRepository extends JpaRepository<Ambulancia, Long> {
     List<Ambulancia> findAllAmbulanciasDispMotorista();
 	
 	@Query("SELECT a FROM Ambulancia a "
-			+ "WHERE a.estadoAmbulancia = 1")
+			+ "WHERE a.estadoAmbulancia = 1"
+			+ "AND a.motorista IS NOT NULL")
     List<Ambulancia> findAllAmbulanciasDisp();
 
 	@Query("SELECT COUNT(a) FROM Ambulancia a "
