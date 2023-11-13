@@ -36,8 +36,6 @@ export class CaminhoAmbulanciaChamadoComponent {
 
   }
   ngOnInit(): void {
-    console.log(this.chamado.localChamado);
-
     this.getDirections({ lat: this.ambulancia.latitude, lng: this.ambulancia.longitude }, this.localHospital, {lat: this.chamado.localChamado.latitude, lng: this.chamado.localChamado.longitude});
   }
 
