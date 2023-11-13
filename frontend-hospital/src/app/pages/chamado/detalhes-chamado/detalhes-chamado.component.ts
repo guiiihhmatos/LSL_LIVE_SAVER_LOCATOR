@@ -61,7 +61,7 @@ export class DetalhesChamadoComponent {
   setTempoEstimado(event: string){
     if(this.passedChamado.estadoChamado.toString() == "A_CAMINHO"){
       this.tempoEstimado.push("Aguardando a ambulância retornar");
-    } else {
+    } else if (this.passedChamado.estadoChamado.toString() == "RETORNANDO"){
       this.tempoEstimado.push(event);
     }
   }

@@ -1,3 +1,4 @@
+import { LocalChamado } from './../../models/chamado/chamado.model';
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MapDirectionsService, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
@@ -35,6 +36,8 @@ export class CaminhoAmbulanciaChamadoComponent {
 
   }
   ngOnInit(): void {
+    console.log(this.chamado.localChamado);
+
     this.getDirections({ lat: this.ambulancia.latitude, lng: this.ambulancia.longitude }, this.localHospital, {lat: this.chamado.localChamado.latitude, lng: this.chamado.localChamado.longitude});
   }
 

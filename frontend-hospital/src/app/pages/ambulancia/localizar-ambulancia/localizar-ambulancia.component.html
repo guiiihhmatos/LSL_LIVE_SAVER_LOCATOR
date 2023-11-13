@@ -10,7 +10,7 @@
         <span class="material-symbols-outlined">reply</span>
       </button>
       <span>Placa: <strong>{{ambulancia.placa | mask : 'AAA-AAAA'}}</strong></span>
-      <span>Motorista: <strong>{{ambulancia.motorista}}</strong></span><!--rever motoristas-->
+      <span>Motorista: <strong>{{ambulancia.motorista.nome}}</strong></span><!--rever motoristas-->
       <span>Estado: <strong [class]="classEA">{{ambulancia.estadoAmbulancia}}</strong></span>
     </div>
     <!-- <div *ngIf="requestAmbulancia.closed" class="text-center d-flex justify-content-center align-items-center" style="height: 550px; background-color: rgb(214, 214, 214);">
