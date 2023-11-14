@@ -40,18 +40,29 @@ export class HomeComponent {
       next: (res: any) => {
         this.chamados = res;
 
-        if(this.chamados.length > 0){
-          this.valChamado = true
-          if(this.chamados[0].tipoEmergencia == TiposEmergencia.GRAVE)this.class = 'tipo font-tipo-red'
+        if(this.chamados.length > 0)this.valChamado = true
 
-          else if(this.chamados[0].tipoEmergencia == TiposEmergencia.MUITO_URGENTE) this.class = 'tipo font-tipo-orange'
-
-          else this.class = 'tipo font-tipo-yellow'
-        }
         else this.valChamado = false
-
       }
     });
+  }
+
+  setClass(tipoEmergencia: string){
+    if(tipoEmergencia == 'GRAVE') return 'tipo font-tipo-red'
+    else if (tipoEmergencia == "MUITO_URGENTE") return 'tipo font-tipo-orange'
+    return 'tipo font-tipo-yellow'
+  }
+
+  retornando(chamado: Chamado){
+    let obj = {id: chamado.id, estadoChamado: EstadosChamado[EstadosChamado.RETORNANDO]};
+    this.chamadoService.alteraEstadoChamado(obj).subscribe({
+      next: (res) => {
+        Swal.fire({title: 'Retornando ao hospital', timer: 3000, timerProgressBar: true}).then(() => window.location.reload())
+      },
+      error: (err) => {
+
+      }
+    })
   }
 
 
@@ -72,7 +83,7 @@ export class HomeComponent {
 
       if(res.isConfirmed)
       {
-        this.chamadoService.onFinishChamado(obj).subscribe(
+        this.chamadoService.alteraEstadoChamado(obj).subscribe(
           {
             next: () => {
               Swal.fire({

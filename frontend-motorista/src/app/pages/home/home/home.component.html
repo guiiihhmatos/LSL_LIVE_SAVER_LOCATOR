@@ -3,15 +3,16 @@
   <div class="chamado shadow" *ngFor="let c of chamados">
 
     <div class="titulo">
-      <h2>CHAMADO - {{ c.id.toString().length < 4 ? '0000'.slice(c.id.toString().length) + c.id : c.id }}</h2>
+      <h2>CHAMADO - {{ c.id.toString().padStart(4, "0") }}</h2>
     </div>
 
     <div class="d-flex justify-content-around align-items-center w-100 my-3">
       <div class="ocorrencia d-flex justify-content-center align-items-center">
         {{ c.ocorrencia }}
       </div>
-      <div [class]="class" id="tipo">
-        <span class="material-symbols-outlined" id="icone"> emergency_home </span>
+      <div [class]="setClass(c.tipoEmergencia.toString())" id="tipo">
+        <span class="material-symbols-outlined" id="icone"  matTooltip="{{c.tipoEmergencia.toString()}}"
+        matTooltipPosition="above"> emergency_home </span>
       </div>
     </div>
 
@@ -33,10 +34,14 @@
           {{ c.localChamado.endereco + ', ' + c.localChamado.numero }}
         </div>
       </div>
+      <div class="action mt-3" *ngIf="c.estadoChamado.toString() != 'RETORNANDO'">
+        <button class="btn btn-info fw-medium" (click)="retornando(c)"> RETORNANDO </button>
+      </div>
+
 
     </div>
 
-    <div class="d-flex w-100" style="margin-top: 100px;">
+    <div class="d-flex w-100 mt-5">
       <div class="d-flex justify-content-start align-items-center w-50 mx-2">
         <strong>{{ c.dataInicioChamado | date: 'dd/MM/yyyy HH:mm'}}</strong>
       </div>

@@ -18,10 +18,12 @@ export class ChamadoService {
     return this.http.get<Chamado[]>(this.API + `/motorista/${idMotorista}`, {headers: this.setHeaders()});
   }
 
-  onFinishChamado(obj: {id: number, estadoChamado: string})
+  alteraEstadoChamado(obj: {id: number, estadoChamado: string})
   {
     return this.http.patch(this.API + '/alterar-estado', obj ,{headers: this.setHeaders()})
   }
+
+
 
   private setHeaders(): HttpHeaders {
     let token = this.auth.getToken;

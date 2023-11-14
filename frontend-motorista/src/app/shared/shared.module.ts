@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CaminhoChamadiAmbulanciaComponent } from './caminho-chamadi-ambulancia/caminho-chamadi-ambulancia.component';
+import { MaterialModule } from './material/material.module';
 
 
 
@@ -10,6 +11,9 @@ import { CaminhoChamadiAmbulanciaComponent } from './caminho-chamadi-ambulancia/
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    MaterialModule
   ]
 })
 export class SharedModule { }
