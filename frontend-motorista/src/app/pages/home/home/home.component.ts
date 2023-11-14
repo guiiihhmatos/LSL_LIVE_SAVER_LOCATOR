@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { ChamadoService } from 'src/app/services/chamado/chamado.service';
 import { Motorista } from '../../../../../../frontend-hospital/src/app/models/motorista/motorista.model';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +23,8 @@ export class HomeComponent {
   constructor
   (
     private chamadoService : ChamadoService,
-    private authService : AuthService
+    private authService : AuthService,
+    private rota: Router,
   )
   {
     this.motorista = authService.getUser
@@ -60,11 +62,10 @@ export class HomeComponent {
         Swal.fire({title: 'Retornando ao hospital', timer: 3000, timerProgressBar: true}).then(() => window.location.reload())
       },
       error: (err) => {
-
+        console.error(err);
       }
     })
   }
-
 
   finalizarChamado(id:number)
   {
@@ -107,4 +108,9 @@ export class HomeComponent {
 
     });
   }
+
+  redirectToLocation(chamado: Chamado) {
+    this.rota.navigate(['home/localizacao'], {state: {chamado}})
+  }
+
 }

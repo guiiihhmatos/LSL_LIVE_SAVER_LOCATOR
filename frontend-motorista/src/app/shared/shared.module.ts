@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CaminhoChamadiAmbulanciaComponent } from './caminho-chamadi-ambulancia/caminho-chamadi-ambulancia.component';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { MaterialModule } from './material/material.module';
+import { CaminhoChamadoAmbulanciaComponent } from './caminho-chamado-ambulancia/caminho-chamado-ambulancia.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { NgxMaskPipe } from 'ngx-mask';
 
 
 
 @NgModule({
   declarations: [
-    CaminhoChamadiAmbulanciaComponent
+    CaminhoChamadoAmbulanciaComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    AsyncPipe,
+    GoogleMapsModule,
   ],
   exports: [
-    MaterialModule
+    MaterialModule,
+    CaminhoChamadoAmbulanciaComponent
   ]
 })
 export class SharedModule { }

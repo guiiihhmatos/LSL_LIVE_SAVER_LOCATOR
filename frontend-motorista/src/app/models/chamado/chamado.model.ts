@@ -23,6 +23,8 @@ export interface formChamado {
     cidade: string;
     estado: string;
     cep: string;
+    longitude: number;
+    latitude: number;
   };
   tipoEmergencia: TiposEmergencia;
   ambulanciasIds: number[];
@@ -49,4 +51,6 @@ export interface LocalChamado {
   estado: string;
   cep: string;
   chamado: string;
+  longitude: number;
+  latitude: number;
 }

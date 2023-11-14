@@ -1,0 +1,19 @@
+
+<div class="container mt-5 shadow bg-white p-3 d-flex flex-column" id="dc-1"
+    *ngFor="let ambulancia of passedChamado.ambulancias; let i = index;">
+    <h5 class="text-center">Localização em tempo real</h5>
+    <p class="text-center" style="color: gray;">ULTIMA ATUALIZAÇÂO: {{ultimaAtualizacao}}</p>
+    <div class="map p-0">
+      <div id="info-map" class="d-flex justify-content-between">
+        <span>Ambulância: <strong>{{ambulancia.placa | mask: 'AAA-AAAA'}}</strong> </span>
+        <span>Tempo estimado: <strong>{{tempoEstimado[i]}}</strong></span>
+        <span>Motorista: <strong>{{ambulancia.motorista?.nome}}</strong></span>
+        <span>Status: <strong>{{passedChamado.estadoChamado.toString().replaceAll('_', ' ')}}</strong></span>
+      </div>
+      <app-caminho-chamado-ambulancia width=""
+        [ambulancia]="ambulancia"
+        [localHospital]="localHospital"
+        [chamado]="passedChamado"
+        (estimativaStr)="setTempoEstimado($event)"></app-caminho-chamado-ambulancia>
+    </div>
+  </div>

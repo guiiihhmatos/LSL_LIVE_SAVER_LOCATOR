@@ -6,7 +6,7 @@ export interface Ambulancia {
   latitude: number;
   longitude: number;
   estadoAmbulancia: EstadosAmbulancia;
-  motoristas?: any; /*futuramente classe usuario*/
+  motorista?: any; /*futuramente classe usuario*/
 }
 
 export enum EstadosAmbulancia {
