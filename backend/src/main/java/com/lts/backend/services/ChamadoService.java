@@ -159,17 +159,20 @@ public class ChamadoService {
         Chamado chamado = chamadoRepository.findById(estadoChamadoDTO.getId()).orElseThrow(NotFoundChamado::new);
         chamado.setEstadoChamado(estadoChamadoDTO.getEstadoChamado());
         
-        if(estadoChamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO)
-        {
-        	chamado.setDataFimChamado(new Date());
+        if (estadoChamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO) {
+            chamado.setDataFimChamado(new Date());
+
+            List<Ambulancia> ambulanciasToUpdate = new ArrayList<>();
 
             for (Ambulancia ambulancia : chamado.getAmbulancias()) {
-
-                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); 
+                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO();
                 estadoAmbulanciaDTO.setId(ambulancia.getId());
                 estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
-                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
+                ambulanciasToUpdate.add(ambulancia);
+            }
 
+            for (Ambulancia ambulancia : ambulanciasToUpdate) {
+                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
                 chamado.getAmbulancias().add(ambulancia);
             }
         }
