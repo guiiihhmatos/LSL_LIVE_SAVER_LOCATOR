@@ -172,10 +172,14 @@ public class ChamadoService {
             }
 
             for (Ambulancia ambulancia : ambulanciasToUpdate) {
+                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); // Corrigido aqui
+                estadoAmbulanciaDTO.setId(ambulancia.getId());
+                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
                 ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
                 chamado.getAmbulancias().add(ambulancia);
             }
         }
+
         
         chamadoRepository.save(chamado);
         return chamado;
