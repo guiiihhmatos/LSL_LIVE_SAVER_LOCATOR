@@ -21,8 +21,8 @@ export class AuthService {
     return this.http.post<any>(this.API+"/login", data)
     .pipe(
       map(({token, motorista}) => {
-        this.cookie.set('cookie-token', btoa(token), { expires: 1/24, path:'motorista' });
-        this.cookie.set('cookie-user-data', btoa(JSON.stringify(motorista)),  { expires: 1/24, path: 'motorista' });
+        this.cookie.set('cookie-token', btoa(token), { path:'motorista' });
+        this.cookie.set('cookie-user-data', btoa(JSON.stringify(motorista)), { path: 'motorista' });
         return {token, motorista};
       })
     );
