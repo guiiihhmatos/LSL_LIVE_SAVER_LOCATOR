@@ -1,5 +1,6 @@
 package com.lts.backend.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -108,31 +109,20 @@ public class ChamadoService {
                 chamado.getAmbulancias().add(ambulancia);
             }
         }
-
-        if(chamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO)
-        {
-            for (Long ambulanciaId : chamadoDTO.getAmbulanciaIds()) {
-                Ambulancia ambulancia = ambulanciaService.buscarPorId(ambulanciaId).orElse(null);
-                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); 
-                estadoAmbulanciaDTO.setId(ambulanciaId);
-                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
-                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
-
-                chamado.getAmbulancias().add(ambulancia);
-            }
+        
+        for (Long ambulanciaId : chamadoDTO.getAmbulanciaIds()) {
+            Ambulancia ambulancia = ambulanciaService.buscarPorId(ambulanciaId).orElse(null);
+//            EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); 
+//            estadoAmbulanciaDTO.setId(ambulanciaId);
+//            if(chamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO) {
+//            	estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
+//            }  else {
+//            	estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.OCUPADO);
+//            }
+//            ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
+            chamado.getAmbulancias().add(ambulancia);
         }
-        else
-        {
-            for (Long ambulanciaId : chamadoDTO.getAmbulanciaIds()) {
-                Ambulancia ambulancia = ambulanciaService.buscarPorId(ambulanciaId).orElse(null);
-                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); 
-                estadoAmbulanciaDTO.setId(ambulanciaId);
-                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.OCUPADO);
-                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
-
-                chamado.getAmbulancias().add(ambulancia);
-            }
-        }
+        
 
         chamado.setTipoEmergencia(chamadoDTO.getTipoEmergencia());
         chamado.setEstadoChamado(chamadoDTO.getEstadoChamado());
@@ -159,27 +149,13 @@ public class ChamadoService {
         Chamado chamado = chamadoRepository.findById(estadoChamadoDTO.getId()).orElseThrow(NotFoundChamado::new);
         chamado.setEstadoChamado(estadoChamadoDTO.getEstadoChamado());
         
-        if (estadoChamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO) {
-            chamado.setDataFimChamado(new Date());
-
-            List<Ambulancia> ambulanciasToUpdate = new ArrayList<>();
-
-            for (Ambulancia ambulancia : chamado.getAmbulancias()) {
-                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO();
-                estadoAmbulanciaDTO.setId(ambulancia.getId());
-                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
-                ambulanciasToUpdate.add(ambulancia);
-            }
-
-            for (Ambulancia ambulancia : ambulanciasToUpdate) {
-                EstadoAmbulanciaDTO estadoAmbulanciaDTO = new EstadoAmbulanciaDTO(); // Corrigido aqui
-                estadoAmbulanciaDTO.setId(ambulancia.getId());
-                estadoAmbulanciaDTO.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
-                ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
-                chamado.getAmbulancias().add(ambulancia);
-            }
-        }
-
+        chamado.getAmbulancias().forEach(amb -> {
+        	if(estadoChamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO) {
+        		amb.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
+        	} else {
+        		amb.setEstadoAmbulancia(EstadoAmbulancia.OCUPADO);
+        	}
+        });
         
         chamadoRepository.save(chamado);
         return chamado;

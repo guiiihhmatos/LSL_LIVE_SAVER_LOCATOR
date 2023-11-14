@@ -36,6 +36,8 @@ public class UsuarioController {
 	public Page<UsuarioHospital> buscarTodos(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 		return usuarioService.findAll(pageable);
 	}
+	
+	
 
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseUsuarioDTO> login(@RequestBody @Valid AuthenticationDTO data) throws Exception {
