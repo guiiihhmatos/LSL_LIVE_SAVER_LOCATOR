@@ -1,5 +1,5 @@
 import { Motorista } from './../../../../../frontend-hospital/src/app/models/motorista/motorista.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,12 +13,12 @@ import { Usuario } from 'src/app/models/usuario/usuario.model';
 })
 export class AuthService {
 
-  private readonly API = environment.apiUrl + "/motorista/login";
+  private readonly API = environment.apiUrl + "/motorista";
 
   constructor(private http: HttpClient, private cookie: CookieService, private rota: Router) { }
 
   login(data: {login: string, password: string}): Observable<any> {
-    return this.http.post<any>(this.API, data)
+    return this.http.post<any>(this.API+"/login", data)
     .pipe(
       map(({token, motorista}) => {
         this.cookie.set('cookie-token', btoa(token), { expires: 1/24, path:'motorista' });
@@ -29,9 +29,16 @@ export class AuthService {
 
   }
 
-  logout() {
-    this.cookie.deleteAll('motorista');
-    this.rota.navigate(['/login'])
+  logout(idMotorista: number) {
+    this.http.post<string>(this.API+"/logout", idMotorista, {headers: this.setHeaders()}).subscribe({
+      next: (res) => {
+        this.cookie.deleteAll('motorista');
+        this.rota.navigate(['/login'])
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 
   get getUser(): Motorista {
@@ -41,6 +48,13 @@ export class AuthService {
 
   get getToken(): string {
     return atob(this.cookie.get('cookie-token'));
+  }
+
+  private setHeaders(): HttpHeaders {
+    let token = this.getToken;
+    return new HttpHeaders()
+    .set('content-type', 'application/json')
+    .set('Authorization', `Bearer ${token}`);
   }
 
 }

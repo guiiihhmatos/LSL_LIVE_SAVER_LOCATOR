@@ -15,7 +15,7 @@ export class HeaderComponent {
     this.usuario = auth.getUser;
   }
 
-  logout(){
-    this.auth.logout();
+  logout(id: number){
+    this.auth.logout(id);
   }
 }

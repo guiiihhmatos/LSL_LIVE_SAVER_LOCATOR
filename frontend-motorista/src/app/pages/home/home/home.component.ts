@@ -40,23 +40,16 @@ export class HomeComponent {
       next: (res: any) => {
         this.chamados = res;
 
-        if(this.chamados.length > 0)
+        if(this.chamados.length > 0){
           this.valChamado = true
-        else
-          this.valChamado = false
+          if(this.chamados[0].tipoEmergencia == TiposEmergencia.GRAVE)this.class = 'tipo font-tipo-red'
 
-        if(this.chamados[0].tipoEmergencia == TiposEmergencia.GRAVE)
-        {
-          this.class = 'tipo font-tipo-red'
+          else if(this.chamados[0].tipoEmergencia == TiposEmergencia.MUITO_URGENTE) this.class = 'tipo font-tipo-orange'
+
+          else this.class = 'tipo font-tipo-yellow'
         }
-        else if(this.chamados[0].tipoEmergencia == TiposEmergencia.MUITO_URGENTE)
-        {
-          this.class = 'tipo font-tipo-orange'
-        }
-        else
-        {
-          this.class = 'tipo font-tipo-yellow'
-        }
+        else this.valChamado = false
+
       }
     });
   }
@@ -66,7 +59,7 @@ export class HomeComponent {
   {
     let obj = {
       id : id,
-      estado : EstadosChamado[EstadosChamado.FINALIZADO]
+      estadoChamado : EstadosChamado[EstadosChamado.FINALIZADO]
     }
     Swal.fire({
       icon: 'warning',

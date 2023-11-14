@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CaminhoChamadiAmbulanciaComponent } from './caminho-chamadi-ambulancia/caminho-chamadi-ambulancia.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    CaminhoChamadiAmbulanciaComponent
+  ],
   imports: [
     CommonModule
   ]

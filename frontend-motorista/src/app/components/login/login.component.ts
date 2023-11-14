@@ -30,7 +30,7 @@ export class LoginComponent {
       login: [null, [Validators.required]],
       password: [null, [Validators.required]],
       //idAmbulancia: [1, [Validators.required]],
-      idAmbulancia: [1]
+      idAmbulancia: ['', [Validators.required]]
     })
 
   }

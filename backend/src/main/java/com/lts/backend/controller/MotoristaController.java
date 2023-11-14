@@ -64,5 +64,11 @@ public class MotoristaController {
 		MotoristaDTO motoristaRemovido = motoristaService.removerMotorista(id);
 		return ResponseEntity.status(HttpStatus.ACCEPTED).body(motoristaRemovido);
 	}
+	
+	@PostMapping("/logout")
+	public ResponseEntity<Motorista> logout(@RequestBody Long id) throws Exception{
+		Motorista loggedOut = motoristaService.logout(id);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(loggedOut);
+	}
 
 }

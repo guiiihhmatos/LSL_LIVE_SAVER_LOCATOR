@@ -1,13 +1,17 @@
 package com.lts.backend.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.lts.backend.models.Ambulancia;
+import com.lts.backend.models.Motorista;
 
 public interface IAmbulanciaRepository extends JpaRepository<Ambulancia, Long> {
+	
+	Optional<Ambulancia> findByMotorista(Motorista motorista);
 	
 	@Query("SELECT a FROM Ambulancia a "
 			+ "WHERE a.motorista is null ")

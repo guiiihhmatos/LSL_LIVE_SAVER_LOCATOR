@@ -12,8 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lts.backend.DTO.AmbulanciaDTO;
 import com.lts.backend.DTO.EstadoAmbulanciaDTO;
 import com.lts.backend.DTO.MotoristaAmbulanciaDTO;
+import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.models.Ambulancia;
+import com.lts.backend.models.Motorista;
 import com.lts.backend.repository.IAmbulanciaRepository;
 import com.lts.backend.repository.pagination.IAmbulanciaRepositoryPagination;
 
@@ -29,6 +31,10 @@ public class AmbulanciaService {
     public Page<Ambulancia> buscarTodas(Pageable pageable) {
 		return ambulanciaRepositoryPagination.findAll(pageable);
 	}
+    
+    public Optional<Ambulancia> buscarPorMotorista(Motorista motorista) {
+    	return ambulanciaRepository.findByMotorista(motorista);
+    }
     
     public Optional<Ambulancia> buscarPorId(Long id)
 	{

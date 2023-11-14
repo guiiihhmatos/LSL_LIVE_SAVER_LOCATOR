@@ -11,14 +11,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lts.backend.DTO.AmbulanciaDTO;
 import com.lts.backend.DTO.AuthenticationMotoristaDTO;
 import com.lts.backend.DTO.LoginResponseMotoristaDTO;
 import com.lts.backend.DTO.MotoristaAmbulanciaDTO;
 import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.config.TokenService;
 import com.lts.backend.enums.Roles;
+import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.exception.error.NotFoundUser;
 import com.lts.backend.exception.error.UserAlreadyExists;
+import com.lts.backend.models.Ambulancia;
 import com.lts.backend.models.HistoricoMotoristaAmbulancia;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.models.Usuario;
@@ -140,6 +143,30 @@ public class MotoristaService {
 		motorista.setNome(motoristaOpt.get().getNome());
 		motoristaRepository.deleteById(idMotorista);
 		return motorista;
+	}
+	
+	@Transactional
+	public Motorista logout(Long idMotorista) throws Exception {
+		Optional<Motorista> motorista = motoristaRepository.findById(idMotorista);
+		if(motorista.isEmpty()) {
+			throw new NotFoundUser();
+		}
+		Optional<Ambulancia> ambulancia = ambulanciaService.buscarPorMotorista(motorista.get());
+		if(ambulancia.isEmpty()) {
+			throw new NotFoundAmbulancia();
+		}
+		ambulancia.get().setMotorista(null);
+		AmbulanciaDTO ambulanciaDTO = new AmbulanciaDTO();
+		ambulanciaDTO.setEstadoAmbulancia(ambulancia.get().getEstadoAmbulancia());
+		ambulanciaDTO.setId(ambulancia.get().getId());
+		ambulanciaDTO.setLatitude(ambulancia.get().getLatitude());
+		ambulanciaDTO.setLongitude(ambulancia.get().getLongitude());
+		ambulanciaDTO.setPlaca(ambulancia.get().getPlaca());
+		
+		ambulanciaService.editarAmbulancia(ambulanciaDTO);
+		
+		return motorista.get();
+		
 	}
 
 }
