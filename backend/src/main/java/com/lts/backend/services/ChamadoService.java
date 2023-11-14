@@ -149,6 +149,9 @@ public class ChamadoService {
         Chamado chamado = chamadoRepository.findById(estadoChamadoDTO.getId()).orElseThrow(NotFoundChamado::new);
         chamado.setEstadoChamado(estadoChamadoDTO.getEstadoChamado());
         
+        if(estadoChamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO) {
+        	chamado.setDataFimChamado(new Date());
+        }
         chamado.getAmbulancias().forEach(amb -> {
         	if(estadoChamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO) {
         		amb.setEstadoAmbulancia(EstadoAmbulancia.DISPONIVEL);
@@ -156,6 +159,7 @@ public class ChamadoService {
         		amb.setEstadoAmbulancia(EstadoAmbulancia.OCUPADO);
         	}
         });
+        
         
         chamadoRepository.save(chamado);
         return chamado;
