@@ -17,8 +17,9 @@
 
   .tipo
   {
-    height: 100px;
-    width: 100px;
+    height: 50px;
+    width: 50px;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,6 +34,11 @@
     padding: 5px 0;
   }
 
+  .localChamado
+  {
+    font-weight: 700;
+    font-size: 18px;
+  }
 
   .font-tipo-red
   {
@@ -49,19 +55,27 @@
     background-color: rgb(255, 255, 56);
   }
 
-  .font-red
-  {
-    color: red;
-  }
-
-  .font-orange
-  {
-    color: orange;
-  }
-
-  .font-yellow
-  {
-    color: yellow;
-  }
 }
 
+.aviso
+{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 350px;
+  height: 400px;
+
+  .icone
+  {
+    color: #c9c9c9;
+    font-size: 100px;
+  }
+
+  .titulo
+  {
+    color: #c9c9c9;
+    font-weight: 700;
+    font-size: 20px;
+  }
+}
