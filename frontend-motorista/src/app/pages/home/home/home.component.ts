@@ -6,6 +6,7 @@ import { ChamadoService } from 'src/app/services/chamado/chamado.service';
 import { Motorista } from '../../../../../../frontend-hospital/src/app/models/motorista/motorista.model';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,8 @@ export class HomeComponent {
   idMotorista : number
   motorista : Motorista
   class = 'tipo'
-  valChamado = false
+
+  private destroy$: Subject<void> = new Subject<void>();
 
   constructor
   (
@@ -31,23 +33,35 @@ export class HomeComponent {
     this.idMotorista = this.motorista.id
   }
 
-  ngOnInit()
-  {
-    this.getAllChamados(this.idMotorista)
+  ngOnInit() {
+    this.checkAndFetchChamados();
   }
 
-  getAllChamados(id : number) {
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
-      this.chamadoService.getChamadoByMotorista(id).subscribe({
+  checkAndFetchChamados() {
+    if (this.chamados.length === 0) {
+      this.getAllChamados(this.idMotorista);
+    }
+
+    setTimeout(() => {
+      if (!this.destroy$.isStopped) {
+        this.checkAndFetchChamados();
+      }
+    }, 10000);
+  }
+
+  getAllChamados(id: number) {
+    this.chamadoService.getChamadoByMotorista(id).subscribe({
       next: (res: any) => {
         this.chamados = res;
-
-        if(this.chamados.length > 0)this.valChamado = true
-
-        else this.valChamado = false
       }
     });
   }
+
 
   setClass(tipoEmergencia: string){
     if(tipoEmergencia == 'GRAVE') return 'tipo font-tipo-red'
@@ -94,7 +108,8 @@ export class HomeComponent {
                 timerProgressBar: true,
               })
 
-              this.valChamado = false
+              window.location.reload()
+
             }, error: (x) => {
               Swal.fire({
                 icon: 'error',
@@ -105,6 +120,8 @@ export class HomeComponent {
           }
         )
       }
+
+
 
     });
   }

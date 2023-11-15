@@ -1,4 +1,4 @@
-<section id="novo-usuario" *ngIf="valChamado">
+<section id="novo-usuario" *ngIf="chamados.length > 0">
 
   <div class="chamado shadow" *ngFor="let c of chamados">
 
@@ -34,28 +34,32 @@
           {{ c.localChamado.endereco + ', ' + c.localChamado.numero }}
         </div>
       </div>
-      <div class="action mt-3" *ngIf="c.estadoChamado.toString() != 'RETORNANDO'">
-        <button class="btn btn-info fw-medium" (click)="retornando(c)"> RETORNANDO </button>
-      </div>
-
 
     </div>
 
-    <div class="d-flex w-100 mt-5">
+    <div class="d-flex w-100" style="margin-top: 110px;">
       <div class="d-flex justify-content-start align-items-center w-50 mx-2">
         <strong>{{ c.dataInicioChamado | date: 'dd/MM/yyyy HH:mm'}}</strong>
       </div>
 
       <div class="d-flex justify-content-end align-items-center w-50">
-        <button class="d-flex justify-content-center align-items-center btn btn-primary" (click)="redirectToLocation(c)">
+        <button class="d-flex justify-content-center align-items-center btn btn-primary mx-1" matTooltip="MAPA" (click)="redirectToLocation(c)">
           <span class="material-symbols-outlined">distance</span>
         </button>
 
-        <button class="d-flex justify-content-center align-items-center btn btn-success mx-3" (click)="finalizarChamado(c.id)">
+        <button class="d-flex justify-content-center align-items-center btn btn-primary mx-1" *ngIf="c.estadoChamado.toString() != 'RETORNANDO' && c.estadoChamado.toString() != 'FINALIZADO'"
+          (click)="retornando(c)" matTooltip="RETORNAR">
           <span class="material-symbols-outlined">
+            ambulance
+          </span>
+        </button>
+
+        <button class="d-flex justify-content-center align-items-center btn btn-success mx-1" (click)="finalizarChamado(c.id)">
+          <span class="material-symbols-outlined" matTooltip="FINALIZAR">
             task_alt
           </span>
         </button>
+
       </div>
     </div>
 
@@ -65,7 +69,7 @@
 </section>
 
 
-<section id="novo-usuario" *ngIf="!valChamado">
+<section id="novo-usuario" *ngIf="chamados.length == 0">
   <div class="aviso d-flex flex-column justify-content-center align-items-center">
     <span class="material-symbols-outlined icone">
       error
