@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lts.backend.DTO.AuthenticationDTO;
 import com.lts.backend.DTO.LoginResponseUsuarioDTO;
 import com.lts.backend.DTO.UsuarioDTO;
+import com.lts.backend.DTO.UsuarioHospitalFilter;
 import com.lts.backend.config.TokenService;
 import com.lts.backend.exception.error.NotFoundUser;
 import com.lts.backend.exception.error.UserAlreadyExists;
@@ -19,6 +20,7 @@ import com.lts.backend.models.Usuario;
 import com.lts.backend.models.UsuarioHospital;
 import com.lts.backend.repository.IUsuarioRepository;
 import com.lts.backend.repository.pagination.IUsuarioRepositoryPagination;
+
 
 @Service
 public class UsuarioService {
@@ -33,7 +35,7 @@ public class UsuarioService {
 	private TokenService tokenService;
 	
 	public Page<UsuarioHospital> findAll(Pageable pageable) {
-		return usuarioRepositoryPagination.findAll(pageable);
+		return usuarioRepository.findAll(pageable);
 	}
 	
 	@Transactional
@@ -88,5 +90,9 @@ public class UsuarioService {
 		usuario.setPassword(encryptedPassword);
 		usuarioRepository.save(usuario);
 		return usuario;
+	}
+	
+	public Page<UsuarioHospitalFilter> filtrarUsuario(String value, Pageable pageable) throws Exception {
+		return  usuarioRepositoryPagination.filterAll(value, pageable);
 	}
 }

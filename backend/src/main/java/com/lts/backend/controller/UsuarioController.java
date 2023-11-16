@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lts.backend.DTO.AuthenticationDTO;
 import com.lts.backend.DTO.LoginResponseUsuarioDTO;
 import com.lts.backend.DTO.UsuarioDTO;
+import com.lts.backend.DTO.UsuarioHospitalFilter;
 import com.lts.backend.models.Usuario;
 import com.lts.backend.models.UsuarioHospital;
 import com.lts.backend.services.UsuarioService;
@@ -37,6 +39,10 @@ public class UsuarioController {
 		return usuarioService.findAll(pageable);
 	}
 	
+	@GetMapping("/filter/{value}")
+	public Page<UsuarioHospitalFilter> filtrarUsuario(@PathVariable("value") String value, @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) throws Exception {
+		return usuarioService.filtrarUsuario(value, pageable);
+	}
 	
 
 	@PostMapping("/login")
