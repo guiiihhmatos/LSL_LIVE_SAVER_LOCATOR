@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
 import { Chamado, EstadosChamado, TiposEmergencia } from 'src/app/models/chamado/chamado.model';
 import { environment } from 'src/environments/environments';
+import Swal from 'sweetalert2';
+
+
 
 @Component({
   selector: 'app-localizacao-chamado-ambulancia',
@@ -18,8 +21,9 @@ export class LocalizacaoChamadoAmbulanciaComponent {
   estadosChamado: string[] = [];
   ambulanciasSalvas: Ambulancia[] = [];
   page: number = 1;
-  tempoEstimado: string[] = [];
+  tempoEstimado: string = "";
   ultimaAtualizacao: string;
+  localizacaoAtual!: google.maps.LatLngLiteral;
 
   constructor(fb: FormBuilder, private rota: Router) {
     this.ultimaAtualizacao = new Date().getHours().toString().padStart(2, "0") +"H"+ new Date().getMinutes().toString().padStart(2, "0");
@@ -55,6 +59,16 @@ export class LocalizacaoChamadoAmbulanciaComponent {
   }
 
   ngOnInit(): void {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) =>{ // callback de sucesso
+          this.localizacaoAtual = {lat: position.coords.latitude, lng: position.coords.longitude}
+      },
+      function(error){ // callback de erro
+        Swal.fire({icon: 'error', title: 'Verfique se a localização está permitida', text: error.message});
+      });
+  } else {
+      Swal.fire({icon: 'error', title: 'Navegador não suporta Geolocalização!'});
+  }
     /*
     ===========================
           APLICAR IFs NAS ROTAS DE ACORDO COM O ESTADO DO CHAMADO
@@ -63,11 +77,12 @@ export class LocalizacaoChamadoAmbulanciaComponent {
   }
 
   setTempoEstimado(event: string){
-    if(this.passedChamado.estadoChamado.toString() == "A_CAMINHO"){
-      this.tempoEstimado.push("Aguardando a ambulância retornar");
-    } else if (this.passedChamado.estadoChamado.toString() == "RETORNANDO"){
-      this.tempoEstimado.push(event);
-    }
+    this.tempoEstimado = event;
+    // if(this.passedChamado.estadoChamado.toString() == "A_CAMINHO"){
+    //   this.tempoEstimado.push("Aguardando a ambulância retornar");
+    // } else if (this.passedChamado.estadoChamado.toString() == "RETORNANDO"){
+    //   this.tempoEstimado.push(event);
+    // }
   }
 
 

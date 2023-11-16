@@ -4,17 +4,16 @@
   <map-directions-renderer *ngIf="directionsResult" [directions]="directionsResult"
     [options]="options"></map-directions-renderer>
 
-  <map-directions-renderer *ngIf="directionsChamado" [directions]="directionsChamado"
-    [options]="options"></map-directions-renderer>
+  <!-- <map-directions-renderer *ngIf="directionsChamado && chamado.estadoChamado.toString() == 'A_CAMINHO'" [directions]="directionsChamado"
+    [options]="options"></map-directions-renderer> -->
 
-  <map-marker [options]="markerAmbulancia" id="marker-ambulancia" (mapClick)="showInfo(ambulancia, 'ambulancia')"
-    (mapMouseover)="showInfo(ambulancia, 'ambulancia')" #ambulancia="mapMarker"></map-marker>
+  <map-marker [options]="markerAmbulancia" id="marker-ambulancia"></map-marker>
 
-  <map-marker [options]="markerHospital" id="marker-hospital" (mapClick)="showInfo(hospital, 'hospital')"
-    (mapMouseover)="showInfo(hospital,'hospital')" #hospital="mapMarker"></map-marker>
+  <map-marker [options]="markerFinal" id="marker-hospital" (mapClick)="showInfo(hospitalMarker, 'hospital')"
+    (mapMouseover)="showInfo(hospitalMarker,'hospital')" #hospitalMarker="mapMarker"></map-marker>
 
-  <map-marker [options]="markerChamado" id="marker-hospital" (mapClick)="showInfo(hospital, 'hospital')"
-    (mapMouseover)="showInfo(chamado,'chamado')" #chamado="mapMarker"></map-marker>
+  <map-marker [options]="markerChamado" id="marker-hospital" (mapClick)="showInfo(chamadoMarker, 'hospital')"
+    (mapMouseover)="showInfo(chamadoMarker,'chamado')" #chamadoMarker="mapMarker"></map-marker>
 
   <map-info-window></map-info-window>
 

@@ -35,6 +35,7 @@ export class HomeComponent {
 
   ngOnInit() {
     this.checkAndFetchChamados();
+
   }
 
   ngOnDestroy() {
@@ -47,11 +48,11 @@ export class HomeComponent {
       this.getAllChamados(this.idMotorista);
     }
 
-    setTimeout(() => {
-      if (!this.destroy$.isStopped) {
-        this.checkAndFetchChamados();
-      }
-    }, 10000);
+    // setTimeout(() => {
+    //   if (!this.destroy$.isStopped) {
+    //     this.checkAndFetchChamados();
+    //   }
+    // }, 10000);
   }
 
   getAllChamados(id: number) {

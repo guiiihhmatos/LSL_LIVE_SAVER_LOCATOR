@@ -6,7 +6,7 @@
 
   <mat-card class="container align-self-center mt-2 shadow">
     <mat-card-content>
-      <form [formGroup]="formChamado" id="novo-usuario-form">
+      <form [formGroup]="formChamado" id="novo-usuario-form"  autocomplete="off">
         <div class="form-floating">
           <textarea name="ocorrencia" id="ocorrencia" class="form-control" formControlName="ocorrencia"></textarea>
           <label for="ocorrencia" class="form-label">Ocorrência:</label>
@@ -15,7 +15,7 @@
         <div class="form-group row my-2">
           <div class="form-group col">
             <label for="estadoChamado" class="form-label">Estado do chamado:</label>
-            <input type="text" readonly class="form-control" name="estadoChamado" id="estadoChamado" formControlName="estadoChamado">
+            <input type="text" readonly class="form-control" name="estadoChamado" id="estadoChamado" formControlName="estadoChamado" autocomplete="off">
           </div>
 
           <div class="form-group col">
@@ -30,39 +30,39 @@
         <div formGroupName="localChamado">
           <div class="form-group mt-3">
             <label for="local">Procurar endereço</label>
-            <input type="text" name="local" id="local" class="form-control" placeholder="Busque o endereço sem o número" #mapsSearch>
+            <input type="text" name="local" id="local" class="form-control" placeholder="Busque o endereço sem o número" #mapsSearch autocomplete="off">
           </div>
 
           <div class="form-group row my-2">
             <div class="form-group col">
               <label for="cep" class="form-label">CEP:</label>
-              <input type="text" name="cep" id="cep" class="form-control" formControlName="cep" mask="00000-000" >
+              <input type="text" name="cep" id="cep" class="form-control" formControlName="cep" mask="00000-000" autocomplete="off">
             </div>
             <div class="form-group col">
               <label for="endereco" class="form-label">Endereço:</label>
-              <input type="text" name="endereco" id="endereco" class="form-control" formControlName="endereco" [class]="">
+              <input type="text" name="endereco" id="endereco" class="form-control" formControlName="endereco"  autocomplete="off">
             </div>
           </div>
 
           <div class="form-group row my-2">
             <div class="form-group col">
               <label for="estado" class="form-label">Estado:</label>
-              <input type="text" name="estado" id="estado" class="form-control" formControlName="estado" [class]="">
+              <input type="text" name="estado" id="estado" class="form-control" formControlName="estado"  autocomplete="off">
             </div>
             <div class="form-group col">
               <label for="bairro" class="form-label">Bairro:</label>
-              <input type="text" name="bairro" id="bairro" class="form-control" formControlName="bairro" [class]="">
+              <input type="text" name="bairro" id="bairro" class="form-control" formControlName="bairro"  autocomplete="off">
             </div>
           </div>
 
           <div class="form-group row my-2">
             <div class="form-group col">
               <label for="numero" class="form-label col">Número:</label>
-              <input type="number" name="numero" id="numero" class="form-control" formControlName="numero">
+              <input type="number" name="numero" id="numero" class="form-control" formControlName="numero" autocomplete="off">
             </div>
             <div class="form-group col">
               <label for="cidade" class="form-label col">Cidade:</label>
-              <input type="text" name="cidade" id="cidade" class="form-control" formControlName="cidade" [class]="">
+              <input type="text" name="cidade" id="cidade" class="form-control" formControlName="cidade"  autocomplete="off">
             </div>
           </div>
         </div>
