@@ -8,10 +8,32 @@
     <div class="d-flex flex-column justify-content-center align-items-center mx-3 teste">
       <div class="aviso">
         <div class="bolinha">
-            1
+            {{qtdeNotificacoes}}
         </div>
     </div>
-      <span class="material-symbols-outlined cursor-pointer" id="notifications"> notifications </span>
+      <span class="material-symbols-outlined cursor-pointer" id="notifications" (click)="viewNotificacao()"> notifications </span>
+
+      <div class="div-notificacao d-flex flex-column justify-content-center align-items-center shadow" *ngIf="valNotificacao">
+        <div class="d-flex justify-content-around align-items-center div-mensagem" *ngFor="let notificacoes of notificacao">
+
+          <div class="mt-3">
+            {{ notificacoes.data | date : 'HH:mm'}}
+            {{ notificacoes.mensagem }}
+          </div>
+
+          <div class="d-flex flex-column justify-content-center align-items-center" style="font-size: 13px;">
+            Marcar como lida
+            <input type="checkbox" name="marcarComoLida" id="marcarComoLida">
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end align-items-center w-80 mt-3">
+          <button class="btn btn-primary">Marcar</button>
+        </div>
+        <div class="d-flex justify-content-around align-items-center div-mensagem" *ngIf="notificacao.length == 0">
+          Nenhuma notificação no momento
+        </div>
+      </div>
     </div>
 
     <div class="user align-self-center">
@@ -149,3 +171,6 @@
 
   </div>
 </div>
+
+
+
