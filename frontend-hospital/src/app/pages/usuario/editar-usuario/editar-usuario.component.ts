@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import Swal from 'sweetalert2';
+import { UsuarioComponent } from '../usuario.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-editar-usuario',
@@ -16,7 +18,8 @@ export class EditarUsuarioComponent {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private rota: Router
+    private rota: Router,
+    private _snackBar: MatSnackBar,
   ) {
     this.passedUsuario = history.state.usuario;
 
@@ -25,7 +28,7 @@ export class EditarUsuarioComponent {
       nome: [null, [Validators.required]],
       cpf: [null, [Validators.required]],
       login: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      password: [UsuarioComponent.generatePassword(), [Validators.required]],
       role: ['', [Validators.required]]
     });
 
@@ -68,5 +71,10 @@ export class EditarUsuarioComponent {
         });
       },
     });
+  }
+
+  copyPass(pass: string) {
+    window.navigator.clipboard.writeText(pass);
+    this._snackBar.open("Senha copiada!", '', { duration: 3000 });
   }
 }

@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatMenuModule,
     MatIconModule,
     MatExpansionModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ],
 })
 export class MaterialModule {}

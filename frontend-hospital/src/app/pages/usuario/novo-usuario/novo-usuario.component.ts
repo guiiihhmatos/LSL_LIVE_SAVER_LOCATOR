@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario/usuario.model';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import Swal from 'sweetalert2';
+import { UsuarioComponent } from '../usuario.component';
 
 @Component({
   selector: 'app-novo-usuario',
@@ -15,13 +17,14 @@ export class NovoUsuarioComponent {
   constructor(
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
-    private rota: Router
+    private rota: Router,
+    private _snackBar: MatSnackBar,
   ) {
     this.formUsuario = fb.group({
       nome: [null, [Validators.required]],
       cpf: [null, [Validators.required]],
       login: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      password: [UsuarioComponent.generatePassword(), [Validators.required]],
       role: ["", [Validators.required]]
     });
   }
@@ -52,5 +55,10 @@ export class NovoUsuarioComponent {
         });
       },
     });
+  }
+
+  copyPass(pass: string) {
+    window.navigator.clipboard.writeText(pass);
+    this._snackBar.open("Senha copiada!", '', { duration: 3000 });
   }
 }
