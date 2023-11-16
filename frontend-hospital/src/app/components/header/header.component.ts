@@ -73,4 +73,14 @@ export class HeaderComponent {
     }
   }
 
+  marcarComoLida(id : number)
+  {
+    this.notificacaoService.marcarComoLida(id).subscribe({
+      next: () => {
+
+        this.getAllNotificacoes();
+      }
+    })
+  }
+
 }

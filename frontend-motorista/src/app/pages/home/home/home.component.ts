@@ -80,7 +80,7 @@ export class HomeComponent {
           .then(() => {
             this.notificacaoService.criarNotificacao(`Chamado - ${chamado.id.toString().padStart(4, "0")}. Ambulância retornando ao hospital.`).subscribe({
               next: () => {
-                console.log('ok')
+                location.reload()
               },
               error: (err) => {
                 console.error(err);
@@ -115,7 +115,7 @@ export class HomeComponent {
 
               this.notificacaoService.criarNotificacao(`Chamado - ${chamado.id.toString().padStart(4, "0")} foi finalizado.`).subscribe({
                 next: () => {
-                  console.log('ok')
+                  location.reload()
                 },
                 error: (err) => {
                   console.error(err);

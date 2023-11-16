@@ -19,7 +19,7 @@ export class NotificacoesService {
   }
 
   marcarComoLida(id: number): Observable<Notificacao> {
-    return this.http.put<Notificacao>(this.API + `/${id}/marcarComoLida` ,{headers: this.setHeaders()});
+    return this.http.put<Notificacao>(this.API + `/${id}/marcarComoLida` ,"",{headers: this.setHeaders()});
   }
 
 
