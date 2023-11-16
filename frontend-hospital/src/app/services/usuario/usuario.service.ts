@@ -25,14 +25,14 @@ export class UsuarioService {
 
       //aplicar gambiarra no pagination
       map((res) => {
-        let aux = res.content as any[]
+        let aux = res.content as Usuario[];
+        const removeI = [] as number[];
         aux.forEach((usuario, i) => {
-            if(usuario.role == 'USER_AMBULANCIA'){
-              aux.splice(i,1);
-            }
-        });
-        res.content = aux;
-        res.totalElements = aux.length
+          if(usuario.role == 'USER_AMBULANCIA') removeI.push(i);
+        })
+
+        res.content = aux.filter((_, index) => !removeI.includes(index));
+        
         return res;
       })
     );
