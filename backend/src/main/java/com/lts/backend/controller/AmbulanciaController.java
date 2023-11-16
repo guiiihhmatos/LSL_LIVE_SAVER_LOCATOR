@@ -37,6 +37,11 @@ public class AmbulanciaController {
 	public Page<Ambulancia> buscarTodas(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 		return ambulanciaService.buscarTodas(pageable);
 	}
+	
+	@GetMapping("filter/{value}")
+	public Page<Ambulancia> filtrarAmbulancias(@PathVariable String value, @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+		return ambulanciaService.filtrarAmbulancias(value, pageable);
+	}
 
 	@GetMapping("/total/ocupadas")
 	public Long totalAmbulanciasOcupadas() {

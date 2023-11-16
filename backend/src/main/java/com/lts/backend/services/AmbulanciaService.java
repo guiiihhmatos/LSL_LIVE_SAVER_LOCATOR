@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lts.backend.DTO.AmbulanciaDTO;
 import com.lts.backend.DTO.EstadoAmbulanciaDTO;
 import com.lts.backend.DTO.MotoristaAmbulanciaDTO;
-import com.lts.backend.DTO.MotoristaDTO;
+import com.lts.backend.enums.EstadoAmbulancia;
 import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.models.Ambulancia;
 import com.lts.backend.models.Motorista;
@@ -31,6 +31,16 @@ public class AmbulanciaService {
     public Page<Ambulancia> buscarTodas(Pageable pageable) {
 		return ambulanciaRepositoryPagination.findAll(pageable);
 	}
+    
+    // gambiarra filtro geral
+    public Page<Ambulancia> filtrarAmbulancias(String filtro, Pageable pageable){
+    	Page<Ambulancia> all = ambulanciaRepositoryPagination.filterAll(filtro, pageable);
+    	if(all.isEmpty()) {
+    		
+    		return ambulanciaRepositoryPagination.findByEstadoAmbulancia(EstadoAmbulancia.valueOf(filtro.toUpperCase()), pageable);
+    	}
+    	return all;
+    }
     
     public Optional<Ambulancia> buscarPorMotorista(Motorista motorista) {
     	return ambulanciaRepository.findByMotorista(motorista);
