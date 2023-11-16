@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lts.backend.DTO.AuthenticationMotoristaDTO;
 import com.lts.backend.DTO.LoginResponseMotoristaDTO;
 import com.lts.backend.DTO.MotoristaDTO;
+import com.lts.backend.DTO.MotoristaFilter;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.models.Usuario;
 import com.lts.backend.services.MotoristaService;
@@ -38,6 +39,11 @@ public class MotoristaController {
 	@GetMapping
 	public Page<Motorista> buscarTodos(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 		return motoristaService.findAll(pageable);
+	}
+	
+	@GetMapping("filter/{value}")
+	public Page<MotoristaFilter> filtrarMotoristas(@PathVariable String value, Pageable pageable) {
+		return motoristaService.filtrarMotoristas(value, pageable);
 	}
 
 	@PostMapping("/login")

@@ -1,7 +1,6 @@
 package com.lts.backend.services;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import com.lts.backend.DTO.AuthenticationMotoristaDTO;
 import com.lts.backend.DTO.LoginResponseMotoristaDTO;
 import com.lts.backend.DTO.MotoristaAmbulanciaDTO;
 import com.lts.backend.DTO.MotoristaDTO;
+import com.lts.backend.DTO.MotoristaFilter;
 import com.lts.backend.config.TokenService;
 import com.lts.backend.enums.Roles;
 import com.lts.backend.exception.error.NotFoundAmbulancia;
@@ -53,6 +53,10 @@ public class MotoristaService {
 
 	public Page<Motorista> findAll(Pageable pageable) {
 		return motoristaRepositoryPagination.findAll(pageable);
+	}
+	
+	public Page<MotoristaFilter> filtrarMotoristas(String value, Pageable pageable){
+		return motoristaRepositoryPagination.filterAll(value, pageable);
 	}
 
 	@Transactional
