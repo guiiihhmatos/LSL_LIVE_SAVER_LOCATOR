@@ -28,9 +28,9 @@ public class NotificacaoService {
         });
     }
 
-    public Notificacao criarNotificacao(String mensagem) {
+    public Notificacao criarNotificacao(String msg) {
         Notificacao notificacao = new Notificacao();
-        notificacao.setMensagem(mensagem);
+        notificacao.setMensagem(msg);
         notificacao.setNova(true);
         notificacao.setData(new Date());
         return notificacaoRepository.save(notificacao);

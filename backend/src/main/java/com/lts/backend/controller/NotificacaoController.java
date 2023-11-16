@@ -29,9 +29,9 @@ public class NotificacaoController {
         return notificacaoService.getNotificacoesNaoLidas();
     }
 
-    @PostMapping
-    public Notificacao criarNotificacao(@RequestBody String mensagem) {
-        return notificacaoService.criarNotificacao(mensagem);
+    @PostMapping("/{msg}")
+    public Notificacao criarNotificacao(@RequestBody Object o, @PathVariable String msg) throws Exception {
+        return notificacaoService.criarNotificacao(msg);
     }
 
     @PutMapping("/{id}/marcarComoLida")

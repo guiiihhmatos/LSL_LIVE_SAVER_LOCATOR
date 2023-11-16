@@ -16,7 +16,7 @@
       <div class="div-notificacao d-flex flex-column justify-content-center align-items-center shadow" *ngIf="valNotificacao">
         <div class="d-flex justify-content-around align-items-center div-mensagem" *ngFor="let notificacoes of notificacao">
 
-          <div class="mt-3">
+          <div class="mt-3 px-3">
             {{ notificacoes.data | date : 'HH:mm'}}
             {{ notificacoes.mensagem }}
           </div>

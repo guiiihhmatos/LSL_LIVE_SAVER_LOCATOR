@@ -12,9 +12,10 @@ export class NotificacoesService {
 
   constructor(private http: HttpClient, private auth: AuthService) {}
 
-  criarNotificacao(mensagem: string) {
-    const notificacao: any = { mensagem: mensagem };
-    return this.http.post(this.API, notificacao ,{headers: this.setHeaders()});
+  criarNotificacao(mensagem: string) {;
+    let  not = {mensagem}
+    console.log(not)
+    return this.http.post(this.API+'/'+mensagem, not ,{headers: this.setHeaders()});
   }
 
   private setHeaders(): HttpHeaders {
