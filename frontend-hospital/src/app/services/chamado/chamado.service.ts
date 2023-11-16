@@ -32,6 +32,15 @@ export class ChamadoService {
     return this.http.put<Chamado>(this.API, chamado, {headers: this.setHeaders()});
   }
 
+  filterChamado(value: string, page: number, size: number, sort: string): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString())
+      .set('sort', sort);
+
+    return this.http.get<any>(this.API+'/filter/'+value, {headers: this.setHeaders(), params});
+  }
+
   // dashboard
 
   getTotalACaminho(): Observable<number> {

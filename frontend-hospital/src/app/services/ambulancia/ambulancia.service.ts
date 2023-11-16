@@ -43,6 +43,14 @@ export class AmbulanciaService {
     return this.http.patch<Ambulancia>(this.API+"/alterar-estado", ambulancia, {headers: this.setHeaders()});
   }
 
+  filterAmbulancia(value: string, page: number, size: number, sort: string): Observable<any> {
+    let params = new HttpParams()
+    .set('page', page.toString())
+    .set('size', size.toString())
+    .set('sort', sort);
+  return this.http.get<Ambulancia[]>(this.API+"/filter/"+value, {headers: this.setHeaders(), params});
+  }
+
   // dashboard
 
   getTotalDisponiveis(): Observable<number> {

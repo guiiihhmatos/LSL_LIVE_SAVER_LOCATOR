@@ -168,4 +168,8 @@ public class ChamadoService {
     public List<Chamado> findCurrentChamadosByMotoristaId(Long motoristaId) {
         return chamadoRepository.findCurrentChamadosByMotoristaId(motoristaId);
     }
+    
+    public Page<Chamado> filtrarChamados(String value, Pageable pageable) {
+    	return chamadoRepositoryPagination.filterAll(value, pageable);
+    }
 }

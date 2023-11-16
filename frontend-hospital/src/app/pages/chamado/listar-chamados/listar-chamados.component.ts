@@ -62,7 +62,21 @@ export class ListarChamadosComponent {
   }
 
   filterChamados(value: string) {
-    this.tableChamados.filter = value.trim().toLowerCase();
+    if(value == ""){
+      this.getAllChamados(this.pagination);
+      return;
+    }
+    this.chamadoService.filterChamado(value, this.pagination.page, this.pagination.size, this.pagination.sort).subscribe({
+      next: (res: any) => {
+        this.chamados = res.content as Chamado[];
+        this.tableChamados = new MatTableDataSource<Chamado>(this.chamados);
+        this.tableChamados.sort = this.sort;
+
+        this.paginator.pageIndex = res.number;
+        this.paginator.pageSize = res.size;
+        this.paginator.length = res.totalElements;
+      }
+    })
   }
 
   page(value: any) {

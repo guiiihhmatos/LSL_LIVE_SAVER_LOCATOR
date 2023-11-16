@@ -36,6 +36,11 @@ public class ChamadoController {
 	public List<Chamado> listarTodos() {
 		return chamadoService.listarChamadosComAmbulancias();
 	}*/
+	
+	@GetMapping("/filter/{value}")
+	public Page<Chamado> filtrarChamados(@PathVariable String value, @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+		return chamadoService.filtrarChamados(value, pageable);
+	}
 
 	@GetMapping("/total/acaminho")
 	public Long totalChamadosAcaminho() {

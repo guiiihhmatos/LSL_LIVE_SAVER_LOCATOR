@@ -76,7 +76,21 @@ export class ListarAmbulanciasComponent {
   }
 
   filterAmbulancia(value: string) {
-    this.tableAmbulancias.filter = value.trim().toLowerCase();
+    if(value == ""){
+      this.getAllAmbulancias(this.pagination);
+      return;
+    }
+    this.ambulanciaService.filterAmbulancia(value, this.pagination.page, this.pagination.size, this.pagination.sort).subscribe({
+      next: (res: any) => {
+        this.ambulancias = res.content as Ambulancia[];
+        this.tableAmbulancias = new MatTableDataSource<Ambulancia>(this.ambulancias);
+        this.tableAmbulancias.sort = this.sort;
+
+        this.paginator.pageIndex = res.number;
+        this.paginator.pageSize = res.size;
+        this.paginator.length = res.totalElements;
+      }
+    })
   }
 
   setClass(estado: string) {
