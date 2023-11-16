@@ -1,3 +1,4 @@
+import { NotificacoesService } from './../../../services/notificacoes/notificacoes.service';
 import { EstadosChamado } from './../../../../../../frontend-hospital/src/app/models/chamado/chamado.model';
 import { Component } from '@angular/core';
 import { Chamado, TiposEmergencia } from 'src/app/models/chamado/chamado.model';
@@ -27,6 +28,7 @@ export class HomeComponent {
     private chamadoService : ChamadoService,
     private authService : AuthService,
     private rota: Router,
+    private notificacaoService  : NotificacoesService
   )
   {
     this.motorista = authService.getUser
@@ -35,7 +37,6 @@ export class HomeComponent {
 
   ngOnInit() {
     this.checkAndFetchChamados();
-
   }
 
   ngOnDestroy() {
@@ -48,11 +49,11 @@ export class HomeComponent {
       this.getAllChamados(this.idMotorista);
     }
 
-    // setTimeout(() => {
-    //   if (!this.destroy$.isStopped) {
-    //     this.checkAndFetchChamados();
-    //   }
-    // }, 10000);
+    setTimeout(() => {
+      if (!this.destroy$.isStopped) {
+        this.checkAndFetchChamados();
+      }
+    }, 10000);
   }
 
   getAllChamados(id: number) {
@@ -65,8 +66,8 @@ export class HomeComponent {
 
 
   setClass(tipoEmergencia: string){
-    if(tipoEmergencia == 'GRAVE') return 'tipo font-tipo-red'
-    else if (tipoEmergencia == "MUITO_URGENTE") return 'tipo font-tipo-orange'
+    if(tipoEmergencia === 'GRAVE') return 'tipo font-tipo-red'
+    else if (tipoEmergencia === "MUITO_URGENTE") return 'tipo font-tipo-orange'
     return 'tipo font-tipo-yellow'
   }
 
@@ -74,7 +75,15 @@ export class HomeComponent {
     let obj = {id: chamado.id, estadoChamado: EstadosChamado[EstadosChamado.RETORNANDO]};
     this.chamadoService.alteraEstadoChamado(obj).subscribe({
       next: (res) => {
-        Swal.fire({title: 'Retornando ao hospital', timer: 3000, timerProgressBar: true}).then(() => window.location.reload())
+        Swal.fire({title: 'Retornando ao hospital', timer: 3000, timerProgressBar: true})//.then(() => window.location.reload())
+        this.notificacaoService.criarNotificacao(`Chamado - ${chamado.id.toString().padStart(4, "0")}. Ambulância retornando ao hospital.`).subscribe({
+          next: () => {
+            console.log('ok')
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        })
       },
       error: (err) => {
         console.error(err);
@@ -82,10 +91,10 @@ export class HomeComponent {
     })
   }
 
-  finalizarChamado(id:number)
+  finalizarChamado(chamado : Chamado)
   {
     let obj = {
-      id : id,
+      id : chamado.id,
       estadoChamado : EstadosChamado[EstadosChamado.FINALIZADO]
     }
     Swal.fire({
@@ -102,6 +111,15 @@ export class HomeComponent {
         this.chamadoService.alteraEstadoChamado(obj).subscribe(
           {
             next: () => {
+
+              this.notificacaoService.criarNotificacao(`Chamado - ${chamado.id.toString().padStart(4, "0")} foi finalizado.`).subscribe({
+                next: () => {
+                  console.log('ok')
+                },
+                error: (err) => {
+                  console.error(err);
+                }})
+
               Swal.fire({
                 icon: 'success',
                 title: 'Chamado finalizado com sucesso',
@@ -109,7 +127,7 @@ export class HomeComponent {
                 timerProgressBar: true,
               })
 
-              window.location.reload()
+              //window.location.reload()
 
             }, error: (x) => {
               Swal.fire({
