@@ -80,7 +80,23 @@ export class ListarUsuariosComponent {
   }
 
   filterUsuario(value: string) {
-    this.tableUsuarios.filter = value.trim().toLowerCase();
+    if(value == ""){
+      this.getAllUsuarios(this.pagination);
+      return;
+    }
+    this.usuarioService.filterUsuario(value, this.pagination.page, this.pagination.size, this.pagination.sort).subscribe({
+      next: (res: any) => {
+        this.usuarios = res.content as Usuario[];
+        this.tableUsuarios = new MatTableDataSource<Usuario>(this.usuarios);
+        this.tableUsuarios.sort = this.sort;
+        // this.tableUsuarios.paginator = this.paginator;
+
+
+        this.paginator.pageIndex = res.number;
+        this.paginator.pageSize = res.size;
+        this.paginator.length = res.totalElements;
+      }
+    })
   }
 
   page(value: any) {
