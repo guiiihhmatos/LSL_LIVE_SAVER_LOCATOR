@@ -1,7 +1,7 @@
 <section id="dashboard">
 
   <main class="main">
-    <div class="info-select row justify-content-between my-3">
+    <div class="info-select row justify-content-between">
       <div class="col-md-3"></div>
       <div class="col-md-3"></div>
       <div class="col-md-3"></div>
@@ -16,7 +16,7 @@
     </div>
     <div class="row gx-0 info justify-content-between" *ngIf="flagDash">
 
-      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center" *ngFor="let res of totalAmbulancia">
+      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center shadow" *ngFor="let res of totalAmbulancia">
 
         <div class="titulo-div w-90">
           <h3 class="titulo">{{res.titulo}}</h3>
@@ -35,7 +35,7 @@
 
     <div class="row gx-0 info justify-content-between" *ngIf="!flagDash">
 
-      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center" *ngFor="let res of totalChamado">
+      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center shadow" *ngFor="let res of totalChamado">
 
         <div class="titulo-div w-90">
           <h3 class="titulo">{{res.titulo}}</h3>
@@ -52,4 +52,19 @@
 
     </div><!--Chamado-->
   </main>
+
+</section>
+
+<section class="section-2 d-flex justify-content-center align-items-center">
+  <div class="d-flex justify-content-between align-items-center info">
+
+    <div class="dashboard-info shadow">
+
+    </div>
+
+    <div class="dashboard-info shadow">
+
+    </div>
+
+  </div>
 </section>

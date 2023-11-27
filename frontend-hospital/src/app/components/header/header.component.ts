@@ -47,11 +47,11 @@ export class HeaderComponent {
 
           this.qtdeNotificacoes = this.notificacao.length;
 
-          // setTimeout(() => {
-          //   if (!this.destroy$.isStopped) {
-          //     this.getAllNotificacoes();
-          //   }
-          // }, 10000);
+          setTimeout(() => {
+            if (!this.destroy$.isStopped) {
+              this.getAllNotificacoes();
+            }
+          }, 10000);
 
         }
 

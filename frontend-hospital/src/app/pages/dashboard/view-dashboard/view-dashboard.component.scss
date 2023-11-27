@@ -1,13 +1,15 @@
 #dashboard
 {
-
-  margin: 0em 5em 5em 5em;
-
+  background-color: #0064b0;
+  position: relative;
   .main
   {
+    height: 400px;
+    margin: 0 5em 5em 5em;
 
     .info-select
     {
+      padding: 2em 0;
       .block
       {
         width: 60px;
@@ -18,13 +20,15 @@
 
       .ativo
       {
-        color: white;
-        background-color: #0064b0;
+        color: #0064b0;
+        background-color: white;
       }
 
       .inativo
       {
-        background-color: white;
+        color: white;
+        border: 1px solid white;
+        background-color: #0064b0;
       }
     }
 
@@ -33,15 +37,16 @@
       .info-div
       {
         height: 180px;
-        background-color: #0064b0;
+        background-color: white; // alterado no dia 27/11
         border-radius: 10px;
+        cursor: pointer;
 
         .titulo
         {
           text-align: start;
           letter-spacing: 0.5px;
           font-family: 'Rubik', sans-serif;
-          color: white;
+          color:#0064b0;
         }
 
         .valor
@@ -49,17 +54,46 @@
           font-size: 4em;
           font-weight: 600;
           font-family: 'Rubik', sans-serif;
-          color: white;
+          color:#0064b0; // alterado no dia 27/11
         }
 
         .icon
         {
           font-size: 4em;
-          color: white;
+          color:#0064b0; // alterado no dia 27/11
+        }
+
+        &:hover
+        {
+          scale: 1.02;
+          background-color: #e6e6e6;
         }
       }
+
     }
 
   }
 
+
+
 }
+
+.section-2
+{
+
+  position: absolute;
+  top: 44%; /* Ajuste o valor conforme necessário */
+  z-index: 1;
+
+  .dashboard-info
+  {
+    background-color: white;
+    width: 500px;
+    height: 500px;
+    border-radius: 20px;
+    margin: 0 175px;
+  }
+
+}
+
+
