@@ -2,6 +2,7 @@
 {
   background-color: #0064b0;
   position: relative;
+  width: 100%;
   .main
   {
     height: 400px;
@@ -84,14 +85,13 @@
   position: absolute;
   top: 44%; /* Ajuste o valor conforme necessário */
   z-index: 1;
+  width: 83.3%;
 
   .dashboard-info
   {
     background-color: white;
-    width: 500px;
     height: 500px;
-    border-radius: 20px;
-    margin: 0 175px;
+    border-radius: 10px;
   }
 
 }

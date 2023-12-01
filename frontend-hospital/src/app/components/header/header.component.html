@@ -33,6 +33,12 @@
           </div>
         </div>
 
+        <button type="button" class="btn btn-primary position-relative mt-3">
+          Ver Todas
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{qtdeNotificacoes}}+
+          </span>
+        </button>
 
         <!-- <div class="d-flex justify-content-end align-items-center w-80 mt-3">
           <button class="btn btn-primary">Marcar</button>
@@ -53,7 +59,7 @@
 
         <div mat-menu-item>
           <div class="d-flex align-items-center">
-            <span>{{usuario.nome}}</span>
+            <span><strong>{{usuario.nome}}</strong></span>
           </div>
         </div>
         <!-- <div mat-menu-item>
@@ -63,7 +69,13 @@
           </div>
         </div> -->
         <div mat-menu-item (click)="logout()">
-          <div class="d-flex align-items-center">
+          <div class="d-flex align-items-center justify-content-between">
+            <span>Notificações</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="material-symbols-outlined">notifications</span>
+          </div>
+        </div>
+        <div mat-menu-item (click)="logout()">
+          <div class="d-flex align-items-center justify-content-between">
             <span>Logout</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="material-symbols-outlined">cancel</span>
           </div>

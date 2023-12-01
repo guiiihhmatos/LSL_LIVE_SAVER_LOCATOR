@@ -43,9 +43,13 @@ export class HeaderComponent {
 
         next: (res: any) => {
 
-          this.notificacao = res;
 
-          this.qtdeNotificacoes = this.notificacao.length;
+          for(let i = 0; i < 3; i++)
+          {
+            this.notificacao[i] = res[i];
+          }
+
+          this.qtdeNotificacoes = res.length;
 
           setTimeout(() => {
             if (!this.destroy$.isStopped) {
