@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotAuthGuard } from './guards/not-auth/not-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { CaminhoAmbulanciaChamadoComponent } from './shared/caminho-ambulancia-chamado/caminho-ambulancia-chamado.component';
+import { NotificacaoComponent } from './components/notificacao/notificacao.component';
 
 const routes: Routes = [
   {path: 'directions', pathMatch: 'full', component: CaminhoAmbulanciaChamadoComponent},
@@ -46,6 +47,12 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/dashboard/dashboard.module').then((m) => m.DashboardModule),
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'notificacao',
+    pathMatch: 'full',
+    canActivate: [AuthGuard],
+    component: NotificacaoComponent
   }
 ];
 

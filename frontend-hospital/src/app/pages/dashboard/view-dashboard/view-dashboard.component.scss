@@ -41,6 +41,8 @@
         background-color: white; // alterado no dia 27/11
         border-radius: 10px;
         cursor: pointer;
+        position: relative;
+        animation: slideIn 0.2s ease-out;
 
         .titulo
         {
@@ -97,3 +99,13 @@
 }
 
 
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

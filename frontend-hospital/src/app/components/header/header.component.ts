@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Notificacao } from 'src/app/models/notificacao/notificacao.model';
 import { Usuario } from 'src/app/models/usuario/usuario.model';
@@ -22,7 +23,12 @@ export class HeaderComponent {
 
   private destroy$: Subject<void> = new Subject<void>();
 
-  constructor(private auth: AuthService, private notificacaoService : NotificacoesService){
+  constructor
+  (
+    private auth: AuthService,
+    private notificacaoService : NotificacoesService,
+    private rota: Router
+  ){
     this.usuario = auth.getUser;
   }
 
@@ -43,11 +49,18 @@ export class HeaderComponent {
 
         next: (res: any) => {
 
-
-          for(let i = 0; i < 3; i++)
+          if(res.lenght >= 3)
           {
-            this.notificacao[i] = res[i];
+            for(let i = 0; i < 3; i++)
+            {
+              this.notificacao[i] = res[i];
+            }
           }
+          else
+          {
+            this.notificacao = res;
+          }
+
 
           this.qtdeNotificacoes = res.length;
 
@@ -81,10 +94,13 @@ export class HeaderComponent {
   {
     this.notificacaoService.marcarComoLida(id).subscribe({
       next: () => {
-
         this.getAllNotificacoes();
       }
     })
+  }
+
+  redirectNotificacao() {
+    this.rota.navigate(['notificacao']);
   }
 
 }

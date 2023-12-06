@@ -11,13 +11,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/material/material.module';
 import { SharedModule } from './shared/shared.module';
+import { NotificacaoComponent } from './components/notificacao/notificacao.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     HeaderComponent,
-    LoginComponent
+    LoginComponent,
+    NotificacaoComponent
   ],
   imports: [
     BrowserModule,

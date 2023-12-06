@@ -33,7 +33,7 @@
           </div>
         </div>
 
-        <button type="button" class="btn btn-primary position-relative mt-3">
+        <button type="button" class="btn btn-primary position-relative mt-3" (click)="redirectNotificacao()" *ngIf="notificacao.length > 3">
           Ver Todas
           <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {{qtdeNotificacoes}}+
@@ -68,7 +68,7 @@
             <span class="material-symbols-outlined">key</span>
           </div>
         </div> -->
-        <div mat-menu-item (click)="logout()">
+        <div mat-menu-item (click)="redirectNotificacao()">
           <div class="d-flex align-items-center justify-content-between">
             <span>Notificações</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <span class="material-symbols-outlined">notifications</span>
