@@ -81,22 +81,29 @@
 
 }
 
-.section-2
-{
+// .section-2
+// {
 
-  position: absolute;
-  top: 44%; /* Ajuste o valor conforme necessário */
-  z-index: 1;
-  width: 83.3%;
+//   position: absolute;
+//   top: 44%; /* Ajuste o valor conforme necessário */
+//   z-index: 1;
+//   width: 83.3%;
 
-  .dashboard-info
+//   .dashboard-info
+//   {
+//     background-color: white;
+//     height: 500px;
+//     border-radius: 10px;
+//   }
+
+// }
+
+.dashboard-info
   {
     background-color: white;
     height: 500px;
     border-radius: 10px;
   }
-
-}
 
 
 @keyframes slideIn {

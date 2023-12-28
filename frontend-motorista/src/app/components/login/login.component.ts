@@ -35,11 +35,6 @@ export class LoginComponent {
 
   }
 
-  ngOnInit()
-  {
-    this.getAllAmbulanciasDisponiveis()
-  }
-
   validateForm(form: FormGroup) {
     if(form.invalid){
       Swal.fire({icon: 'error', title: 'Preencha todos os campos'})

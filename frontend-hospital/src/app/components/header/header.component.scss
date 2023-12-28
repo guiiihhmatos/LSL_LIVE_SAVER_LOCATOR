@@ -16,11 +16,14 @@ header#header {
       }
   }
 
+
   .user-info{
     border-radius: 8px;
     background-color: white;// alterado no dia 27/11
     color: #0064b0; // adiciona no dia 27/11
   }
+
+
 
   #notifications
   {
@@ -91,6 +94,23 @@ header#header {
     border-radius: 20px;
   }
 
+}
+
+.teste
+{
+  height: 50px;
+  font-size: 12px;
+  cursor: pointer;
+
+  &:hover
+  {
+    background-color: #e6e6e6;
+  }
+
+  .title
+  {
+    padding: 0 10px;
+  }
 }
 
 div#menuOffcanvas{

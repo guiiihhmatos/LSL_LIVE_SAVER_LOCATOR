@@ -169,4 +169,29 @@ public class ChamadoService {
     public Page<Chamado> filtrarChamados(String value, Pageable pageable) {
     	return chamadoRepositoryPagination.filterAll(value, pageable);
     }
+
+
+    public String calcularTempoMedio() {
+        List<Chamado> chamados = chamadoRepository.findAll();
+
+        long somaDiferencas = 0;
+
+        for (Chamado chamado : chamados) {
+            Date dataInicio = chamado.getDataInicioChamado();
+            Date dataFim = chamado.getDataFimChamado();
+
+            if (dataFim != null) {
+                long diferencaEmMillis = dataFim.getTime() - dataInicio.getTime();
+                somaDiferencas += diferencaEmMillis;
+            }
+        }
+
+        long mediaDiferencas = somaDiferencas / chamados.size();
+        long minutos = (mediaDiferencas / (1000 * 60)) % 60;
+        long horas = (mediaDiferencas / (1000 * 60 * 60)) % 24;
+        long dias = mediaDiferencas / (1000 * 60 * 60 * 24);
+
+        return String.format("Média de %d dias, %d horas, %d minutos para %d chamados",
+                dias, horas, minutos, chamados.size());
+    }
 }
