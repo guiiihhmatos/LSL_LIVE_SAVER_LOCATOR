@@ -44,6 +44,39 @@ export class ViewDashboardComponent {
 
   flagDash = true
 
+  ambulanciasFake = [
+    {
+      'placa': 'GBD-1029',
+      'tempoEstimado': '30',
+      'motorista' : 'guilherme',
+      'chamado': '2932'
+    },
+    {
+      'placa': 'SAS-4043',
+      'tempoEstimado': '10',
+      'motorista' : 'marcelo',
+      'chamado': '2933'
+    },
+    {
+      'placa': 'VSA-8542',
+      'tempoEstimado': '09',
+      'motorista' : 'caio',
+      'chamado': '2934'
+    },
+    {
+      'placa': 'NHM-9012',
+      'tempoEstimado': '12',
+      'motorista' : 'gustavo',
+      'chamado': '2935'
+    },
+    {
+      'placa': 'CUA-0190',
+      'tempoEstimado': '13',
+      'motorista' : 'ricardo',
+      'chamado': '2939'
+    }
+  ]
+
   constructor
   (
     private ambulanciaService: AmbulanciaService,
@@ -60,6 +93,8 @@ export class ViewDashboardComponent {
     this.getTotalACaminho()
     this.getTotalRetornando()
     this.getTotalFinalizados()
+
+    //this.ambulanciasFake.length = 0 // testar se for 0
   }
 
   onChangeDash(dash: string)

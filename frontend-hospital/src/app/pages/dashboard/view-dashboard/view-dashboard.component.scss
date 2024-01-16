@@ -103,6 +103,54 @@
     background-color: white;
     height: 500px;
     border-radius: 10px;
+
+    .title
+    {
+      background-color: #0064b0;
+      border-radius: 10px 10px 0 0;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .ambulancia
+    {
+      .ambulancia__info
+      {
+        height: 80px;
+        border-bottom: 2px solid #e6e6e6;
+
+        .chamado
+        {
+          background-color: #0064b0;
+          color: white;
+          font-weight: 700;
+          border-radius: 0 10px 10px 0;
+        }
+
+        .info
+        {
+          font-size: 12px;
+        }
+
+        .tempo-estimado
+        {
+          font-weight: 700;
+        }
+      }
+    }
+
+    .mensagem
+    {
+      color: #c9c9c9;
+      height: 200px;
+      font-size: 20px;
+
+      .icone
+      {
+        font-size: 100px;
+      }
+    }
   }
 
 

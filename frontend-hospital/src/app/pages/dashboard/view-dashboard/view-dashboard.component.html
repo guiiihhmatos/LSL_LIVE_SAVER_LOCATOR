@@ -64,15 +64,50 @@
 
 </section>
 
-<section class="row gx-0 justify-content-around">
+<section class="row gx-0 justify-content-around my-3">
 
-    <div class="col-4">
+    <div class="col-3">
       <div class="dashboard-info shadow">
+
+        <div class="title py-1">
+          <p class="text-center">Previsões de chegada</p>
+        </div>
+
+        <div class="ambulancia" *ngFor="let chamado of ambulanciasFake">
+          <div class="ambulancia__info row gx-0">
+            <div class="col-md-4 d-flex flex-column justify-content-center">
+              <div class="chamado d-flex justify-content-center align-items-center">
+                {{ chamado.chamado}}
+              </div>
+            </div>
+
+            <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+              <div class="info d-flex flex-column justify-content-center align-items-center">
+                <span>{{ chamado.placa }}</span>
+                <span>{{ chamado.motorista | uppercase }}</span>
+              </div>
+            </div>
+
+            <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+              <div class="tempo-estimado">
+                {{ chamado.tempoEstimado }} Min
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mensagem d-flex flex-column justify-content-center align-items-center" *ngIf="ambulanciasFake.length == 0">
+          <span class="material-symbols-outlined icone">
+            error
+          </span>
+
+          <p>Nenhuma ambulância retornando.</p>
+        </div>
 
       </div>
     </div>
 
-    <div class="col-6">
+    <div class="col-7">
       <div class="dashboard-info shadow">
 
       </div>
