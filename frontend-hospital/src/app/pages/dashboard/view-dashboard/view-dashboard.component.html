@@ -25,7 +25,9 @@
     </div>
     <div class="row gx-0 info justify-content-between" *ngIf="flagDash">
 
-      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center shadow" *ngFor="let res of totalAmbulancia">
+      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center shadow"
+        *ngFor="let res of totalAmbulancia"
+        [ngClass]="getBorderColorClass(res.titulo)">
 
         <div class="titulo-div w-90">
           <h3 class="titulo">{{res.titulo}}</h3>

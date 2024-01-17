@@ -190,4 +190,17 @@ export class ViewDashboardComponent {
     })
   }
 
+
+  // ALTERAR A BORDA DO DASHBOARD
+  getBorderColorClass(res : string) {
+    if (res == 'Ocupadas') {
+      return 'border-left-amarela';
+    } else if (res == 'Inativas') {
+      return 'border-left-vermelho';
+    } else {
+      return 'border-left-verde';
+    }
+  }
+
+
 }

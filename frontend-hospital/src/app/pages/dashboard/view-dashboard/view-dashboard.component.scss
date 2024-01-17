@@ -43,6 +43,7 @@
         cursor: pointer;
         position: relative;
         animation: slideIn 0.2s ease-out;
+        //border-left: 15px solid #90ee90;
 
         .titulo
         {
@@ -80,6 +81,19 @@
 
 
 }
+
+.border-left-vermelho {
+  border-left: 15px solid #ff6666; /* Vermelho para ocupada */
+}
+
+.border-left-verde {
+  border-left: 15px solid #90ee90; /* Verde para disponível */
+}
+
+.border-left-amarela {
+  border-left: 15px solid #ffee00; /* Amarelo para inativa */
+}
+
 
 // .section-2
 // {
@@ -119,6 +133,7 @@
       {
         height: 80px;
         border-bottom: 2px solid #e6e6e6;
+        cursor: pointer;
 
         .chamado
         {
@@ -136,6 +151,11 @@
         .tempo-estimado
         {
           font-weight: 700;
+        }
+
+        &:hover
+        {
+          background-color: #e6e6e6;
         }
       }
     }

@@ -49,7 +49,7 @@ export class HeaderComponent {
 
         next: (res: any) => {
 
-          if(res.lenght >= 3)
+          if(res.length >= 3)
           {
             for(let i = 0; i < 3; i++)
             {
