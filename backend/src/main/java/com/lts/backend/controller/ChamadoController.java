@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lts.backend.DTO.ChamadoDTO;
 import com.lts.backend.DTO.EstadoChamadoDTO;
+import com.lts.backend.DTO.TempoMedioChamadoDTO;
 import com.lts.backend.models.Chamado;
 import com.lts.backend.services.ChamadoService;
 
@@ -61,18 +62,23 @@ public class ChamadoController {
     public Page<Chamado> listarChamadosComOrdenacaoEPage(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
         return chamadoService.listarChamadosComAmbulancias(pageable);
     }
-	
+
+	@GetMapping("/motorista/{motoristaId}")
+    public List<Chamado> getChamadoAtualMotorista(@PathVariable Long motoristaId) {
+        return chamadoService.findCurrentChamadosByMotoristaId(motoristaId);
+    }
+
+	@GetMapping("/tempo-medio")
+	public TempoMedioChamadoDTO getTempoMedioChamado(){
+		return chamadoService.calcularTempoMedio();
+	}
+
 	@PostMapping
 	public ResponseEntity<ChamadoDTO> salvarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
 		Chamado chamado = chamadoService.salvarChamado(chamadoDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 
 	}
-
-	@GetMapping("/motorista/{motoristaId}")
-    public List<Chamado> getChamadoAtualMotorista(@PathVariable Long motoristaId) {
-        return chamadoService.findCurrentChamadosByMotoristaId(motoristaId);
-    }
 	
 	@PutMapping
 	public ResponseEntity<Chamado> editarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {

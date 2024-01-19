@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lts.backend.DTO.ChamadoDTO;
 import com.lts.backend.DTO.EstadoAmbulanciaDTO;
 import com.lts.backend.DTO.EstadoChamadoDTO;
+import com.lts.backend.DTO.TempoMedioChamadoDTO;
 import com.lts.backend.enums.EstadoAmbulancia;
 import com.lts.backend.enums.EstadoChamado;
 import com.lts.backend.exception.error.NotFoundChamado;
@@ -171,27 +172,35 @@ public class ChamadoService {
     }
 
 
-    public String calcularTempoMedio() {
+    public TempoMedioChamadoDTO calcularTempoMedio() {
         List<Chamado> chamados = chamadoRepository.findAll();
 
-        long somaDiferencas = 0;
+        TempoMedioChamadoDTO tempoMedio = new TempoMedioChamadoDTO();
+
+        double somaDiferencas = 0;
+        int contadorChamado = 0;
 
         for (Chamado chamado : chamados) {
+
             Date dataInicio = chamado.getDataInicioChamado();
             Date dataFim = chamado.getDataFimChamado();
-
+    
             if (dataFim != null) {
                 long diferencaEmMillis = dataFim.getTime() - dataInicio.getTime();
                 somaDiferencas += diferencaEmMillis;
+                contadorChamado++;
             }
+            
         }
 
-        long mediaDiferencas = somaDiferencas / chamados.size();
-        long minutos = (mediaDiferencas / (1000 * 60)) % 60;
-        long horas = (mediaDiferencas / (1000 * 60 * 60)) % 24;
-        long dias = mediaDiferencas / (1000 * 60 * 60 * 24);
+        double mediaDiferencas = (double) somaDiferencas / contadorChamado;
+        // long minutos = (mediaDiferencas / (1000 * 60)) % 60;
+        // long horas = (mediaDiferencas / (1000 * 60 * 60)) % 24;
+        // long dias = mediaDiferencas / (1000 * 60 * 60 * 24);
 
-        return String.format("Média de %d dias, %d horas, %d minutos para %d chamados",
-                dias, horas, minutos, chamados.size());
+        tempoMedio.setTempoMedioMili(mediaDiferencas);
+        tempoMedio.setQtdeChamados(contadorChamado);
+
+        return tempoMedio;
     }
 }

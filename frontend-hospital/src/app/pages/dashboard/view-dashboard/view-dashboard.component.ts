@@ -77,6 +77,13 @@ export class ViewDashboardComponent {
     }
   ]
 
+  tempoMedio = 0
+  totalChamados = 0
+  horas = 0
+  minutos = 0
+  segundos = 0
+
+
   constructor
   (
     private ambulanciaService: AmbulanciaService,
@@ -93,6 +100,7 @@ export class ViewDashboardComponent {
     this.getTotalACaminho()
     this.getTotalRetornando()
     this.getTotalFinalizados()
+    this.getTempoMedioChamado()
 
     //this.ambulanciasFake.length = 0 // testar se for 0
   }
@@ -186,6 +194,35 @@ export class ViewDashboardComponent {
       },
       error: (err) => {
         console.error(err);
+      }
+    })
+  }
+
+  getTempoMedioChamado(){
+
+    return this.chamadoService.getTempoMedio().subscribe({
+      next: (res) => {
+        this.tempoMedio = res.tempoMedioMili
+        this.totalChamados = res.qtdeChamados
+
+        this.segundos = Math.floor(this.tempoMedio / 1000);
+
+        if (this.segundos >= 60) {
+          this.minutos = Math.floor(this.segundos / 60)
+          this.segundos %= 60
+        }
+
+        if (this.minutos >= 60) {
+          this.horas = Math.floor(this.minutos / 60);
+          this.minutos %= 60;
+        }
+
+        console.log(this.tempoMedio)
+        console.log(this.horas, "H:", this.minutos, "m:", this.segundos, "s")
+
+      },
+      error: (err) => {
+        console.log(err)
       }
     })
   }

@@ -55,6 +55,10 @@ export class ChamadoService {
     return this.http.get<number>(this.API_TOTAL + '/finalizado', {headers: this.setHeaders()});
   }
 
+  getTempoMedio(): Observable<any> {
+    return this.http.get<any>(this.API + '/tempo-medio', {headers: this.setHeaders()})
+  }
+
   private setHeaders(): HttpHeaders {
     let token = this.auth.getToken;
     return new HttpHeaders()

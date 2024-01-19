@@ -173,6 +173,37 @@
     }
   }
 
+  .dashboard-info-menor
+  {
+    background-color: white;
+    height: 250px;
+    border-radius: 10px;
+
+    .title
+    {
+      background-color: #0064b0;
+      border-radius: 10px 10px 0 0;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .info
+    {
+      .paragrafo
+      {
+        font-weight: 700;
+        font-size: 28px;
+      }
+
+      strong
+      {
+        color: #0064b0;
+        font-weight: 700;
+      }
+    }
+
+  }
 
 @keyframes slideIn {
   0% {
