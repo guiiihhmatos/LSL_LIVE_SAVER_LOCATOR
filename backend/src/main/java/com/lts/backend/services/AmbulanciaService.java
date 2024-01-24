@@ -86,7 +86,11 @@ public class AmbulanciaService {
 
     @Transactional
     public Ambulancia editarAmbulancia(AmbulanciaDTO ambulanciaDTO) throws Exception {
-        Ambulancia ambulancia = ambulanciaRepository.findById(ambulanciaDTO.getId()).orElseThrow(NotFoundAmbulancia::new);
+        Ambulancia ambulancia = ambulanciaRepository.findById(ambulanciaDTO.getId()).orElse(null);
+
+        if(ambulancia == null){
+            return null;
+        }
 
         ambulancia.setPlaca(ambulanciaDTO.getPlaca());
         ambulancia.setLatitude(ambulanciaDTO.getLatitude());
@@ -99,7 +103,12 @@ public class AmbulanciaService {
 
     @Transactional
     public Ambulancia alterarEstado(EstadoAmbulanciaDTO estadoAmbulanciaDTO) throws Exception {
-        Ambulancia ambulancia = ambulanciaRepository.findById(estadoAmbulanciaDTO.getId()).orElseThrow(NotFoundAmbulancia::new);
+        Ambulancia ambulancia = ambulanciaRepository.findById(estadoAmbulanciaDTO.getId()).orElse(null);
+
+        if(ambulancia == null){
+            return null;
+        }
+
         ambulancia.setEstadoAmbulancia(estadoAmbulanciaDTO.getEstadoAmbulancia());
         ambulanciaRepository.save(ambulancia);
         return ambulancia;
@@ -107,8 +116,12 @@ public class AmbulanciaService {
     
     @Transactional
     public Ambulancia alterarMotorista(MotoristaAmbulanciaDTO data) throws Exception {
-        Ambulancia ambulancia = ambulanciaRepository.findById(data.idAmbulancia()).orElseThrow(NotFoundAmbulancia::new);
+        Ambulancia ambulancia = ambulanciaRepository.findById(data.idAmbulancia()).orElse(null);
         
+        if(ambulancia == null){
+            return null;
+        }
+
         ambulancia.setMotorista(data.motorista());
         ambulanciaRepository.save(ambulancia);
         return ambulancia;

@@ -83,13 +83,25 @@ public class AmbulanciaController {
 	@PutMapping
 	public ResponseEntity<Ambulancia> editarAmbulancia(@RequestBody AmbulanciaDTO ambulanciaDTO) throws Exception {
 		Ambulancia ambulancia = ambulanciaService.editarAmbulancia(ambulanciaDTO);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
+		
+		if(ambulancia !=  null)
+		{
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
 	@PatchMapping("/alterar-estado")
 	public ResponseEntity<Ambulancia> alterarEstadoAmbulancia(@RequestBody EstadoAmbulanciaDTO estadoAmbulanciaDTO) throws Exception {
 		Ambulancia ambulancia = ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
+
+		if(ambulancia !=  null)
+		{
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
 }

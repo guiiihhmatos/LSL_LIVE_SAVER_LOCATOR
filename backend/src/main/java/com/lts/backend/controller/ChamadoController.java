@@ -83,12 +83,23 @@ public class ChamadoController {
 	@PutMapping
 	public ResponseEntity<Chamado> editarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
 		Chamado chamado = chamadoService.editarChamado(chamadoDTO);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);
+
+		if(chamado != null){
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
 	@PatchMapping("/alterar-estado")
 	public ResponseEntity<Chamado> alterarEstado(@RequestBody EstadoChamadoDTO estadoChamadoDTO) throws Exception {
 		Chamado chamado = chamadoService.alterarEstado(estadoChamadoDTO);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);
+
+		if(chamado != null){
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
 	}
 }

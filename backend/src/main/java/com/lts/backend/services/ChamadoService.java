@@ -97,7 +97,13 @@ public class ChamadoService {
 
     @Transactional
     public Chamado editarChamado(ChamadoDTO chamadoDTO) throws Exception {
-        Chamado chamado = chamadoRepository.findById(chamadoDTO.getId()).orElseThrow(NotFoundChamado::new);
+        //Chamado chamado = chamadoRepository.findById(chamadoDTO.getId()).orElseThrow(NotFoundChamado::new);
+
+        Chamado chamado = chamadoRepository.findById(chamadoDTO.getId()).orElse(null);
+
+        if(chamado == null){
+            return null;
+        }
 
         chamado.getAmbulancias().clear();
 
@@ -144,7 +150,14 @@ public class ChamadoService {
 
     @Transactional
     public Chamado alterarEstado(EstadoChamadoDTO estadoChamadoDTO) throws Exception {
-        Chamado chamado = chamadoRepository.findById(estadoChamadoDTO.getId()).orElseThrow(NotFoundChamado::new);
+        //Chamado chamado = chamadoRepository.findById(estadoChamadoDTO.getId()).orElseThrow(NotFoundChamado::new);
+
+        Chamado chamado = chamadoRepository.findById(estadoChamadoDTO.getId()).orElse(null);
+
+        if(chamado == null){
+            return null;
+        }
+
         chamado.setEstadoChamado(estadoChamadoDTO.getEstadoChamado());
         
         if(estadoChamadoDTO.getEstadoChamado() == EstadoChamado.FINALIZADO) {

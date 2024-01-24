@@ -44,11 +44,17 @@ public class UsuarioService {
 	}
 
 	public LoginResponseUsuarioDTO login(AuthenticationDTO data) throws Exception {
-		UsuarioHospital usuario = usuarioRepository.findByLogin(data.login()).orElseThrow(NotFoundUser::new);
+		UsuarioHospital usuario = usuarioRepository.findByLogin(data.login()).orElse(null);
+
+		if(usuario == null){
+			return null;
+		}
+
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		if (!passwordEncoder.matches(data.password(), usuario.getPassword())) {
 			throw new Exception("Senha não confere");
 		}
+		
 		String token = tokenService.genTokenUsuario(usuario);
 		LoginResponseUsuarioDTO response = new LoginResponseUsuarioDTO();
 		response.setToken(token);
@@ -59,9 +65,11 @@ public class UsuarioService {
 	@Transactional
 	public Usuario salvarUsuario(UsuarioDTO usuarioDTO) throws Exception {
 		Optional<UsuarioHospital> usuarioOpt = usuarioRepository.findByLogin(usuarioDTO.getLogin());
+		
 		if (usuarioOpt.isPresent()) {
-			throw new UserAlreadyExists();
+			return null;
 		}
+
 		String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioDTO.getPassword());
 		UsuarioHospital usuario = new UsuarioHospital();
 		usuario.setNome(usuarioDTO.getNome());
@@ -76,8 +84,9 @@ public class UsuarioService {
 	@Transactional
 	public Usuario editarUsuario(UsuarioDTO usuarioDTO) throws Exception {
 		Optional<UsuarioHospital> usuarioOpt = usuarioRepository.findById(usuarioDTO.getId());
+		
 		if (usuarioOpt.isEmpty()) {
-			throw new NotFoundUser();
+			return null;
 		}
 		
 		String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioDTO.getPassword());

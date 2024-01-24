@@ -1,5 +1,6 @@
 package com.lts.backend.controller;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -48,19 +49,34 @@ public class UsuarioController {
 	@PostMapping("/login")
 	public ResponseEntity<LoginResponseUsuarioDTO> login(@RequestBody @Valid AuthenticationDTO data) throws Exception {
 		LoginResponseUsuarioDTO responseLogin = usuarioService.login(data);
-		return ResponseEntity.ok().body(responseLogin);
+
+		if(responseLogin != null){
+			return ResponseEntity.ok().body(responseLogin);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 
 	@PostMapping
 	public ResponseEntity<Usuario> salvarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws Exception {
 		Usuario usuarioSalvo = usuarioService.salvarUsuario(usuarioDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
+		
+		if(usuarioSalvo != null){
+			return ResponseEntity.status(HttpStatus.CREATED).body(usuarioSalvo);
+		}
+
+		return ResponseEntity.status(HttpStatus.CONFLICT).build();
 
 	}
 	
 	@PutMapping
 	public ResponseEntity<Usuario> editarUsuario(@RequestBody UsuarioDTO usuarioDTO) throws Exception {
 		Usuario usuarioEditado = usuarioService.editarUsuario(usuarioDTO);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioEditado);
+		
+		if(usuarioEditado != null){
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(usuarioEditado);
+		}
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 }
