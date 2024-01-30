@@ -23,6 +23,7 @@ import com.lts.backend.DTO.ChamadoDTO;
 import com.lts.backend.DTO.EstadoChamadoDTO;
 import com.lts.backend.DTO.TempoMedioChamadoDTO;
 import com.lts.backend.models.Chamado;
+import com.lts.backend.models.objetos.ChamadoEnumErro;
 import com.lts.backend.services.ChamadoService;
 
 @CrossOrigin("*")
@@ -82,13 +83,25 @@ public class ChamadoController {
 	
 	@PutMapping
 	public ResponseEntity<Chamado> editarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
-		Chamado chamado = chamadoService.editarChamado(chamadoDTO);
+		ChamadoEnumErro chamadoEnum = chamadoService.editarChamado(chamadoDTO);
+		//Chamado chamado = chamadoService.editarChamado(chamadoDTO);
 
-		if(chamado != null){
+		if(!chamadoEnum.hasErrors()){
+			Chamado chamado = chamadoEnum.getChamado();
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);
 		}
 
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		switch (chamadoEnum.getErrosGenericos()) {
+			case NAO_ENCONTRADO:
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			case NAO_PODE_SER_ATUALIZADO:
+				return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
+			default:
+				//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+
+		//return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
 	@PatchMapping("/alterar-estado")

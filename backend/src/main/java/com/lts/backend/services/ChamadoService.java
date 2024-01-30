@@ -15,10 +15,12 @@ import com.lts.backend.DTO.EstadoChamadoDTO;
 import com.lts.backend.DTO.TempoMedioChamadoDTO;
 import com.lts.backend.enums.EstadoAmbulancia;
 import com.lts.backend.enums.EstadoChamado;
-import com.lts.backend.exception.error.NotFoundChamado;
+import com.lts.backend.enums.errors.ErrosGenericos;
+//import com.lts.backend.enums.errors.ErrosGenericos;
 import com.lts.backend.models.Ambulancia;
 import com.lts.backend.models.Chamado;
 import com.lts.backend.models.LocalChamado;
+import com.lts.backend.models.objetos.ChamadoEnumErro;
 import com.lts.backend.repository.IChamadoRepository;
 import com.lts.backend.repository.pagination.IChamadoRepositoryPagination;
 
@@ -96,13 +98,17 @@ public class ChamadoService {
     }
 
     @Transactional
-    public Chamado editarChamado(ChamadoDTO chamadoDTO) throws Exception {
+    public ChamadoEnumErro editarChamado(ChamadoDTO chamadoDTO) throws Exception {
         //Chamado chamado = chamadoRepository.findById(chamadoDTO.getId()).orElseThrow(NotFoundChamado::new);
 
         Chamado chamado = chamadoRepository.findById(chamadoDTO.getId()).orElse(null);
 
+        ChamadoEnumErro chamadoEnum = new ChamadoEnumErro();
+
         if(chamado == null){
-            return null;
+            chamadoEnum.setChamado(chamado);
+            chamadoEnum.setErrosGenericos(ErrosGenericos.NAO_ENCONTRADO);
+            return chamadoEnum;
         }
 
         chamado.getAmbulancias().clear();
@@ -145,7 +151,9 @@ public class ChamadoService {
         localChamadoService.salvarLocal(localChamado);
 
         chamadoRepository.save(chamado);
-        return chamado;
+
+        chamadoEnum.setChamado(chamado);
+        return chamadoEnum;
     }
 
     @Transactional

@@ -13,7 +13,6 @@ import com.lts.backend.DTO.AmbulanciaDTO;
 import com.lts.backend.DTO.EstadoAmbulanciaDTO;
 import com.lts.backend.DTO.MotoristaAmbulanciaDTO;
 import com.lts.backend.enums.EstadoAmbulancia;
-import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.models.Ambulancia;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.repository.IAmbulanciaRepository;

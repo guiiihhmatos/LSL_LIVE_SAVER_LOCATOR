@@ -1,10 +1,6 @@
 package com.lts.backend.models;
 
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
-
-import com.lts.backend.enums.EstadoAmbulancia;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
