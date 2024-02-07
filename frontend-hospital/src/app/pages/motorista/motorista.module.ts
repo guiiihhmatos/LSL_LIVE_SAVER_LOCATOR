@@ -8,12 +8,14 @@ import { ListarMotoristaComponent } from './listar-motorista/listar-motorista.co
 import { MaterialModule } from 'src/app/shared/material/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { LogadosComponent } from './logados/logados.component';
 
 @NgModule({
   declarations: [
     EditarMotoristaComponent,
     NovoMotoristaComponent,
-    ListarMotoristaComponent
+    ListarMotoristaComponent,
+    LogadosComponent
   ],
   imports: [
     CommonModule,

@@ -75,9 +75,20 @@ public class ChamadoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<ChamadoDTO> salvarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
-		Chamado chamado = chamadoService.salvarChamado(chamadoDTO);
-		return ResponseEntity.status(HttpStatus.CREATED).build();
+	public ResponseEntity<Object> salvarChamado(@RequestBody ChamadoDTO chamadoDTO) throws Exception {
+		ChamadoEnumErro chamadoEnum = chamadoService.salvarChamado(chamadoDTO);
+
+		if(chamadoEnum.getErrosGenericos() == null && chamadoEnum.getErroChamado() == null){
+			return ResponseEntity.status(HttpStatus.CREATED).build();	
+		}
+
+		switch (chamadoEnum.getErroChamado()) {
+			case SEM_AMBULANCIA:
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Chamado precisa ter 1 ou mais ambulâncias vinculadas a ele");
+			default:
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+				//return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
 
 	}
 	
@@ -86,7 +97,7 @@ public class ChamadoController {
 		ChamadoEnumErro chamadoEnum = chamadoService.editarChamado(chamadoDTO);
 		//Chamado chamado = chamadoService.editarChamado(chamadoDTO);
 
-		if(!chamadoEnum.hasErrors()){
+		if(chamadoEnum.getErrosGenericos() == null && chamadoEnum.getErroChamado() == null){
 			Chamado chamado = chamadoEnum.getChamado();
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(chamado);
 		}
@@ -97,8 +108,8 @@ public class ChamadoController {
 			case NAO_PODE_SER_ATUALIZADO:
 				return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).build();
 			default:
-				//return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+				//return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
 
 		//return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

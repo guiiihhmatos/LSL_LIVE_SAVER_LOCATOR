@@ -42,6 +42,10 @@ export class MotoristaService {
     return this.http.delete<Motorista>(this.API + "/" + idMotorista, {headers: this.setHeaders()});
   }
 
+  getAllMotoristaLogged(): Observable<Motorista> {
+    return this.http.get<Motorista>(this.API + '/logados', {headers: this.setHeaders()})
+  }
+
   private setHeaders(): HttpHeaders {
     let token = this.auth.getToken;
     return new HttpHeaders()

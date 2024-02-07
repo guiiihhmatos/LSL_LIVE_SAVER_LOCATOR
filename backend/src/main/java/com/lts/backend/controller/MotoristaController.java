@@ -1,5 +1,7 @@
 package com.lts.backend.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -37,8 +39,13 @@ public class MotoristaController {
 	
 
 	@GetMapping
-	public Page<Motorista> buscarTodos(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+	public Page<Motorista> findAll(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 		return motoristaService.findAll(pageable);
+	}
+
+	@GetMapping("/logados")
+	public List<Motorista> findAllLogged() {
+		return motoristaService.findAllLogged();
 	}
 	
 	@GetMapping("filter/{value}")

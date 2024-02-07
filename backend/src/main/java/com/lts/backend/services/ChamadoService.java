@@ -15,6 +15,7 @@ import com.lts.backend.DTO.EstadoChamadoDTO;
 import com.lts.backend.DTO.TempoMedioChamadoDTO;
 import com.lts.backend.enums.EstadoAmbulancia;
 import com.lts.backend.enums.EstadoChamado;
+import com.lts.backend.enums.errors.ErroChamado;
 import com.lts.backend.enums.errors.ErrosGenericos;
 //import com.lts.backend.enums.errors.ErrosGenericos;
 import com.lts.backend.models.Ambulancia;
@@ -60,8 +61,9 @@ public class ChamadoService {
 	}
 
     @Transactional
-    public Chamado salvarChamado(ChamadoDTO chamadoDTO) throws Exception {
+    public ChamadoEnumErro salvarChamado(ChamadoDTO chamadoDTO) throws Exception {
         Chamado chamado = new Chamado();
+        ChamadoEnumErro chamadoEnum = new ChamadoEnumErro();
 
         if (chamadoDTO.getAmbulanciaIds() != null) {
             for (Long ambulanciaId : chamadoDTO.getAmbulanciaIds()) {
@@ -73,6 +75,11 @@ public class ChamadoService {
 
                 chamado.getAmbulancias().add(ambulancia);
             }
+        }
+        else
+        {
+            chamadoEnum.setErroChamado(ErroChamado.SEM_AMBULANCIA);
+            return chamadoEnum;
         }
         
         chamado.setDataInicioChamado(new Date());
@@ -94,7 +101,9 @@ public class ChamadoService {
         chamado.setLocalChamado(localChamado);
 
         chamadoRepository.save(chamado);
-        return chamado;
+        chamadoEnum.setChamado(chamado);
+
+        return chamadoEnum;
     }
 
     @Transactional

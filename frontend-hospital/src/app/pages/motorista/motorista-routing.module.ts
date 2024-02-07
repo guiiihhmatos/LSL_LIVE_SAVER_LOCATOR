@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EditarMotoristaComponent } from './editar-motorista/editar-motorista.component';
 import { ListarMotoristaComponent } from './listar-motorista/listar-motorista.component';
 import { NovoMotoristaComponent } from './novo-motorista/novo-motorista.component';
+import { LogadosComponent } from './logados/logados.component';
 
 const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'listar-motorista'},
@@ -14,6 +15,9 @@ const routes: Routes = [
   },
   {
     path: 'editar-motorista', pathMatch: 'full', component: EditarMotoristaComponent
+  },
+  {
+    path: 'logados', pathMatch: 'full', component: LogadosComponent
   }
 ];
 

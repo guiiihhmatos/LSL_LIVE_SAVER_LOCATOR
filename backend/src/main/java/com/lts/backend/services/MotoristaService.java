@@ -1,6 +1,7 @@
 package com.lts.backend.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,10 @@ public class MotoristaService {
 	
 	public Page<MotoristaFilter> filtrarMotoristas(String value, Pageable pageable){
 		return motoristaRepositoryPagination.filterAll(value, pageable);
+	}
+
+	public List<Motorista> findAllLogged(){
+		return motoristaRepository.findAllLogged();
 	}
 
 	@Transactional

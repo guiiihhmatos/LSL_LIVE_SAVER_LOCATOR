@@ -117,6 +117,7 @@
     background-color: white;
     height: 500px;
     border-radius: 10px;
+    border: 2px solid #b8b8b8;
 
     .title
     {
@@ -178,13 +179,12 @@
     background-color: white;
     height: 250px;
     border-radius: 10px;
+    border: 2px solid #b8b8b8;
 
     .title
     {
-      background-color: #0064b0;
-      border-radius: 10px 10px 0 0;
-      color: white;
-      font-size: 16px;
+      color:#a5a5a5;
+      font-size: 22px;
       font-weight: 700;
     }
 
@@ -192,15 +192,11 @@
     {
       .paragrafo
       {
-        font-weight: 700;
-        font-size: 28px;
+        font-weight: 900;
+        font-family:monospace;
+        font-size: 34px;
       }
 
-      strong
-      {
-        color: #0064b0;
-        font-weight: 700;
-      }
     }
 
   }
