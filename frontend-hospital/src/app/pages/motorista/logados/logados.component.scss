@@ -1,0 +1,38 @@
+section#listar-motoristas {
+
+  table {
+    th {
+      background-color: var(--primary);
+      color: #fff;
+      font-weight: bold;
+    }
+
+    td {
+
+      span.material-symbols-outlined {
+        cursor: pointer;
+        font-variation-settings:
+          'FILL' 1, ;
+        padding: 5px;
+        border-radius: 50%;
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+
+      &:nth-child(6), &:nth-child(7){
+        width: 50px;
+      }
+    }
+  }
+}
+button#new{
+  padding: 10px 40px;
+  border-radius: 8px;
+
+  &:active {
+    transform: scale(0.9);
+    transition: .3s;
+  }
+}
