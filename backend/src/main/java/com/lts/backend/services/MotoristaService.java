@@ -19,14 +19,18 @@ import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.DTO.MotoristaFilter;
 import com.lts.backend.config.TokenService;
 import com.lts.backend.enums.Roles;
+import com.lts.backend.enums.errors.ErroChamado;
+import com.lts.backend.enums.errors.ErrosGenericos;
 import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.exception.error.NotFoundUser;
 import com.lts.backend.exception.error.UserAlreadyExists;
 import com.lts.backend.models.Ambulancia;
+import com.lts.backend.models.Chamado;
 import com.lts.backend.models.HistoricoMotoristaAmbulancia;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.models.Usuario;
 import com.lts.backend.models.UsuarioHospital;
+import com.lts.backend.models.objetos.MotoristaEnumErro;
 import com.lts.backend.repository.IMotoristaRepository;
 import com.lts.backend.repository.IUsuarioRepository;
 import com.lts.backend.repository.pagination.IMotoristaRepositoryPagination;
@@ -48,6 +52,9 @@ public class MotoristaService {
 	
 	@Autowired
 	private AmbulanciaService ambulanciaService;
+
+	@Autowired
+	private ChamadoService chamadoService;
 	
 	@Autowired
 	private TokenService tokenService;
@@ -56,6 +63,10 @@ public class MotoristaService {
 		return motoristaRepositoryPagination.findAll(pageable);
 	}
 	
+	public Optional<Motorista> findById(Long id) {
+		return motoristaRepository.findById(id);
+	}
+
 	public Page<MotoristaFilter> filtrarMotoristas(String value, Pageable pageable){
 		return motoristaRepositoryPagination.filterAll(value, pageable);
 	}
@@ -96,6 +107,7 @@ public class MotoristaService {
 		return response;
 	}
 
+	
 	@Transactional
 	public Usuario salvarMotorista(MotoristaDTO motoristaDTO) throws Exception {
 		Optional<Motorista> motoristaOpt = motoristaRepository.findByLogin(motoristaDTO.getLogin());
@@ -155,15 +167,27 @@ public class MotoristaService {
 	}
 	
 	@Transactional
-	public Motorista logout(Long idMotorista) throws Exception {
+	public MotoristaEnumErro logout(Long idMotorista) throws Exception {
 		Optional<Motorista> motorista = motoristaRepository.findById(idMotorista);
-		if(motorista.isEmpty()) {
-			throw new NotFoundUser();
-		}
+		MotoristaEnumErro motoristaEnum = new MotoristaEnumErro();
 		Optional<Ambulancia> ambulancia = ambulanciaService.buscarPorMotorista(motorista.get());
-		if(ambulancia.isEmpty()) {
-			throw new NotFoundAmbulancia();
+		Optional<Chamado> chamado = chamadoService.buscarPorAmbulancia(ambulancia.get());
+
+		if(motorista.isEmpty()) {
+			motoristaEnum.setErrosGenericos(ErrosGenericos.NAO_ENCONTRADO);
+			return motoristaEnum;
 		}
+
+		if(ambulancia.isEmpty()) {
+			motoristaEnum.setErroChamado(ErroChamado.SEM_AMBULANCIA);
+			return motoristaEnum;
+		}
+
+		if(!chamado.isEmpty()) {
+			motoristaEnum.setErroChamado(ErroChamado.CHAMADO_EM_ANDAMENTO);
+			return motoristaEnum;
+		}
+
 		ambulancia.get().setMotorista(null);
 		AmbulanciaDTO ambulanciaDTO = new AmbulanciaDTO();
 		ambulanciaDTO.setEstadoAmbulancia(ambulancia.get().getEstadoAmbulancia());
@@ -174,7 +198,9 @@ public class MotoristaService {
 		
 		ambulanciaService.editarAmbulancia(ambulanciaDTO);
 		
-		return motorista.get();
+
+		motoristaEnum.setMotorista(motorista.get());
+		return motoristaEnum;
 		
 	}
 

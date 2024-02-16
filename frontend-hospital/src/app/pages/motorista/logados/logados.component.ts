@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./logados.component.scss']
 })
 export class LogadosComponent {
-  columnsMotorista = ['id', 'nome', 'cpf', 'login'];
+  columnsMotorista = ['id', 'nome', 'cpf', 'login', 'button'];
 
   motorista: Motorista[] = [];
   tableMotorista = new MatTableDataSource<Motorista>();
@@ -51,6 +51,26 @@ export class LogadosComponent {
 
   filterMotorista(value: string) {
     this.tableMotorista.filter = value.trim().toLowerCase();
+  }
+
+  logout(idMotorista: number) {
+    this.motoristaService.logout(idMotorista).subscribe({
+      next: (res) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Sessão encerrada com sucesso',
+          timer: 3000,
+          timerProgressBar: true,
+        });
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erro ao encerrar sessão',
+          text: err?.error?.message,
+        });
+      }
+    });
   }
 
   // page(value: any) {

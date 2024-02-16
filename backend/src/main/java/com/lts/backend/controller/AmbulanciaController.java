@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lts.backend.DTO.AmbulanciaDTO;
 import com.lts.backend.DTO.EstadoAmbulanciaDTO;
 import com.lts.backend.models.Ambulancia;
+import com.lts.backend.models.Motorista;
 import com.lts.backend.services.AmbulanciaService;
+import com.lts.backend.services.MotoristaService;
 
 @CrossOrigin
 @RestController
@@ -32,6 +34,9 @@ public class AmbulanciaController {
 	
 	@Autowired
 	private AmbulanciaService ambulanciaService;
+
+	@Autowired
+	private MotoristaService motoristaService;
 	
 	@GetMapping
 	public Page<Ambulancia> buscarTodas(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
@@ -72,6 +77,13 @@ public class AmbulanciaController {
 	public Optional<Ambulancia> buscarPorId(@PathVariable Long id){
 		return ambulanciaService.buscarPorId(id);
 	}
+
+	// @GetMapping("/motorista/{id}")
+	// public Optional<Ambulancia> buscarPorMotorista(@PathVariable Long id){
+
+	// 	Motorista motorista = motorisa
+	// 	return ambulanciaService.buscarPorMotorista(motorista);
+	// }
 	
 	@PostMapping
 	public ResponseEntity<Ambulancia> salvarAmbulancia(@RequestBody AmbulanciaDTO ambulanciaDTO) throws Exception {

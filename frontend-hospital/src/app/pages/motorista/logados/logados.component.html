@@ -31,6 +31,15 @@
         <td mat-cell *matCellDef="let mototrista"> {{mototrista.login}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="button">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+        <td mat-cell *matCellDef="let mototrista">
+          <button class="btn btn-danger" (click)="logout(mototrista.id)">
+            Encerrar sessão
+          </button>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="columnsMotorista"></tr>
       <tr mat-row *matRowDef="let row; columns: columnsMotorista;"></tr>
     </table>

@@ -2,6 +2,7 @@ package com.lts.backend.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -43,6 +44,10 @@ public class ChamadoService {
     /*public List<Chamado> listarChamadosComAmbulancias() {
         return chamadoRepository.findAllWithAmbulancias();
     }*/
+
+    public Optional<Chamado> buscarPorAmbulancia(Ambulancia ambulancia) {
+    	return chamadoRepository.findByAmbulancia(ambulancia.getId());
+    }
     
     public Page<Chamado> listarChamadosComAmbulancias(Pageable pageable) {
     	return chamadoRepositoryPagination.findAll(pageable);

@@ -23,8 +23,11 @@ import com.lts.backend.DTO.AuthenticationMotoristaDTO;
 import com.lts.backend.DTO.LoginResponseMotoristaDTO;
 import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.DTO.MotoristaFilter;
+import com.lts.backend.enums.errors.ErrosGenericos;
+import com.lts.backend.models.Chamado;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.models.Usuario;
+import com.lts.backend.models.objetos.MotoristaEnumErro;
 import com.lts.backend.services.MotoristaService;
 
 import jakarta.validation.Valid;
@@ -79,9 +82,27 @@ public class MotoristaController {
 	}
 	
 	@PostMapping("/logout")
-	public ResponseEntity<Motorista> logout(@RequestBody Long id) throws Exception{
-		Motorista loggedOut = motoristaService.logout(id);
-		return ResponseEntity.status(HttpStatus.ACCEPTED).body(loggedOut);
+	public ResponseEntity<Object> logout(@RequestBody Long id) throws Exception{
+		MotoristaEnumErro motoristaEnum = motoristaService.logout(id);
+
+		if(motoristaEnum.getErrosGenericos() == null && motoristaEnum.getErroChamado() == null){
+			Motorista loggedOutResp = motoristaEnum.getMotorista();
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(loggedOutResp);
+		}
+		
+		if(motoristaEnum.getErrosGenericos() == ErrosGenericos.NAO_ENCONTRADO) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+
+		switch (motoristaEnum.getErroChamado()) {
+			case SEM_AMBULANCIA:
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não tem ambulancia vinculada ao motorista");
+			case CHAMADO_EM_ANDAMENTO:
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Motorista vinculado a um chamado");
+			default:
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
 	}
 
 }

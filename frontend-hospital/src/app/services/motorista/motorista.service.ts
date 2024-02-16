@@ -46,6 +46,10 @@ export class MotoristaService {
     return this.http.get<Motorista[]>(this.API + '/logados', {headers: this.setHeaders()})
   }
 
+  logout(idMotorista: number){
+    return this.http.post<any>(this.API+"/logout", idMotorista, {headers: this.setHeaders()})
+  }
+
   private setHeaders(): HttpHeaders {
     let token = this.auth.getToken;
     return new HttpHeaders()
