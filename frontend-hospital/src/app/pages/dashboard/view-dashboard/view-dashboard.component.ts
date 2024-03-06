@@ -11,7 +11,7 @@ interface EstimativaAmbulancia {
   placa: string,
   tempoEstimado: string,
   motorista : string,
-  chamado: number
+  idChamado: number
 }
 
 @Component({
@@ -180,12 +180,18 @@ export class ViewDashboardComponent {
       this.directionsService.route(request).subscribe({
         next: (rota) => {
           //se possuir estimativa
+          let strEstimativa = "";
+
           if(rota.result?.routes[0].legs[0].duration){
+            Number(rota.result?.routes[0].legs[0].duration.text.split(" ")[0]) <=3 ?
+            strEstimativa = "chegando":
+            strEstimativa = rota.result?.routes[0].legs[0].duration.text;
+
             const estimativa: EstimativaAmbulancia = {
-              chamado: chamado.idChamado,
+              idChamado: chamado.idChamado,
               motorista: chamado.ambulancia?.motorista?.nome,
               placa: chamado.ambulancia.placa,
-              tempoEstimado: rota.result?.routes[0].legs[0].duration.text
+              tempoEstimado: strEstimativa
             }
             this.estimativaAmbulancias.push(estimativa);
           }
