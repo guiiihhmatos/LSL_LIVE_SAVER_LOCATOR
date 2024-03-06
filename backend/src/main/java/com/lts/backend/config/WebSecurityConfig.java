@@ -43,7 +43,7 @@ public class WebSecurityConfig{
 						.requestMatchers(HttpMethod.POST, "/admin/login").permitAll()
 						.requestMatchers(HttpMethod.GET, "/ambulancia/motorista/disponiveis").permitAll()
 						.requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/docs").permitAll()
-						//.requestMatchers("/**").permitAll()
+//						.requestMatchers("/**").permitAll()
 						.anyRequest().authenticated()
 				)
 				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

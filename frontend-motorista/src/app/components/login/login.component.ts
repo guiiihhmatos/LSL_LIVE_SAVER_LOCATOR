@@ -33,6 +33,7 @@ export class LoginComponent {
       idAmbulancia: ['', [Validators.required]]
     })
 
+    this.getAllAmbulanciasDisponiveis();
   }
 
   validateForm(form: FormGroup) {

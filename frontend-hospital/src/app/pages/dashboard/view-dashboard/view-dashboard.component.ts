@@ -1,6 +1,18 @@
+import { Ambulancia } from './../../../models/ambulancia/ambulancia.model';
 import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
 import { Component } from '@angular/core';
 import { ChamadoService } from 'src/app/services/chamado/chamado.service';
+import { EstadosChamado } from 'src/app/models/chamado/chamado.model';
+import { MapDirectionsService } from '@angular/google-maps';
+import { environment } from 'src/environments/environments';
+import { Motorista } from 'src/app/models/motorista/motorista.model';
+
+interface EstimativaAmbulancia {
+  placa: string,
+  tempoEstimado: string,
+  motorista : string,
+  chamado: number
+}
 
 @Component({
   selector: 'app-view-dashboard',
@@ -44,50 +56,20 @@ export class ViewDashboardComponent {
 
   flagDash = true
 
-  ambulanciasFake = [
-    {
-      'placa': 'GBD-1029',
-      'tempoEstimado': '30',
-      'motorista' : 'guilherme',
-      'chamado': '2932'
-    },
-    {
-      'placa': 'SAS-4043',
-      'tempoEstimado': '10',
-      'motorista' : 'marcelo',
-      'chamado': '2933'
-    },
-    {
-      'placa': 'VSA-8542',
-      'tempoEstimado': '09',
-      'motorista' : 'caio',
-      'chamado': '2934'
-    },
-    {
-      'placa': 'NHM-9012',
-      'tempoEstimado': '12',
-      'motorista' : 'gustavo',
-      'chamado': '2935'
-    },
-    {
-      'placa': 'CUA-0190',
-      'tempoEstimado': '13',
-      'motorista' : 'ricardo',
-      'chamado': '2939'
-    }
-  ]
+  estimativaAmbulancias: EstimativaAmbulancia[] = [];
 
   tempoMedio = 0
   totalChamados = 0
   horas = 0
   minutos = 0
   segundos = 0
-
+  localHospital = environment.localHospital;
 
   constructor
   (
     private ambulanciaService: AmbulanciaService,
-    private chamadoService : ChamadoService
+    private chamadoService : ChamadoService,
+    private directionsService: MapDirectionsService
   )
   {
 
@@ -101,7 +83,7 @@ export class ViewDashboardComponent {
     this.getTotalRetornando()
     this.getTotalFinalizados()
     this.getTempoMedioChamado()
-
+    this.getChamadosRetornando();
     //this.ambulanciasFake.length = 0 // testar se for 0
   }
 
@@ -161,6 +143,64 @@ export class ViewDashboardComponent {
         console.error(err);
       }
     })
+  }
+
+  getChamadosRetornando(){
+    this.chamadoService.getChamadosByEstado(EstadosChamado.RETORNANDO).subscribe({
+      next: (res) => {
+        let auxChamado: {ambulancia: Ambulancia, idChamado: number}[] = [];
+        console.log(res);
+
+        res.forEach(chamado => {
+          chamado.ambulancias.forEach(ambulancia => {
+            auxChamado.push({ambulancia: ambulancia, idChamado: chamado.id});
+          })
+        })
+
+        this.getTemposEstimados(auxChamado)
+
+      },
+      error: (err) => {
+        console.error(err);
+
+      }
+    })
+  }
+
+  getTemposEstimados(chamados: {ambulancia: Ambulancia, idChamado: number}[]){
+    console.log("importar service do google pra calcular rota, montar objeto e jogar dentro do array que aparece no html");
+
+    chamados.forEach(chamado => {
+      const request: google.maps.DirectionsRequest = {
+        origin: {lat: chamado.ambulancia.latitude, lng: chamado.ambulancia.longitude},
+        destination: this.localHospital,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+
+      this.directionsService.route(request).subscribe({
+        next: (rota) => {
+          //se possuir estimativa
+          if(rota.result?.routes[0].legs[0].duration){
+            const estimativa: EstimativaAmbulancia = {
+              chamado: chamado.idChamado,
+              motorista: chamado.ambulancia?.motorista?.nome,
+              placa: chamado.ambulancia.placa,
+              tempoEstimado: rota.result?.routes[0].legs[0].duration.text
+            }
+            this.estimativaAmbulancias.push(estimativa);
+          }
+        },
+        error: (err) => {
+          console.error(err);
+
+        }
+      });
+
+      this.estimativaAmbulancias.push()
+    })
+
+
+
   }
 
   // DASHBOARD CHAMADO
@@ -237,6 +277,10 @@ export class ViewDashboardComponent {
     } else {
       return 'border-left-verde';
     }
+  }
+
+  getAmbulancias() {
+
   }
 
 

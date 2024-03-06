@@ -78,7 +78,7 @@
           <p class="text-center">Previsões de chegada</p>
         </div>
 
-        <div class="ambulancia" *ngFor="let chamado of ambulanciasFake">
+        <div class="ambulancia" *ngFor="let chamado of estimativaAmbulancias">
           <div class="ambulancia__info row gx-0">
             <div class="col-md-4 d-flex flex-column justify-content-center">
               <div class="chamado d-flex justify-content-center align-items-center">
@@ -88,20 +88,20 @@
 
             <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
               <div class="info d-flex flex-column justify-content-center align-items-center">
-                <span>{{ chamado.placa }}</span>
+                <span>{{ chamado.placa | mask: 'AAA-AAAA'}}</span>
                 <span>{{ chamado.motorista | uppercase }}</span>
               </div>
             </div>
 
             <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
               <div class="tempo-estimado">
-                {{ chamado.tempoEstimado }} Min
+                {{ chamado.tempoEstimado }}
               </div>
             </div>
           </div>
         </div>
 
-        <div class="mensagem d-flex flex-column justify-content-center align-items-center" *ngIf="ambulanciasFake.length == 0">
+        <div class="mensagem d-flex flex-column justify-content-center align-items-center" *ngIf="estimativaAmbulancias.length == 0">
           <span class="material-symbols-outlined icone">
             error
           </span>

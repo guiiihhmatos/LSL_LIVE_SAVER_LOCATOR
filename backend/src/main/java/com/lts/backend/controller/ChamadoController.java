@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.lts.backend.DTO.ChamadoDTO;
 import com.lts.backend.DTO.EstadoChamadoDTO;
 import com.lts.backend.DTO.TempoMedioChamadoDTO;
+import com.lts.backend.enums.EstadoChamado;
 import com.lts.backend.models.Chamado;
 import com.lts.backend.models.objetos.ChamadoEnumErro;
 import com.lts.backend.services.ChamadoService;
@@ -42,6 +43,11 @@ public class ChamadoController {
 	@GetMapping("/filter/{value}")
 	public Page<Chamado> filtrarChamados(@PathVariable String value, @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
 		return chamadoService.filtrarChamados(value, pageable);
+	}
+	
+	@GetMapping("/estadoChamado/{estadoChamado}")
+	public List<Chamado> listarChamadosPorEstado(@PathVariable EstadoChamado estadoChamado){
+		return chamadoService.buscarPorEstado(estadoChamado);
 	}
 
 	@GetMapping("/total/acaminho")

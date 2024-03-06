@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import com.lts.backend.enums.EstadoChamado;
 import com.lts.backend.models.Ambulancia;
 import com.lts.backend.models.Chamado;
 import com.lts.backend.models.Motorista;
@@ -28,4 +29,6 @@ public interface IChamadoRepository extends JpaRepository<Chamado, Long>{
 
 	@Query("SELECT c FROM Chamado c JOIN c.ambulancias a WHERE a.motorista.id = :motoristaId AND c.dataFimChamado IS NULL")
     List<Chamado> findCurrentChamadosByMotoristaId(Long motoristaId);
+	
+	List<Chamado> findByEstadoChamado(EstadoChamado estadoChamado);
 }

@@ -49,6 +49,10 @@ public class ChamadoService {
     	return chamadoRepository.findByAmbulancia(ambulancia.getId());
     }
     
+    public List<Chamado> buscarPorEstado(EstadoChamado estadoChamado){
+    	return chamadoRepository.findByEstadoChamado(estadoChamado);
+    }
+    
     public Page<Chamado> listarChamadosComAmbulancias(Pageable pageable) {
     	return chamadoRepositoryPagination.findAll(pageable);
     }
