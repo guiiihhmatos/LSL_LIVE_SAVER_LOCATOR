@@ -1,0 +1,16 @@
+<div *ngIf="loadingAmbulancias"><mat-spinner></mat-spinner></div>
+
+
+<google-map
+  *ngIf="!loadingAmbulancias"
+  [height]="height"
+  [width]="width"
+  [center]="centroMapa"
+  [zoom]="zoom"
+  [options]="{streetViewControl: false,}">
+  <map-marker
+  *ngFor="let mark of ambulanciasMarkers"
+  [options]="mark.options"
+  [position]="mark.position">
+  </map-marker>
+</google-map>

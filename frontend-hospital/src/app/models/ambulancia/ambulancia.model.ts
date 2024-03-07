@@ -5,7 +5,7 @@ export interface Ambulancia {
   placa: string;
   latitude: number;
   longitude: number;
-  estadoAmbulancia: EstadosAmbulancia;
+  estadoAmbulancia: EstadosAmbulancia | string;
   motorista?: any; /*futuramente classe usuario*/
 }
 

@@ -1,12 +1,13 @@
 <section id="dashboard">
 
-  <main class="main">
+  <div class="main">
     <div class="info-select row justify-content-between">
       <div class="col-md-3 d-flex justify-content-center align-items-center">
         <div class="text-lg h2 d-flex justify-content-center align-items-center" style="color: white;" *ngIf="flagDash">
           Ambulânicas
         </div>
-        <div class="text-lg h2 d-flex justify-content-center align-items-center" style="color: white;" *ngIf="!flagDash">
+        <div class="text-lg h2 d-flex justify-content-center align-items-center" style="color: white;"
+          *ngIf="!flagDash">
           Chamados
         </div>
       </div>
@@ -16,21 +17,20 @@
         <p class="text-lg h2">{{ minutos }} minutos e {{ segundos}} segundos</p> -->
       </div>
       <div class="d-flex justify-content-end align-items-center col-md-3 block-div">
-        <button class="block d-flex justify-content-center align-items-center mx-3"
-        [class]="ativo" (click)="onChangeDash('ambulancia')" id="ambulancia">
-          <span class="material-symbols-outlined icon" >ambulance</span>
+        <button class="block d-flex justify-content-center align-items-center mx-3" [class]="ativo"
+          (click)="onChangeDash('ambulancia')" id="ambulancia">
+          <span class="material-symbols-outlined icon">ambulance</span>
         </button>
-        <button class="block d-flex justify-content-center align-items-center"
-        [class]="inativo" (click)="onChangeDash('chamado')" id="chamado" >
-          <span class="material-symbols-outlined" >medical_information</span>
+        <button class="block d-flex justify-content-center align-items-center" [class]="inativo"
+          (click)="onChangeDash('chamado')" id="chamado">
+          <span class="material-symbols-outlined">medical_information</span>
         </button>
       </div>
     </div>
     <div class="row gx-0 info justify-content-between" *ngIf="flagDash">
 
       <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center shadow"
-        *ngFor="let res of totalAmbulancia"
-        [ngClass]="getBorderColorClass(res.titulo)">
+        *ngFor="let res of totalAmbulancia" [ngClass]="getBorderColorClass(res.titulo)">
 
         <div class="titulo-div w-90">
           <h3 class="titulo">{{res.titulo}}</h3>
@@ -49,7 +49,8 @@
 
     <div class="row gx-0 info justify-content-between" *ngIf="!flagDash">
 
-      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center shadow" *ngFor="let res of totalChamado">
+      <div class="col-md-3 info-div d-flex flex-column justify-content-center align-items-center shadow"
+        *ngFor="let res of totalChamado">
 
         <div class="titulo-div w-90">
           <h3 class="titulo">{{res.titulo}}</h3>
@@ -65,80 +66,94 @@
       </div>
 
     </div><!--Chamado-->
-  </main>
+  </div>
 
 </section>
 
 <section class="row gx-0 justify-content-around my-3">
 
-    <div class="col-3">
-      <div class="dashboard-info shadow">
+  <div class="col-3">
+    <div class="dashboard-info shadow">
 
-        <div class="title py-1">
-          <p class="text-center">Previsões de chegada</p>
-        </div>
+      <div class="title py-1">
+        <p class="text-center">Previsões de chegada</p>
+      </div>
 
-        <div class="ambulancia" *ngFor="let chamado of estimativaAmbulancias">
-          <div class="ambulancia__info row gx-0">
-            <div class="col-md-4 d-flex flex-column justify-content-center">
-              <div class="chamado d-flex justify-content-center align-items-center">
-                {{ chamado.idChamado.toString().padStart(4, '0')}}
-              </div>
+      <div class="ambulancia" *ngFor="let chamado of estimativaAmbulancias">
+        <div class="ambulancia__info row gx-0">
+          <div class="col-md-4 d-flex flex-column justify-content-center">
+            <div class="chamado d-flex justify-content-center align-items-center">
+              {{ chamado.idChamado.toString().padStart(4, '0')}}
             </div>
+          </div>
 
-            <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
-              <div class="info d-flex flex-column justify-content-center align-items-center">
-                <span>{{ chamado.placa | mask: 'AAA-AAAA'}}</span>
-                <span>{{ chamado.motorista | uppercase }}</span>
-              </div>
+          <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+            <div class="info d-flex flex-column justify-content-center align-items-center">
+              <span>{{ chamado.placa | mask: 'AAA-AAAA'}}</span>
+              <span>{{ chamado.motorista | uppercase }}</span>
             </div>
+          </div>
 
-            <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
-              <div class="tempo-estimado">
-                {{ chamado.tempoEstimado }}
-              </div>
+          <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+            <div class="tempo-estimado">
+              {{ chamado.tempoEstimado }}
             </div>
           </div>
         </div>
-
-        <div class="mensagem d-flex flex-column justify-content-center align-items-center" *ngIf="estimativaAmbulancias.length == 0">
-          <span class="material-symbols-outlined icone">
-            error
-          </span>
-
-          <p>Nenhuma ambulância retornando.</p>
-        </div>
-
       </div>
+
+      <div class="mensagem d-flex flex-column justify-content-center align-items-center"
+        *ngIf="estimativaAmbulancias.length == 0">
+        <span class="material-symbols-outlined icone">
+          error
+        </span>
+
+        <p>Nenhuma ambulância retornando.</p>
+      </div>
+
     </div>
+  </div>
 
 
 
-    <div class="col-2">
-      <!-- <div class="dashboard-info shadow">
+  <div class="col-2">
+    <!-- <div class="dashboard-info shadow">
 
       </div> -->
+  </div>
+
+  <div class="col-2">
+    <div class="dashboard-info-menor shadow">
+
     </div>
+  </div>
 
-    <div class="col-2">
-      <div class="dashboard-info-menor shadow">
+  <div class="col-2">
+    <div class="dashboard-info-menor">
 
+      <div class="title h-25 d-flex justify-content-center align-items-center">
+        <p class="text-center">Média de tempo</p>
+      </div>
+
+      <div class="info d-flex flex-column justify-content-around align-items-center h-50">
+        <!--<p class="paragrafo" *ngIf="horas > 0">{{ horas }} <strong>H</strong></p>-->
+        <p class="paragrafo" *ngIf="minutos > 0">{{ minutos }} min</p>
+        <!--<p class="paragrafo" *ngIf="segundos > 0">{{ segundos }} seg</p>-->
       </div>
     </div>
+  </div>
 
-    <div class="col-2">
-      <div class="dashboard-info-menor">
+</section>
 
-        <div class="title h-25 d-flex justify-content-center align-items-center">
-          <p class="text-center">Média de tempo</p>
-        </div>
+<section class="row">
+  <mat-expansion-panel class="m-3 col" (opened)="verMapa = !verMapa">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Visualizar ambulâncias no mapa
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-        <div class="info d-flex flex-column justify-content-around align-items-center h-50">
-          <!--<p class="paragrafo" *ngIf="horas > 0">{{ horas }} <strong>H</strong></p>-->
-          <p class="paragrafo" *ngIf="minutos > 0">{{ minutos }} min</p>
-          <!--<p class="paragrafo" *ngIf="segundos > 0">{{ segundos }} seg</p>-->
-        </div>
-      </div>
-    </div>
+    <app-localizacao-todas-ambulancias *ngIf="verMapa" width="" ></app-localizacao-todas-ambulancias>
 
+  </mat-expansion-panel>
 </section>

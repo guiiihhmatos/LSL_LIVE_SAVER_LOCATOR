@@ -10,7 +10,7 @@ import { Motorista } from 'src/app/models/motorista/motorista.model';
 interface EstimativaAmbulancia {
   placa: string,
   tempoEstimado: string,
-  motorista : string,
+  motorista: string,
   idChamado: number
 }
 
@@ -64,44 +64,43 @@ export class ViewDashboardComponent {
   minutos = 0
   segundos = 0
   localHospital = environment.localHospital;
+  ambulancias: Ambulancia[] = [];
+  verMapa: boolean = false;
+  mapaCarregado: boolean = false;
 
   constructor
-  (
-    private ambulanciaService: AmbulanciaService,
-    private chamadoService : ChamadoService,
-    private directionsService: MapDirectionsService
-  )
-  {
+    (
+      private ambulanciaService: AmbulanciaService,
+      private chamadoService: ChamadoService,
+      private directionsService: MapDirectionsService
+    ) {
 
   }
 
   ngOnInit(): void {
-    this.getTotalAmbulanciasOcupadas()
-    this.getTotalAmbulanciasDisponiveis()
-    this.getTotalAmbulanciasInativas()
-    this.getTotalACaminho()
-    this.getTotalRetornando()
-    this.getTotalFinalizados()
-    this.getTempoMedioChamado()
+    this.getTotalAmbulanciasOcupadas();
+    this.getTotalAmbulanciasDisponiveis();
+    this.getTotalAmbulanciasInativas();
+    this.getTotalACaminho();
+    this.getTotalRetornando();
+    this.getTotalFinalizados();
+    this.getTempoMedioChamado();
     this.getChamadosRetornando();
     //this.ambulanciasFake.length = 0 // testar se for 0
   }
 
-  onChangeDash(dash: string)
-  {
+  onChangeDash(dash: string) {
     let ambulancia = document.getElementById('ambulancia') as HTMLInputElement
     let chamado = document.getElementById('chamado') as HTMLInputElement
 
-    if(dash == 'ambulancia')
-    {
+    if (dash == 'ambulancia') {
       ambulancia?.classList.remove('inativo');
       ambulancia?.classList.add('ativo');
       chamado?.classList.remove('ativo');
       chamado?.classList.add('inativo');
       this.flagDash = true;
     }
-    else
-    {
+    else {
       ambulancia?.classList.remove('ativo');
       ambulancia?.classList.add('inativo');
       chamado?.classList.remove('inativo');
@@ -112,7 +111,7 @@ export class ViewDashboardComponent {
 
   // DASHBOARD AMBULÂNCIA
 
-  getTotalAmbulanciasOcupadas(){
+  getTotalAmbulanciasOcupadas() {
     return this.ambulanciaService.getTotalOcupadas().subscribe({
       next: (res) => {
         this.totalAmbulancia[0].total = res;
@@ -123,7 +122,7 @@ export class ViewDashboardComponent {
     })
   }
 
-  getTotalAmbulanciasDisponiveis(){
+  getTotalAmbulanciasDisponiveis() {
     return this.ambulanciaService.getTotalDisponiveis().subscribe({
       next: (res) => {
         this.totalAmbulancia[1].total = res;
@@ -134,7 +133,7 @@ export class ViewDashboardComponent {
     })
   }
 
-  getTotalAmbulanciasInativas(){
+  getTotalAmbulanciasInativas() {
     return this.ambulanciaService.getTotalInativas().subscribe({
       next: (res) => {
         this.totalAmbulancia[2].total = res;
@@ -145,15 +144,14 @@ export class ViewDashboardComponent {
     })
   }
 
-  getChamadosRetornando(){
+  getChamadosRetornando() {
     this.chamadoService.getChamadosByEstado(EstadosChamado.RETORNANDO).subscribe({
       next: (res) => {
-        let auxChamado: {ambulancia: Ambulancia, idChamado: number}[] = [];
-        console.log(res);
+        let auxChamado: { ambulancia: Ambulancia, idChamado: number }[] = [];
 
         res.forEach(chamado => {
           chamado.ambulancias.forEach(ambulancia => {
-            auxChamado.push({ambulancia: ambulancia, idChamado: chamado.id});
+            auxChamado.push({ ambulancia: ambulancia, idChamado: chamado.id });
           })
         })
 
@@ -167,12 +165,11 @@ export class ViewDashboardComponent {
     })
   }
 
-  getTemposEstimados(chamados: {ambulancia: Ambulancia, idChamado: number}[]){
-    console.log("importar service do google pra calcular rota, montar objeto e jogar dentro do array que aparece no html");
+  getTemposEstimados(chamados: { ambulancia: Ambulancia, idChamado: number }[]) {
 
     chamados.forEach(chamado => {
       const request: google.maps.DirectionsRequest = {
-        origin: {lat: chamado.ambulancia.latitude, lng: chamado.ambulancia.longitude},
+        origin: { lat: chamado.ambulancia.latitude, lng: chamado.ambulancia.longitude },
         destination: this.localHospital,
         travelMode: google.maps.TravelMode.DRIVING
       };
@@ -182,10 +179,10 @@ export class ViewDashboardComponent {
           //se possuir estimativa
           let strEstimativa = "";
 
-          if(rota.result?.routes[0].legs[0].duration){
-            Number(rota.result?.routes[0].legs[0].duration.text.split(" ")[0]) <=3 ?
-            strEstimativa = "chegando":
-            strEstimativa = rota.result?.routes[0].legs[0].duration.text;
+          if (rota.result?.routes[0].legs[0].duration) {
+            Number(rota.result?.routes[0].legs[0].duration.text.split(" ")[0]) <= 3 ?
+              strEstimativa = "chegando" :
+              strEstimativa = rota.result?.routes[0].legs[0].duration.text;
 
             const estimativa: EstimativaAmbulancia = {
               idChamado: chamado.idChamado,
@@ -211,7 +208,7 @@ export class ViewDashboardComponent {
 
   // DASHBOARD CHAMADO
 
-  getTotalACaminho(){
+  getTotalACaminho() {
     return this.chamadoService.getTotalACaminho().subscribe({
       next: (res) => {
         this.totalChamado[0].total = res;
@@ -222,7 +219,7 @@ export class ViewDashboardComponent {
     })
   }
 
-  getTotalRetornando(){
+  getTotalRetornando() {
     return this.chamadoService.getTotalRetornando().subscribe({
       next: (res) => {
         this.totalChamado[1].total = res;
@@ -233,7 +230,7 @@ export class ViewDashboardComponent {
     })
   }
 
-  getTotalFinalizados(){
+  getTotalFinalizados() {
     return this.chamadoService.getTotalFinalizados().subscribe({
       next: (res) => {
         this.totalChamado[2].total = res;
@@ -244,7 +241,7 @@ export class ViewDashboardComponent {
     })
   }
 
-  getTempoMedioChamado(){
+  getTempoMedioChamado() {
 
     return this.chamadoService.getTempoMedio().subscribe({
       next: (res) => {
@@ -263,19 +260,30 @@ export class ViewDashboardComponent {
           this.minutos %= 60;
         }
 
-        console.log(this.tempoMedio)
-        console.log(this.horas, "H:", this.minutos, "m:", this.segundos, "s")
-
       },
       error: (err) => {
-        console.log(err)
+        console.error(err)
+      }
+    })
+  }
+
+  getAllAmbulancias(){
+    this.mapaCarregado = false;
+    this.ambulanciaService.getAllAmbulancias(1, 9000, "id").subscribe({
+      next: (res) =>{
+        this.mapaCarregado = true;
+        this.ambulancias = res.content;
+      },
+      error: (err) => {
+        this.mapaCarregado = true;
+        console.error(err);
       }
     })
   }
 
 
   // ALTERAR A BORDA DO DASHBOARD
-  getBorderColorClass(res : string) {
+  getBorderColorClass(res: string) {
     if (res == 'Ocupadas') {
       return 'border-left-amarela';
     } else if (res == 'Inativas') {
