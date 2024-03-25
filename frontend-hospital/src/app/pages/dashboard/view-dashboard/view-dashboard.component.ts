@@ -65,7 +65,7 @@ export class ViewDashboardComponent {
   segundos = 0
   localHospital = environment.localHospital;
   ambulancias: Ambulancia[] = [];
-  verMapa: boolean = false;
+  verMapa: boolean = true;
   mapaCarregado: boolean = false;
 
   constructor
@@ -173,6 +173,10 @@ export class ViewDashboardComponent {
         destination: this.localHospital,
         travelMode: google.maps.TravelMode.DRIVING
       };
+      console.log(this.localHospital);
+      console.log(chamado.ambulancia);
+
+
 
       this.directionsService.route(request).subscribe({
         next: (rota) => {
