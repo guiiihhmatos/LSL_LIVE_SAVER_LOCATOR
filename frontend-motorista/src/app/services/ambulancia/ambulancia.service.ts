@@ -19,6 +19,10 @@ export class AmbulanciaService {
     return this.http.get<Ambulancia[]>(this.API + "/motorista/disponiveis");
   }
 
+  setLocalAmbulancia(idAmbulancia: number, latitude: number, longitude: number): Observable<Ambulancia> {
+    return this.http.patch<Ambulancia>(this.API + '/alterar-local', {id: idAmbulancia, latitude, longitude}, {headers: this.setHeaders()})
+  }
+
   private setHeaders(): HttpHeaders {
     let token = this.auth.getToken;
     return new HttpHeaders()

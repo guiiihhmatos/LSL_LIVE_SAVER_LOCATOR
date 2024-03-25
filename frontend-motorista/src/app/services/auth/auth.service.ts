@@ -17,13 +17,14 @@ export class AuthService {
 
   constructor(private http: HttpClient, private cookie: CookieService, private rota: Router) { }
 
-  login(data: {login: string, password: string}): Observable<any> {
+  login(data: {login: string, password: string, idAmbulancia: number}): Observable<any> {
     return this.http.post<any>(this.API+"/login", data)
     .pipe(
-      map(({token, motorista}) => {
+      map(({token, motorista, idAmbulancia}) => {
         this.cookie.set('cookie-token', btoa(token), { path:'motorista' });
         this.cookie.set('cookie-user-data', btoa(JSON.stringify(motorista)), { path: 'motorista' });
-        return {token, motorista};
+        this.cookie.set('cookie-ambulancia-id', btoa(idAmbulancia.toString()), {path: 'motorista'});
+        return {token, motorista, idAmbulancia};
       })
     );
 
@@ -48,6 +49,10 @@ export class AuthService {
 
   get getToken(): string {
     return atob(this.cookie.get('cookie-token'));
+  }
+
+  get getIdAmbulancia(): number {
+    return Number(atob(this.cookie.get('cookie-ambulancia-id')));
   }
 
   private setHeaders(): HttpHeaders {

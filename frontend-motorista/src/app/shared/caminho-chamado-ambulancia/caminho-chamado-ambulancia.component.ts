@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { MapDirectionsService, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { Ambulancia } from 'src/app/models/ambulancia/ambulancia.model';
 import { Chamado } from 'src/app/models/chamado/chamado.model';
+import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,7 +14,7 @@ export class CaminhoChamadoAmbulanciaComponent {
   @Input() height: string = '500px';
   @Input() width: string = '700px';
   @Input() localHospital!: google.maps.LatLngLiteral //= {lat: -24.1241525, lng: -46.6868054}; //ponto B
-  @Input() ambulancia!: google.maps.LatLngLiteral;
+  @Input() ambulancia!: Ambulancia;
   @Input() chamado!: Chamado;
   @Output() estimativaStr = new EventEmitter<string>();
   @Output() ultimaAtualizacao = new EventEmitter<string>();
@@ -31,26 +32,29 @@ export class CaminhoChamadoAmbulanciaComponent {
   markerChamado!: google.maps.MarkerOptions;
 
   @ViewChild(MapInfoWindow) infoWindow!: MapInfoWindow;
-  constructor(private directionsService: MapDirectionsService) {
+  constructor(private directionsService: MapDirectionsService, private ambulanciaService: AmbulanciaService) {
 
   }
   ngOnInit(): void {
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) =>{ // callback de sucesso
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => { // callback de sucesso
         //localização atual na ambulânca
-          this.ambulancia = {lat: position.coords.latitude, lng: position.coords.longitude}
-          if(this.chamado.estadoChamado.toString() == "A_CAMINHO"){
-            this.getDirections(this.ambulancia, {lat: this.chamado.localChamado.latitude, lng: this.chamado.localChamado.longitude});
-          } else {
-            this.getDirections(this.ambulancia, this.localHospital);
-          }
+        const localizacaoAtual = { lat: position.coords.latitude, lng: position.coords.longitude }
+        //enviar requisição post
+        if (this.chamado.estadoChamado.toString() == "A_CAMINHO") {
+          this.getDirections(localizacaoAtual, { lat: this.chamado.localChamado.latitude, lng: this.chamado.localChamado.longitude });
+        } else {
+          this.getDirections(localizacaoAtual, this.localHospital);
+        }
       },
-      function(error){ // callback de erro
-        Swal.fire({icon: 'error', title: 'Verfique se a localização está permitida', text: error.message});
-      });
-  } else {
-      Swal.fire({icon: 'error', title: 'Navegador não suporta Geolocalização!'});
-  }
+        function (error) { // callback de erro
+          Swal.fire({ icon: 'error', title: 'Verfique se a localização está permitida', text: error.message });
+        });
+              //aplicar local atual em ambulância
+    } else {
+      Swal.fire({ icon: 'error', title: 'Navegador não suporta Geolocalização!' });
+    }
   }
 
   getDirections(ambulancia: google.maps.LatLngLiteral, final: google.maps.LatLngLiteral) {
@@ -83,7 +87,7 @@ export class CaminhoChamadoAmbulanciaComponent {
         };
         this.markerFinal = {
           position: { lat: latH, lng: lngH },
-          icon: this.chamado.estadoChamado.toString() == 'RETORNANDO'?'assets/image/mark-hospital.png':null,
+          icon: this.chamado.estadoChamado.toString() == 'RETORNANDO' ? 'assets/image/mark-hospital.png' : null,
           clickable: true,
           title: 'hospital'
         };
@@ -93,7 +97,7 @@ export class CaminhoChamadoAmbulanciaComponent {
         const duracao = res.result?.routes[0].legs[0].duration;
         //retornar estimativa no output
         if (duracao) {
-          if(distancia && distancia <= 1000){
+          if (distancia && distancia <= 1000) {
             this.estimativaStr.emit("Prómixo ao local");
           } else {
             this.estimativaStr.emit(duracao.text);

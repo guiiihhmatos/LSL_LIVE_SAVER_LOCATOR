@@ -44,7 +44,7 @@ export class LoginComponent {
     }
   }
 
-  login(login: {login: string, password: string}) {
+  login(login: {login: string, password: string, idAmbulancia: number}) {
     this.loadingSubmit = true;
     this.auth.login(login).subscribe({
       next: (res) => {

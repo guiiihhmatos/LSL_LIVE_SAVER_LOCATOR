@@ -8,6 +8,7 @@ import { Motorista } from '../../../../../../frontend-hospital/src/app/models/mo
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AmbulanciaService } from 'src/app/services/ambulancia/ambulancia.service';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,8 @@ export class HomeComponent {
       private chamadoService: ChamadoService,
       private authService: AuthService,
       private rota: Router,
-      private notificacaoService: NotificacoesService
+      private notificacaoService: NotificacoesService,
+      private ambulanciaService: AmbulanciaService,
     ) {
     this.motorista = authService.getUser
     this.idMotorista = this.motorista.id
@@ -36,6 +38,24 @@ export class HomeComponent {
 
   ngOnInit() {
     this.checkAndFetchChamados();
+
+    //PRECISO DO ID DA AMBULANCIA OU DO OBJETO
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {// callback de sucesso
+        console.log(position.coords);
+
+        setInterval(() => this.setLocalAmbulancia(this.authService.getIdAmbulancia, position.coords.latitude, position.coords.longitude), 5000);
+      })
+    }
+  }
+
+
+  setLocalAmbulancia(idAmbulancia: number, latitude: number, longitude: number){
+    this.ambulanciaService.setLocalAmbulancia(idAmbulancia, latitude, longitude).subscribe({
+      error: (err) => {
+        console.error(err);
+      }
+    })
   }
 
   ngOnDestroy() {
