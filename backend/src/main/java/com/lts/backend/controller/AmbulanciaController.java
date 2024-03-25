@@ -22,29 +22,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.lts.backend.DTO.AmbulanciaDTO;
 import com.lts.backend.DTO.EstadoAmbulanciaDTO;
+import com.lts.backend.DTO.LocalAmbulanciaDTO;
 import com.lts.backend.models.Ambulancia;
-import com.lts.backend.models.Motorista;
 import com.lts.backend.services.AmbulanciaService;
-import com.lts.backend.services.MotoristaService;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/ambulancia")
 public class AmbulanciaController {
-	
+
 	@Autowired
 	private AmbulanciaService ambulanciaService;
 
-	@Autowired
-	private MotoristaService motoristaService;
-	
 	@GetMapping
-	public Page<Ambulancia> buscarTodas(@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
+	public Page<Ambulancia> buscarTodas(
+			@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 		return ambulanciaService.buscarTodas(pageable);
 	}
-	
+
 	@GetMapping("filter/{value}")
-	public Page<Ambulancia> filtrarAmbulancias(@PathVariable String value, @PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable){
+	public Page<Ambulancia> filtrarAmbulancias(@PathVariable String value,
+			@PageableDefault(sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
 		return ambulanciaService.filtrarAmbulancias(value, pageable);
 	}
 
@@ -62,58 +60,49 @@ public class AmbulanciaController {
 	public Long totalAmbulanciasInativas() {
 		return ambulanciaService.totalAmbulanciasInativas();
 	}
-	
+
 	@GetMapping("/motorista/disponiveis")
 	public List<Ambulancia> buscarTodasDispMotorista() {
 		return ambulanciaService.buscarTodasDispMotorista();
 	}
-	
+
 	@GetMapping("/disponiveis")
 	public List<Ambulancia> buscarTodasDisp() {
 		return ambulanciaService.buscarTodasDisp();
 	}
-	
+
 	@GetMapping("/{id}")
-	public Optional<Ambulancia> buscarPorId(@PathVariable Long id){
+	public Optional<Ambulancia> buscarPorId(@PathVariable Long id) {
 		return ambulanciaService.buscarPorId(id);
 	}
 
-	// @GetMapping("/motorista/{id}")
-	// public Optional<Ambulancia> buscarPorMotorista(@PathVariable Long id){
-
-	// 	Motorista motorista = motorisa
-	// 	return ambulanciaService.buscarPorMotorista(motorista);
-	// }
-	
 	@PostMapping
 	public ResponseEntity<Ambulancia> salvarAmbulancia(@RequestBody AmbulanciaDTO ambulanciaDTO) throws Exception {
 		Ambulancia ambulancia = ambulanciaService.salvarAmbulancia(ambulanciaDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(ambulancia);
 
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<Ambulancia> editarAmbulancia(@RequestBody AmbulanciaDTO ambulanciaDTO) throws Exception {
 		Ambulancia ambulancia = ambulanciaService.editarAmbulancia(ambulanciaDTO);
-		
-		if(ambulancia !=  null)
-		{
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
-		}
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
 
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
-	
+
 	@PatchMapping("/alterar-estado")
-	public ResponseEntity<Ambulancia> alterarEstadoAmbulancia(@RequestBody EstadoAmbulanciaDTO estadoAmbulanciaDTO) throws Exception {
+	public ResponseEntity<Ambulancia> alterarEstadoAmbulancia(@RequestBody EstadoAmbulanciaDTO estadoAmbulanciaDTO)
+			throws Exception {
 		Ambulancia ambulancia = ambulanciaService.alterarEstado(estadoAmbulanciaDTO);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
 
-		if(ambulancia !=  null)
-		{
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(ambulancia);
-		}
+	}
 
-		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	@PatchMapping("/alterar-local")
+	public ResponseEntity<Ambulancia> alterarLocalAmbulancia(@RequestBody LocalAmbulanciaDTO localAmbulanciaDTO)
+			throws Exception {
+		Ambulancia alterada = ambulanciaService.alterarLocalAmbulancia(localAmbulanciaDTO);
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(alterada);
 	}
 
 }

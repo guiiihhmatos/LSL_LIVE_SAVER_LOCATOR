@@ -24,7 +24,6 @@ import com.lts.backend.DTO.LoginResponseMotoristaDTO;
 import com.lts.backend.DTO.MotoristaDTO;
 import com.lts.backend.DTO.MotoristaFilter;
 import com.lts.backend.enums.errors.ErrosGenericos;
-import com.lts.backend.models.Chamado;
 import com.lts.backend.models.Motorista;
 import com.lts.backend.models.Usuario;
 import com.lts.backend.models.objetos.MotoristaEnumErro;

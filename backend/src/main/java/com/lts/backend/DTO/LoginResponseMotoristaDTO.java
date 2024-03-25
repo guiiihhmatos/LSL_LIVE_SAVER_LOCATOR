@@ -8,5 +8,5 @@ import lombok.Data;
 public class LoginResponseMotoristaDTO {
 	String token;
 	Motorista motorista;
-	Long idAmbulanciaLong;
+	Long idAmbulancia;
 }

@@ -21,7 +21,6 @@ import com.lts.backend.config.TokenService;
 import com.lts.backend.enums.Roles;
 import com.lts.backend.enums.errors.ErroChamado;
 import com.lts.backend.enums.errors.ErrosGenericos;
-import com.lts.backend.exception.error.NotFoundAmbulancia;
 import com.lts.backend.exception.error.NotFoundUser;
 import com.lts.backend.exception.error.UserAlreadyExists;
 import com.lts.backend.models.Ambulancia;
@@ -103,7 +102,7 @@ public class MotoristaService {
 		LoginResponseMotoristaDTO response = new LoginResponseMotoristaDTO();
 		response.setToken(token);
 		response.setMotorista(motorista);
-		response.setIdAmbulanciaLong(data.idAmbulancia());
+		response.setIdAmbulancia(data.idAmbulancia());
 		return response;
 	}
 

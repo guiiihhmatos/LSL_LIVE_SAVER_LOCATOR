@@ -41,7 +41,7 @@ public class ApplicationAdvice {
 	
 	@ExceptionHandler(NotFoundAmbulancia.class)
 	public ResponseEntity<ExceptionDefault> ambulanciaNaoEncontrada() {
-		ExceptionDefault ed = new ExceptionDefault("Ambulancia não encontrado", OffsetDateTime.now());
+		ExceptionDefault ed = new ExceptionDefault("Ambulancia não encontrada", OffsetDateTime.now());
 		return ResponseEntity.status(HttpStatus.CONFLICT).body(ed);
 	}
 
